@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class Admin extends Authenticatable
 {
-    use SoftDeletes;
+    // use SoftDeletes;
     use Notifiable;
 
     protected $primaryKey = "admin_id";

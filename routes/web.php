@@ -18,10 +18,11 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::GET('/login-admin', 'LoginController@index')->name('login-admin');
 Route::POST('/login-admin', 'LoginController@postlogin')->name('postLogin');
+Route::get('/logout', 'LoginController@logout')->name('logout');
 
 Route::prefix('admin')
 	->namespace('Admin')
-	// ->middleware('admin')
+	->middleware('admin')
 	->group(function () {
 
 		Route::get('/', 'AdminController@index')->name('dashboard-admin');
