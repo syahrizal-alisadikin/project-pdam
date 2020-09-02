@@ -22,6 +22,27 @@
                                     <div class="card-body">
                                         <form action="{{route('postLogin')}}" method="POST">
                                         @csrf
+                                        @if (session('sukses'))
+                                        <div class="alert alert-primary">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            {{ session('sukses') }}
+                                        </div>
+                                        @elseif(session('gagal'))
+                                        <div class="alert alert-danger">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            {{ session('gagal') }}
+                                        </div>
+                                        @endif
+
+                                        @if (count($errors) > 0)
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        @endif
                                             <div class="form-group">
                                                 <label class="small mb-1" for="email">Email</label>
                                                 <input class="form-control py-4" id="email" name="email" type="email" placeholder="Enter email address" />

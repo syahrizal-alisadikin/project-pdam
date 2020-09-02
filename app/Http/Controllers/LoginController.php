@@ -31,7 +31,7 @@ class LoginController extends Controller
         if (Auth::guard('admin')->attempt($login)) {
             return redirect()->route('dashboard-admin');
         } else {
-            return redirect()->route('login-admin')->with('success', 'Gagal Login !! Silahkan Periksa Email / Password');
+            return redirect()->route('login-admin')->with('gagal', 'Gagal Login !! Silahkan Periksa Email / Password');
         }
     }
 
