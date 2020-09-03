@@ -76,7 +76,27 @@
                                                     <td><?= $i; ?></td>
                                                     <td>{{$admin->name}}</td>
                                                     <td>{{$admin->email}}</td>
-                                                    <td> <button class="btn btn-danger">Hapus</button></td>
+                                                    <td> 
+                                                    @if ($id == $admin->admin_id)
+                                                    <a class="btn btn-success btn-sm" href="{{route('edit-admin',$admin->admin_id)}}"  ><i class="fas fa-pencil-alt"></i></a>
+                                                        <form action="{{ route('destroy-admin', $admin->admin_id) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            @method('delete')
+
+                                                            <button type="submit" class="btn btn-danger btn-sm"  onclick="return confirm('Yakin Data Mau Dihapus??');"> <i class="fa  fa-trash"></i></button>
+                                                        </form>
+                                                    @else 
+                                                    <button disabled class="btn btn-success btn-sm btn-disabled" ><i class="fas fa-pencil-alt"></i></button>
+                                                    <form action="{{ route('destroy-admin', $admin->admin_id) }}" method="POST" class="d-inline">
+                                                            @csrf
+                                                            @method('delete')
+
+                                                            <button disabled type="submit" class="btn btn-danger btn-sm"  onclick="return confirm('Yakin Data Mau Dihapus??');"> <i class="fa  fa-trash"></i></button>
+                                                        </form>
+                                                    @endif
+
+                                                        
+                                                    </td>
                                                </tr>
                                                <?php $i++ ?>
                                            @endforeach

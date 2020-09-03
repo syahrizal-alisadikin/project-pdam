@@ -80,6 +80,7 @@
                                                     <td class="text-center">{{$kecamat->kota->name}}</td>
                                                     <td class="text-center">{{$kecamat->name}}</td>
                                                     <td class="text-center">
+                                                    <a class="btn btn-success btn-sm" href="{{route('kecamatan.edit',$kecamat->kecamatan_id)}}"  ><i class="fas fa-pencil-alt"></i></a>
                                                         
                                                         <form action="{{ route('kecamatan.destroy', $kecamat->kecamatan_id) }}" method="POST" class="d-inline">
                                                             @csrf

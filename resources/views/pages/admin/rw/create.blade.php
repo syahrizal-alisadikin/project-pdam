@@ -37,7 +37,7 @@
                                     <div class="form-group">
                                         <label for="provinsi">Provinsi</label>
                                         <select name="provinsi" id="provinsi" class="form-control" value="{{old('provinsi')}}" required>
-                                            <option value="">Pilih Provinsi</option>
+                                            <option value="">-- Pilih Provinsi --</option>
                                               @foreach ($provinsi as $prov)
                                                 <option value="{{$prov->provinsi_id}}">{{$prov->name}}</option>
                                                 
@@ -47,33 +47,24 @@
                                    
                                      <div class="form-group">
                                         <label for="kota">Kota</label>
-                                        <select name="kota" id="kota" class="form-control" value="{{old('kota')}}" required>
-                                            <option value="">Pilih Kota</option>
-                                            @foreach ($kota as $kot)
-                                            <option value="{{$kot->kota_id}}">{{$kot->name}}</option>
-                                                
-                                            @endforeach
+                                        <select name="kota" id="kota" class="form-control"  required>
+                                            <option value="">-- Pilih Kota --</option>
+                                           
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="kecamatan">Kecamatan</label>
                                         <select name="kecamatan" id="kecamatan" class="form-control" value="{{old('kecamatan')}}" required>
-                                            <option value="">Pilih Kecamatan</option>
-                                             @foreach ($kecamatan as $kec)
-                                            <option value="{{$kec->kecamatan_id}}">{{$kec->name}}</option>
-                                                
-                                            @endforeach
+                                            <option value="">-- Pilih Kecamatan --</option>
+                                            
                                         </select>
                                     </div>
                                       <div class="form-group">
                                         <label for="kelurahan">Kelurahan</label>
                                         <select name="kelurahan" id="kelurahan" class="form-control" value="{{old('kelurahan')}}" required>
-                                            <option value="">Pilih Kelurahan</option>
-                                            @foreach ($kelurahan as $kelu)
-                                            <option value="{{$kelu->kelurahan_id}}">{{$kelu->name}}</option>
-                                                
-                                            @endforeach
+                                            <option value="">-- Pilih Kelurahan --</option>
+                                            
                                         </select>
                                     </div>
                                     
@@ -107,9 +98,78 @@
     <script>
         $(document).ready(function(){
         //active select2
-        $("#kota, #provinsi,#kelurahan,#kecamatan").select2({
+            $("#kota, #provinsi,#kelurahan,#kecamatan").select2({
             theme:'bootstrap4',width:'style',
+            });
         });
-    });
+
+        // Ajax Select Kota
+        $(document).ready(function(){
+            $('select[name="provinsi"]').on('change',function(){
+                let provindeId = $(this).val();
+                if(provindeId){
+                    jQuery.ajax({
+                        url: '/admin/cities/'+provindeId,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(response){
+                            $('select[name="kota"]').empty();
+                            $('select[name="kota"]').append('<option value="">-- Pilih Kota  --</option>');
+                            $.each(response, function (key, value) {
+                             $('select[name="kota"]').append('<option value="' + key + '">' + value + '</option>');
+                            });
+                        },
+                    });
+                }else{
+                    $('select[name="kota"]').append('<option value="">-- Pilih Kota --</option>');
+                }
+            });
+        });
+
+        // Ajax Select Kecamatan
+       $(document).ready(function(){
+            $('select[name="kota"]').on('change',function(){
+                let kota_id = $(this).val();
+                if(kota_id){
+                    jQuery.ajax({
+                        url: '/admin/kec/'+kota_id,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(response){
+                            $('select[name="kecamatan"]').empty();
+                            $('select[name="kecamatan"]').append('<option value="">-- Pilih Kecamatan  --</option>');
+                            $.each(response, function (key, value) {
+                             $('select[name="kecamatan"]').append('<option value="' + key + '">' + value + '</option>');
+                            });
+                        },
+                    });
+                }else{
+                    $('select[name="kecamatan"]').append('<option value="">-- Pilih Kecamatan --</option>');
+                }
+            });
+        });
+
+         // Ajax Select Kelurahan
+       $(document).ready(function(){
+            $('select[name="kota"]').on('change',function(){
+                let kelurahan_id = $(this).val();
+                if(kelurahan_id){
+                    jQuery.ajax({
+                        url: '/admin/kel/'+kelurahan_id,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(response){
+                            $('select[name="kelurahan"]').empty();
+                            $('select[name="kelurahan"]').append('<option value="">-- Pilih Kelurahan  --</option>');
+                            $.each(response, function (key, value) {
+                             $('select[name="kelurahan"]').append('<option value="' + key + '">' + value + '</option>');
+                            });
+                        },
+                    });
+                }else{
+                    $('select[name="kelurahan"]').append('<option value="">-- Pilih Kelurahan --</option>');
+                }
+            });
+        });
     </script>
 @endpush
