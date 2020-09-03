@@ -20,6 +20,7 @@ Route::GET('/login-admin', 'LoginController@index')->name('login-admin');
 Route::POST('/login-admin', 'LoginController@postlogin')->name('postLogin');
 Route::get('/logout', 'LoginController@logout')->name('logout');
 
+// Routing Admin 
 Route::prefix('admin')
 	->namespace('Admin')
 	->middleware('admin')
@@ -38,6 +39,14 @@ Route::prefix('admin')
 		Route::resource('/kecamatan', 'kecamatanController');
 		Route::resource('/kota', 'kotaController');
 		Route::resource('/provinsi', 'ProvinsiController');
+	});
+
+// Routing RW
+Route::prefix('rw')
+	->namespace('Rw')
+	->middleware('rw')
+	->group(function() {
+		Route::get('/', 'RwController@index');
 	});
 
 Auth::routes();

@@ -21,18 +21,20 @@ use Illuminate\Support\Facades\Route;
 
 // Auth Controller
 Route::group(['namespace' => 'Api'], function () {
-	Route::post('/login', 'LoginController@index');
-	Route::get('/logout', 'LoginController@logout');
+	Route::POST('/login', 'LoginController@index'); // Login
+	Route::POST('/warga-register', 'WargaController@register'); // Register
+
+	Route::GET('/logout', 'LoginController@logout');
 });
 
-Route::POST('warga-register', 'Api\WargaController@register');
 Route::group(['middleware' => ['jwt.auth'], 'namespace' => 'Api'], function () {
 
-	Route::resources([
-		'warga' => 'WargaController',
-	]);
-	// Warga Update 
-	Route::post('warga/update/{warga_id}', 'WargaController@updateData');
+	// Warga Controller
+	Route::GET('warga', 'WargaController@index'); // Get All Warga
+	Route::GET('warga/edit/{warga_id}', 'WargaController@GetIDWarga'); // Get Warga Per ID
+	Route::POST('warga/update/{warga_id}', 'WargaController@updateData'); // Update Warga Process 
+	Route::DELETE('warga/delete/{warga_id}', 'WargaController@deleteWarga'); // Delete Warga Process
 
+	// File Get Name
 	Route::get('image/{file}', 'WargaController@fileMateri');
 });

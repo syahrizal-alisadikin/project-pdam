@@ -5,15 +5,14 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class Admin
+class RwHandle
 {
     public function handle($request, Closure $next)
     {
-        if (!auth::guard('admin')->check()) {
+        if (!auth::guard('rw')->check()) {
 
             return redirect('/login-admin');
         }
-        
         return $next($request);
     }
 }

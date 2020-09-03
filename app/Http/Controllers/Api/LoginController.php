@@ -11,6 +11,7 @@ use \Firebase\JWT\JWT;
 
 class LoginController extends Controller
 {
+
     // Jwt
     public function jwt($user){
         $payload = [
@@ -32,6 +33,7 @@ class LoginController extends Controller
         return $json->sub->warga_id;
     }
 
+    // Login Method
     public function index(Request $request)
     {
         try {
@@ -76,9 +78,8 @@ class LoginController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
-        return response()->json([
-            'success'    => true
-        ], 200);
+        if (session_destroy()) {
+            return redirect('/login');
+        }
     }
 }

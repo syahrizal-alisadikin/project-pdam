@@ -60,7 +60,7 @@ return [
 
         'rw' => [
             'driver' => 'session',
-            'provider' => 'admin',
+            'provider' => 'rw',
         ],
 
         'rw-api' => [
