@@ -94,6 +94,43 @@ class WargaController extends Controller
         }
     }
 
+    public function register(Request $request)
+    {
+        try {
+
+            $rules = [
+                'fk_rw_id' => 'required',
+                'email' => 'required|email|unique:tbl_warga',
+                'nama' => 'required',
+                'password' => 'required|string',
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json($validator->errors());
+            }
+
+            $data = Warga::create([
+                'fk_rw_id' => $request->fk_rw_id,
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'phone' => $request->phone
+            ]);
+
+            return response()->json([
+                'status' => 200,
+                'data' => $data
+            ], 200);
+        } catch (Exception $e) {
+
+            return response()->json([
+                "msg" => 'error'
+            ], 401);
+        }
+    }
+
     /**
      * Display the specified resource.
      *

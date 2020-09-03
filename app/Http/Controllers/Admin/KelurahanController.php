@@ -21,6 +21,24 @@ class KelurahanController extends Controller
         return view('pages.admin.kelurahan.create', compact('kecamatan'));
     }
 
+    public function edit($id)
+    {
+        $kel = Kelurahan::with('kecamatan')->findOrFail($id);
+        // dd($kel);
+        $kec = Kecamatan::all();
+        return view('pages.admin.kelurahan.update', compact('kel', 'kec'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $kel =  Kelurahan::findOrFail($id);
+        $kel->update([
+            'fk_kecamatan_id' => $request->kecamatan,
+            'name'            => $request->name
+        ]);
+        return redirect()->route('kelurahan.index')->with('success', 'Kelurahan Berhasil Diupdate!!');
+    }
+
     public function store(Request $request)
     {
         Kelurahan::create([

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 31 Agu 2020 pada 14.29
+-- Waktu pembuatan: 02 Sep 2020 pada 04.15
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.3.13
 
@@ -21,6 +21,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `project-pam`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `admins`
+--
+
+CREATE TABLE `admins` (
+  `admin_id` bigint(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `admins`
+--
+
+INSERT INTO `admins` (`admin_id`, `name`, `email`, `password`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'iqbal', 'iqbal@iqbal.com', '$2y$10$.XUWoJJjgYWm2xuB5dq5eepYYbOa0OSc1twSKqdGCUkLs7mFglZG6', '2020-09-01 17:00:30', '2020-09-01 17:00:25', '2020-09-01 17:00:16'),
+(4, 'admin', 'admin@admin.com', '$2y$10$i00h6vAIh/ZOncRRrbE8Xu67bDSxvyF5fwEclR6eiGGgUAfBpEWk.', NULL, '2020-09-01 18:52:07', '2020-09-01 18:52:07');
 
 -- --------------------------------------------------------
 
@@ -67,7 +91,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2020_08_30_142342_add_fk_provinsi_id_to_tbl_kota', 6),
 (12, '2020_08_30_143527_add_fk_kota_id_to_tbl_kecamatan', 7),
 (13, '2020_08_30_144944_add_fk_kecamatan_id_to_tbl_kelurahan', 8),
-(14, '2020_08_31_035711_create_warga_table', 9);
+(14, '2020_08_31_035711_create_warga_table', 9),
+(15, '2020_09_01_144917_create_admins_table', 10);
 
 -- --------------------------------------------------------
 
@@ -275,8 +300,8 @@ CREATE TABLE `tbl_warga` (
 --
 
 INSERT INTO `tbl_warga` (`warga_id`, `fk_rw_id`, `nama`, `email`, `password`, `phone`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `alamat`, `user_id`, `foto_ktp`, `foto_kk`, `foto_profile`, `created_at`, `updated_at`) VALUES
-(2, '001', 'iqbal', 'iqbal@gmail.com', '$2y$10$mCuHQNRaU.f3zlRkCeJPluzbTQ1/YffUgMbrsIVDDRvLViWVnQPBK', '089829932', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-08-31 01:50:26', '2020-08-31 03:59:59'),
-(4, '001', 'izal', 'izal@izal.com', '$2y$10$.XUWoJJjgYWm2xuB5dq5eepYYbOa0OSc1twSKqdGCUkLs7mFglZG6', '08928832', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-08-31 01:53:53', '2020-08-31 01:53:53');
+(2, '001', 'iqbal nw', 'iqbal@gmail.com', '$2y$10$mCuHQNRaU.f3zlRkCeJPluzbTQ1/YffUgMbrsIVDDRvLViWVnQPBK', '08982882', '1231', '1231', 'laki', 'jakarta', '001', '3P06rOFMA', 'AHfCze4wE', 'uIclBGKO4', '2020-08-31 01:50:26', '2020-08-31 09:31:59'),
+(4, '001', 'izal', 'izal@izal.com', '$2y$10$.XUWoJJjgYWm2xuB5dq5eepYYbOa0OSc1twSKqdGCUkLs7mFglZG6', '08982882', '1231', '1231', 'laki', 'Bekasi', '001', 'k4KE82R4g', 'mxOd5u9LT', 'zsdMm3J1o', '2020-08-31 01:53:53', '2020-08-31 10:21:48');
 
 -- --------------------------------------------------------
 
@@ -306,6 +331,13 @@ INSERT INTO `users` (`id`, `fk_rw_id`, `name`, `email`, `email_verified_at`, `pa
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `admins`
+--
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`admin_id`),
+  ADD UNIQUE KEY `admins_email_unique` (`email`);
 
 --
 -- Indeks untuk tabel `failed_jobs`
@@ -381,6 +413,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `admin_id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -390,7 +428,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
@@ -426,7 +464,7 @@ ALTER TABLE `tbl_provinsi`
 -- AUTO_INCREMENT untuk tabel `tbl_warga`
 --
 ALTER TABLE `tbl_warga`
-  MODIFY `warga_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `warga_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

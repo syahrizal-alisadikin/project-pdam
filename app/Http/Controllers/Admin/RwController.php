@@ -71,4 +71,22 @@ class RwController extends Controller
 
         return str_pad($q, 3, "0", STR_PAD_LEFT);
     }
+
+    public function getCities($province_id)
+    {
+        $kota = Kota::where('fk_provinsi_id', $province_id)->pluck('name', 'kota_id');
+        return response()->json($kota);
+    }
+
+    public function getKecamatan($kota_id)
+    {
+        $kec = Kecamatan::where('fk_kota_id', $kota_id)->pluck('name', 'kecamatan_id');
+        return response()->json($kec);
+    }
+
+    public function getKelurahan($kecamatan_id)
+    {
+        $kel = Kelurahan::where('fk_kecamatan_id', $kecamatan_id)->pluck('name', 'kelurahan_id');
+        return response()->json($kel);
+    }
 }

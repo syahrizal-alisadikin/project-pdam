@@ -79,7 +79,7 @@
                                                     <td class="text-center">{{$kelurahan->kecamatan->name}}</td>
                                                     <td class="text-center">{{$kelurahan->name}}</td>
                                                     <td class="text-center">
-                                                         <button class="btn btn-success btn-sm" id="ubahData" onclick="ubahData('{{route('kelurahan.update',$kelurahan->kelurahan_id)}}','{{$kelurahan->name}}')"  role="button" ><i class="fas fa-pencil-alt"></i></button>
+                                                    <a class="btn btn-success btn-sm" href="{{route('kelurahan.edit',$kelurahan->kelurahan_id)}}"  ><i class="fas fa-pencil-alt"></i></a>
                                                         
                                                         <form action="{{ route('kelurahan.destroy', $kelurahan->kelurahan_id) }}" method="POST" class="d-inline">
                                                             @csrf

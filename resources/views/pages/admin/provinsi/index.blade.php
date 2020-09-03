@@ -75,6 +75,7 @@
                                                   <td><?= $i;?></td>
                                                     <td class="text-center">{{$prov->name}}</td>
                                                     <td class="text-center">
+                                                    <a class="btn btn-success btn-sm" href="{{route('provinsi.edit',$prov->provinsi_id)}}"  ><i class="fas fa-pencil-alt"></i></a>
                                                         
                                                         <form action="{{ route('kota.destroy', $prov->provinsi_id) }}" method="POST" class="d-inline">
                                                             @csrf

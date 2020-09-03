@@ -77,6 +77,7 @@
                                                     <td class="text-center">{{$kote->provinsi->name}}</td>
                                                     <td class="text-center">{{$kote->name}}</td>
                                                     <td class="text-center">
+                                                    <a class="btn btn-success btn-sm" href="{{route('kota.edit',$kote->kota_id)}}"  ><i class="fas fa-pencil-alt"></i></a>
                                                         
                                                         <form action="{{ route('kota.destroy', $kote->kota_id) }}" method="POST" class="d-inline">
                                                             @csrf

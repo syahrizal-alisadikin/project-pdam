@@ -19,6 +19,21 @@ class ProvinsiController extends Controller
         return view('pages.admin.provinsi.create');
     }
 
+    public function edit($id)
+    {
+        $prov = Provinsi::findOrFail($id);
+        return view('pages.admin.provinsi.update', compact('prov'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $prov = Provinsi::findOrfail($id);
+        $prov->update([
+            'name' => $request->name
+        ]);
+        return redirect()->route('provinsi.index')->with('success', 'Provinsi Berhasil Diupdate!!');
+    }
+
     public function store(Request $request)
     {
         $data = $request->all();

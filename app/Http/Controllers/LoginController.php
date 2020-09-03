@@ -25,12 +25,13 @@ class LoginController extends Controller
             $loginType => $request->email,
             'password' => $request->password
         ];
-        dd($login);
+
+        // dd($login);
         // Passwordnya pake bcrypt
         if (Auth::guard('admin')->attempt($login)) {
             return redirect()->route('dashboard-admin');
         } else {
-            return redirect()->route('login-admin')->with('success', 'Gagal Login !! Silahkan Periksa Email / Password');
+            return redirect()->route('login-admin')->with('gagal', 'Gagal Login !! Silahkan Periksa Email / Password');
         }
     }
 
@@ -40,6 +41,6 @@ class LoginController extends Controller
             Auth::guard('admin')->logout();
         }
 
-        return redirect('/');
+        return redirect('/login-admin');
     }
 }

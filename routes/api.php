@@ -1,5 +1,6 @@
 <?php
 
+use App\Warga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,15 +25,14 @@ Route::group(['namespace' => 'Api'], function () {
 	Route::get('/logout', 'LoginController@logout');
 });
 
-Route::group(['middleware' => ['jwt.auth'], 'namespace' => 'Api'], function() {
+Route::POST('warga-register', 'Api\WargaController@register');
+Route::group(['middleware' => ['jwt.auth'], 'namespace' => 'Api'], function () {
 
 	Route::resources([
 		'warga' => 'WargaController',
 	]);
-
 	// Warga Update 
 	Route::post('warga/update/{warga_id}', 'WargaController@updateData');
 
 	Route::get('image/{file}', 'WargaController@fileMateri');
 });
-
