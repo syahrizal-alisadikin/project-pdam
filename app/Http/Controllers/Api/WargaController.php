@@ -116,75 +116,186 @@ class WargaController extends Controller
     			'foto_kk' => 'mimes:jpeg,jpg,png|required|max:10000',
     			'foto_profile' => 'mimes:jpeg,jpg,png|required|max:10000',
     		];
-
     		$validator = Validator::make($request->all(), $rules);
-
     		if ($validator->fails()) {
     			return response()->json($validator->errors());
     		}
 
     		if ($request->input('password')) {
 
-    			$foto_ktp = Str::random(9);
-                $request->file('foto_ktp')->move(storage_path('image'), $foto_ktp);
-                $foto_kk = Str::random(9);
-                $request->file('foto_kk')->move(storage_path('image'), $foto_kk);
-                $foto_profile = Str::random(9);
-                $request->file('foto_profile')->move(storage_path('image'), $foto_profile);
+    			$file = Warga::where('warga_id', $warga_id)->first();
 
-                $warga_update = array(
-                	'fk_rw_id' => $request->fk_rw_id,
-                	'nama' => $request->nama,
-                	'email' => $request->email,
-                	'phone' => $request->phone,
-                	'password' => Hash::make($request->password),
-                	'alamat' => $request->alamat,
-                	'tempat_lahir' => $request->tempat_lahir,
-                	'tanggal_lahir' => $request->tanggal_lahir,
-                	'jenis_kelamin' => $request->jenis_kelamin,
-                	'user_id' => $request->user_id,
-                	'foto_ktp' => $foto_ktp,
-                	'foto_kk' => $foto_kk,
-                	'foto_profile' => $foto_profile,
-                );
+                // Check Jika File Nya Null Dia Akan Create Data
+                if (empty($file->foto_ktp && $file->foto_kk && $file->foto_profile)) {
+                    
+                   $foto_ktp = Str::random(9);
+                   $request->file('foto_ktp')->move(storage_path('image'), $foto_ktp);
+                   $foto_kk = Str::random(9);
+                   $request->file('foto_kk')->move(storage_path('image'), $foto_kk);
+                   $foto_profile = Str::random(9);
+                   $request->file('foto_profile')->move(storage_path('image'), $foto_profile);
 
-                Warga::find($warga_id)->update($warga_update);
+                   $warga_update = array(
+                        'fk_rw_id' => $request->fk_rw_id,
+                        'nama' => $request->nama,
+                        'email' => $request->email,
+                        'phone' => $request->phone,
+                        'password' => Hash::make($request->password),
+                        'alamat' => $request->alamat,
+                        'tempat_lahir' => $request->tempat_lahir,
+                        'tanggal_lahir' => $request->tanggal_lahir,
+                        'jenis_kelamin' => $request->jenis_kelamin,
+                        'user_id' => $request->user_id,
+                        'foto_ktp' => $foto_ktp,
+                        'foto_kk' => $foto_kk,
+                        'foto_profile' => $foto_profile,
+                    );
 
-                return response()->json([
-                	'status' => 200,
-                	'data' => $warga_update
-                ], 200);
+                    Warga::find($warga_id)->update($warga_update);
 
-            } else {
+                    return response()->json([
+                        'status' => 200,
+                        'data' => $warga_update
+                    ], 200);
 
-                $foto_ktp = Str::random(9);
-                $request->file('foto_ktp')->move(storage_path('image'), $foto_ktp);
-                $foto_kk = Str::random(9);
-                $request->file('foto_kk')->move(storage_path('image'), $foto_kk);
-                $foto_profile = Str::random(9);
-                $request->file('foto_profile')->move(storage_path('image'), $foto_profile);
+                }else{
 
-                $warga_update = array(
-                    'fk_rw_id' => $request->fk_rw_id,
-                    'nama' => $request->nama,
-                    'email' => $request->email,
-                    'phone' => $request->phone,
-                    'alamat' => $request->alamat,
-                    'tempat_lahir' => $request->tempat_lahir,
-                    'tanggal_lahir' => $request->tanggal_lahir,
-                    'jenis_kelamin' => $request->jenis_kelamin,
-                    'user_id' => $request->user_id,
-                    'foto_ktp' => $foto_ktp,
-                    'foto_kk' => $foto_kk,
-                    'foto_profile' => $foto_profile,
-                );
+                    // Check Jika File Kosong
+                    if (!empty($_FILES)) {
 
-                Warga::find($warga_id)->update($warga_update);
+                        // Check Jika Data File nya ada di Database dan di Folder Storange dia akan unlink lalu update data
+                        if (storage_path('image/' .$file->foto_ktp) && storage_path('image/' .$file->foto_kk) && storage_path('image/' .$file->foto_profile)) {
 
-                return response()->json([
-                    'status' => 200,
-                    'data' => $warga_update
-                ], 200);
+                            unlink(storage_path('image/' . $file->foto_ktp));
+                            unlink(storage_path('image/' . $file->foto_kk));
+                            unlink(storage_path('image/' . $file->foto_profile));
+                        }
+
+                        $foto_ktp = Str::random(9);
+                        $request->file('foto_ktp')->move(storage_path('image'), $foto_ktp);
+                        $foto_kk = Str::random(9);
+                        $request->file('foto_kk')->move(storage_path('image'), $foto_kk);
+                        $foto_profile = Str::random(9);
+                        $request->file('foto_profile')->move(storage_path('image'), $foto_profile);
+
+                        $warga_update = array(
+                            'fk_rw_id' => $request->fk_rw_id,
+                            'nama' => $request->nama,
+                            'email' => $request->email,
+                            'phone' => $request->phone,
+                            'password' => Hash::make($request->password),
+                            'alamat' => $request->alamat,
+                            'tempat_lahir' => $request->tempat_lahir,
+                            'tanggal_lahir' => $request->tanggal_lahir,
+                            'jenis_kelamin' => $request->jenis_kelamin,
+                            'user_id' => $request->user_id,
+                            'foto_ktp' => $foto_ktp,
+                            'foto_kk' => $foto_kk,
+                            'foto_profile' => $foto_profile,
+                        );
+
+                        Warga::find($warga_id)->update($warga_update);
+
+                        return response()->json([
+                            'status' => 200,
+                            'data' => $warga_update
+                        ], 200);
+
+                    }else{
+
+                        return response()->json([
+                            'status' => 400,
+                            'msg' => 'FILES is null !'
+                        ], 400);
+                    }
+                }
+
+            }else {
+
+                $file = Warga::where('warga_id', $warga_id)->first();
+
+                // Check Jika File Nya Null Dia Akan Create Data
+                if (empty($file->foto_ktp && $file->foto_kk && $file->foto_profile)) {
+                    
+                   $foto_ktp = Str::random(9);
+                   $request->file('foto_ktp')->move(storage_path('image'), $foto_ktp);
+                   $foto_kk = Str::random(9);
+                   $request->file('foto_kk')->move(storage_path('image'), $foto_kk);
+                   $foto_profile = Str::random(9);
+                   $request->file('foto_profile')->move(storage_path('image'), $foto_profile);
+
+                   $warga_update = array(
+                        'fk_rw_id' => $request->fk_rw_id,
+                        'nama' => $request->nama,
+                        'email' => $request->email,
+                        'phone' => $request->phone,
+                        'alamat' => $request->alamat,
+                        'tempat_lahir' => $request->tempat_lahir,
+                        'tanggal_lahir' => $request->tanggal_lahir,
+                        'jenis_kelamin' => $request->jenis_kelamin,
+                        'user_id' => $request->user_id,
+                        'foto_ktp' => $foto_ktp,
+                        'foto_kk' => $foto_kk,
+                        'foto_profile' => $foto_profile,
+                    );
+
+                    Warga::find($warga_id)->update($warga_update);
+
+                    return response()->json([
+                        'status' => 200,
+                        'data' => $warga_update
+                    ], 200);
+
+                }else{
+
+                    // Check Jika File Nya Kosong
+                    if (!empty($_FILES)) {
+
+                        // Check Jika Data File nya ada di Database dan di Folder Storange dia akan unlink lalu update data
+                        if (storage_path('image/' .$file->foto_ktp) && storage_path('image/' .$file->foto_kk) && storage_path('image/' .$file->foto_profile)) {
+
+                            unlink(storage_path('image/' . $file->foto_ktp));
+                            unlink(storage_path('image/' . $file->foto_kk));
+                            unlink(storage_path('image/' . $file->foto_profile));
+                        }
+
+                        $foto_ktp = Str::random(9);
+                        $request->file('foto_ktp')->move(storage_path('image'), $foto_ktp);
+                        $foto_kk = Str::random(9);
+                        $request->file('foto_kk')->move(storage_path('image'), $foto_kk);
+                        $foto_profile = Str::random(9);
+                        $request->file('foto_profile')->move(storage_path('image'), $foto_profile);
+
+                        $warga_update = array(
+                            'fk_rw_id' => $request->fk_rw_id,
+                            'nama' => $request->nama,
+                            'email' => $request->email,
+                            'phone' => $request->phone,
+                            'alamat' => $request->alamat,
+                            'tempat_lahir' => $request->tempat_lahir,
+                            'tanggal_lahir' => $request->tanggal_lahir,
+                            'jenis_kelamin' => $request->jenis_kelamin,
+                            'user_id' => $request->user_id,
+                            'foto_ktp' => $foto_ktp,
+                            'foto_kk' => $foto_kk,
+                            'foto_profile' => $foto_profile,
+                        );
+
+                        Warga::find($warga_id)->update($warga_update);
+
+                        return response()->json([
+                            'status' => 200,
+                            'data' => $warga_update
+                        ], 200);
+
+                    }else{
+
+                        return response()->json([
+                            'status' => 400,
+                            'msg' => 'FILES is null !'
+                        ], 400);
+                    }
+                }
             }
 
     	} catch (Exception $e) {
