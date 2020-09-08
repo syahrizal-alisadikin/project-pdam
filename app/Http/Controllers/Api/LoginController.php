@@ -19,7 +19,7 @@ class LoginController extends Controller
             'iss' => 'lumen-jwt', // Issuer of the token, Organization / Product
             'sub' => $user,  // Subject of the token
             'iat' => time(), // Time when JWT was issued. 
-            'exp' => time() + 60*60 // Expiration time 60 minute
+            'exp' => time() + 60 * 60 // Expiration time 60 minute
         ];
 
         return JWT::encode($payload, env('JWT_SECRET'));
