@@ -46,11 +46,11 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="{{route('dashboard-admin')}}">
+                            <a class="nav-link" href="{{route('dashboard-rw')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                             <a class="nav-link" href="{{route('rw.index')}}">
+                             <a class="nav-link" href="{{route('warga.index')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Manage Rw
                             </a>

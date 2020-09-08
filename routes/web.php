@@ -46,7 +46,13 @@ Route::prefix('rw')
 	->namespace('Rw')
 	->middleware('rw')
 	->group(function() {
-		Route::get('/', 'RwController@index');
+		Route::get('/', 'RwController@index')->name('dashboard-rw');
+		Route::resources([
+			'warga' => 'WargaController'
+		]);
+
+		// Get File
+		Route::get('/file/{file}', 'WargaController@fileWarga');
 	});
 
 Auth::routes();
