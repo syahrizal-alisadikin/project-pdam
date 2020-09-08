@@ -14,9 +14,12 @@ class LoginController extends Controller
 
     // Jwt
     public function jwt($user){
+
         $payload = [
-            'iss' => 'lumen-jwt',
-            'sub' => $user
+            'iss' => 'lumen-jwt', // Issuer of the token, Organization / Product
+            'sub' => $user,  // Subject of the token
+            'iat' => time(), // Time when JWT was issued. 
+            'exp' => time() + 60*60 // Expiration time 60 minute
         ];
 
         return JWT::encode($payload, env('JWT_SECRET'));
@@ -47,7 +50,7 @@ class LoginController extends Controller
                 'email' => $request->email,
             ];  
 
-            $data = Warga::where($where)->first();
+            $data = Warga::select(['warga_id', 'fk_rw_id', 'nama', 'email', 'phone', 'password'])->where($where)->first();
 
             if (!$data || !Hash::check($request->password, $data->password)) {
                 return response([

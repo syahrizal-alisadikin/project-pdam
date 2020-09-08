@@ -1,56 +1,60 @@
-<?php 
-
+<?php
 namespace App\Http\Middleware;
 use Firebase\JWT\JWT;
 use Firebase\JWT\ExpiredException;
 use Closure;
 use Exception;
 
-class JWTAuth {
+class JWTAuth
+{   
 
-	public function handle($request, Closure $next)
-	{
-		$token = $request->header('Authorization');
-		$verify = explode(" ", $token);
+    public function handle($request, Closure $next, $guard = null)
+    {
+        $token = $request->header('authorization');
+        $verifiy    = explode(" ", $token);
 
-		if ($verify[0] !== "pdam") {
+        if($verifiy[0] !== 'pdam'){
 
-			return response()->json([
-				'code' => 401,
-				'error' => 'Token not provided.'
-			]);
-		}
+            $response = [
+                'code' => 401,
+                'error' => 'Token not provided.'
+            ];
 
-		if (!$token) {
+            return response()->json($response, 401);
+        }
 
-			return response()->json([
+        if(!$token) {
+            
+            $response = [
                 'code' => 400,
                 'error' => 'Provided token is expired.'
-            ]);
-		}
+            ];
 
-		try {
-			
-			$credentials = JWT::decode($verify[1], env('JWT_SECRET'), ['HS256']);
-		
-		} catch(ExpiredException $e) {
+            return response()->json($response, 400);
+        }
+        try {
 
+            $credentials = JWT::decode($verifiy[1], env('JWT_SECRET'), ['HS256']);
+            
+        } catch(ExpiredException $e) {
 
-			return response()->json([
+            $response = [
+                'code' => 401,
+                'error' => 'Token is expired. '
+            ];
+
+            return response()->json($response, 401);
+
+        } catch(Exception $e) {
+            
+            $response = [
                 'code' => 400,
-				'error' => 'Token is expired. '
-            ]);
-		} catch(Exception $e) {
+                'error' => 'An error while decoding token.'
+            ];
 
-			return response()->json([
-				'code' => 400,
-				'error' => 'An error while decoding token.'
-			]);
-		}
+            return response()->json($response, 400);
+        }
 
-		return $next($request);
-
-	}
+        return $next($request);
+    }
 }
-
-?>

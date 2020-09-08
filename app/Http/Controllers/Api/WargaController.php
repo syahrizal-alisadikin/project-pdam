@@ -18,6 +18,32 @@ class WargaController extends Controller
         $this->getToken = new LoginController;
     }
 
+    // Validasi Rules Update Data
+    private function rules()
+    {
+        return [
+            'fk_rw_id' => 'required',
+            'email' => 'required|email',
+            'nama' => 'required',
+            'phone' => 'required|string',
+            'alamat' => 'required|string',
+            'foto_ktp' => 'mimes:jpeg,jpg,png|required|max:10000',
+            'foto_kk' => 'mimes:jpeg,jpg,png|required|max:10000',
+            'foto_profile' => 'mimes:jpeg,jpg,png|required|max:10000',
+        ];
+    }
+
+    // Validasi Rules Register
+    private function rules_register()
+    {
+        return [
+            'fk_rw_id' => 'required',
+            'email' => 'required|email|unique:tbl_warga',
+            'nama' => 'required',
+            'password' => 'required|string',
+        ];
+    }
+
     // Get All Warga
     public function index(Request $request)
     {
@@ -25,10 +51,19 @@ class WargaController extends Controller
 
     		$warga = Warga::all();
 
-    		return response()->json([
-    			'status' => 200,
-    			'data' => $warga
-    		], 200);
+            if ($warga != null) {
+
+        		return response()->json([
+        			'status' => 200,
+        			'data' => $warga
+        		], 200);
+            }
+
+            return response()->json([
+                'status' => 401,
+                'data' => 'Data Warga Null'
+            ], 401);
+
     	} catch (Exception $e) {
 
     		return response()->json([
@@ -41,15 +76,7 @@ class WargaController extends Controller
     public function register(Request $request)
     {
         try {
-
-            $rules = [
-                'fk_rw_id' => 'required',
-                'email' => 'required|email|unique:tbl_warga',
-                'nama' => 'required',
-                'password' => 'required|string',
-            ];
-
-            $validator = Validator::make($request->all(), $rules);
+            $validator = Validator::make($request->all(), $this->rules_register());
 
             if ($validator->fails()) {
                 return response()->json($validator->errors());
@@ -83,16 +110,18 @@ class WargaController extends Controller
 
             $edit_warga = Warga::findOrFail($warga_id);
 
-            if ($edit_warga) {
+            if ($edit_warga != null) {
+                
                 return response()->json([
                     'status' => 200,
                     'data' => $edit_warga
                 ], 200);
-            } else {
-                return response()->json([
-                    "msg" => 'Data Warga Tidak Ada'
-                ], 401);
             }
+
+            return response()->json([
+                "msg" => 'Data Warga Tidak Ada'
+            ], 401);
+            
         } catch (Exception $e) {
 
             return response()->json([
@@ -104,26 +133,17 @@ class WargaController extends Controller
     // Update Data Warga
     public function updateData(Request $request, $warga_id)
     {
-    	try {
+        $file = Warga::where('warga_id', $warga_id)->first();
+    	
+        try {
 
-    		$rules = [
-    			'fk_rw_id' => 'required',
-    			'email' => 'required|email',
-    			'nama' => 'required',
-    			'phone' => 'required|string',
-    			'alamat' => 'required|string',
-    			'foto_ktp' => 'mimes:jpeg,jpg,png|required|max:10000',
-    			'foto_kk' => 'mimes:jpeg,jpg,png|required|max:10000',
-    			'foto_profile' => 'mimes:jpeg,jpg,png|required|max:10000',
-    		];
-    		$validator = Validator::make($request->all(), $rules);
+            // Validasi
+    		$validator = Validator::make($request->all(), $this->rules());
     		if ($validator->fails()) {
     			return response()->json($validator->errors());
     		}
 
     		if ($request->input('password')) {
-
-    			$file = Warga::where('warga_id', $warga_id)->first();
 
                 // Check Jika File Nya Null Dia Akan Create Data
                 if (empty($file->foto_ktp && $file->foto_kk && $file->foto_profile)) {
@@ -212,8 +232,6 @@ class WargaController extends Controller
 
             }else {
 
-                $file = Warga::where('warga_id', $warga_id)->first();
-
                 // Check Jika File Nya Null Dia Akan Create Data
                 if (empty($file->foto_ktp && $file->foto_kk && $file->foto_profile)) {
                     
@@ -292,7 +310,7 @@ class WargaController extends Controller
 
                         return response()->json([
                             'status' => 400,
-                            'msg' => 'FILES is null !'
+                            'msg' => 'Failed Update Data !'
                         ], 400);
                     }
                 }
