@@ -70,6 +70,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Manage Provinsi
                             </a>
+                            <a class="nav-link" href="{{route('tagihan.index')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Manage Tagihan
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

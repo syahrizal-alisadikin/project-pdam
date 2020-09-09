@@ -39,13 +39,14 @@ Route::prefix('admin')
 		Route::resource('/kecamatan', 'kecamatanController');
 		Route::resource('/kota', 'kotaController');
 		Route::resource('/provinsi', 'ProvinsiController');
+		Route::resource('/tagihan', 'TagihanController');
 	});
 
 // Routing RW
 Route::prefix('rw')
 	->namespace('Rw')
 	->middleware('rw')
-	->group(function() {
+	->group(function () {
 		Route::get('/', 'RwController@index')->name('dashboard-rw');
 		Route::resources([
 			'warga' => 'WargaController'
