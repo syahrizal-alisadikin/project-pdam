@@ -74,6 +74,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Manage Tagihan
                             </a>
+                             <a class="nav-link" href="{{route('pembayaran.index')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Manage Pembayaran
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

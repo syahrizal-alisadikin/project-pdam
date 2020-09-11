@@ -29,11 +29,9 @@ class LoginController extends Controller
         // Passwordnya pake bcrypt
         if (Auth::guard('admin')->attempt($login)) {
             return redirect()->route('dashboard-admin');
-
-        } elseif(Auth::guard('rw')->attempt($login)) {
+        } elseif (Auth::guard('rw')->attempt($login)) {
             return redirect('/rw');
-
-        }else {
+        } else {
 
             return redirect()->route('login-admin')->with('gagal', 'Gagal Login !! Silahkan Periksa Email / Password');
         }
@@ -43,11 +41,10 @@ class LoginController extends Controller
     {
         if (Auth::guard('admin')->check()) {
             Auth::guard('admin')->logout();
-            
-        }elseif (Auth::guard('rw')->check()) {
+        } elseif (Auth::guard('rw')->check()) {
             Auth::guard('rw')->logout();
         }
 
-        return redirect('/login-admin');
+        return redirect('/');
     }
 }

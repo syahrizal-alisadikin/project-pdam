@@ -12,8 +12,8 @@ use Validator;
 
 class WargaController extends Controller
 {
-	
-	public function __construct(Request $request)
+
+    public function __construct(Request $request)
     {
         $this->request = $request;
         $this->getToken = new LoginController;
@@ -51,29 +51,28 @@ class WargaController extends Controller
     // Get All Warga
     public function index(Request $request)
     {
-    	try {
+        try {
 
-    		$warga = Warga::all();
+            $warga = Warga::all();
 
             if ($warga != null) {
 
-        		return response()->json([
-        			'status' => 200,
-        			'data' => $warga
-        		], 200);
+                return response()->json([
+                    'status' => 200,
+                    'data' => $warga
+                ], 200);
             }
 
             return response()->json([
                 'status' => 401,
                 'data' => 'Data Warga Null'
             ], 401);
+        } catch (Exception $e) {
 
-    	} catch (Exception $e) {
-
-    		return response()->json([
+            return response()->json([
                 "msg" => 'Invalid Request !'
             ], 500);
-    	}
+        }
     }
 
     // Api Register Warga
@@ -98,10 +97,9 @@ class WargaController extends Controller
                 'status' => 200,
                 'data' => $data
             ], 200);
-
         } catch (Exception $e) {
 
-           return response()->json([
+            return response()->json([
                 "msg" => 'Invalid Request !'
             ], 500);
         }
@@ -115,7 +113,7 @@ class WargaController extends Controller
             $edit_warga = Warga::findOrFail($warga_id);
 
             if ($edit_warga != null) {
-                
+
                 return response()->json([
                     'status' => 200,
                     'data' => $edit_warga
@@ -125,7 +123,6 @@ class WargaController extends Controller
             return response()->json([
                 "msg" => 'Data Warga Tidak Ada'
             ], 401);
-            
         } catch (Exception $e) {
 
             return response()->json([
@@ -139,28 +136,28 @@ class WargaController extends Controller
     {
         $file = Warga::where('warga_id', $warga_id)->first();
         $id_warga = $this->getToken->getID($request); // Get Warga_Id
-    	
+
         try {
 
             // Validasi
-    		$validator = Validator::make($request->all(), $this->rules());
-    		if ($validator->fails()) {
-    			return response()->json($validator->errors());
-    		}
+            $validator = Validator::make($request->all(), $this->rules());
+            if ($validator->fails()) {
+                return response()->json($validator->errors());
+            }
 
-    		if ($request->input('password')) {
+            if ($request->input('password')) {
 
                 // Check Jika File Nya Null Dia Akan Create Data
                 if (empty($file->foto_ktp && $file->foto_kk && $file->foto_profile)) {
-                    
-                   $foto_ktp = Str::random(9);
-                   $request->file('foto_ktp')->move(storage_path('image/warga'), $foto_ktp);
-                   $foto_kk = Str::random(9);
-                   $request->file('foto_kk')->move(storage_path('image/warga'), $foto_kk);
-                   $foto_profile = Str::random(9);
-                   $request->file('foto_profile')->move(storage_path('image/warga'), $foto_profile);
 
-                   $warga_update = array(
+                    $foto_ktp = Str::random(9);
+                    $request->file('foto_ktp')->move(storage_path('image/warga'), $foto_ktp);
+                    $foto_kk = Str::random(9);
+                    $request->file('foto_kk')->move(storage_path('image/warga'), $foto_kk);
+                    $foto_profile = Str::random(9);
+                    $request->file('foto_profile')->move(storage_path('image/warga'), $foto_profile);
+
+                    $warga_update = array(
                         'fk_rw_id' => $request->fk_rw_id,
                         'nama' => $request->nama,
                         'email' => $request->email,
@@ -185,14 +182,13 @@ class WargaController extends Controller
                         'status' => 200,
                         'data' => $warga_update
                     ], 200);
-
-                }else{
+                } else {
 
                     // Check Jika File Kosong
                     if (!empty($_FILES)) {
 
                         // Check Jika Data File nya ada di Database dan di Folder Storange dia akan unlink lalu update data
-                        if (storage_path('image/warga/' .$file->foto_ktp) && storage_path('image/warga/' .$file->foto_kk) && storage_path('image/warga/' .$file->foto_profile)) {
+                        if (storage_path('image/warga/' . $file->foto_ktp) && storage_path('image/warga/' . $file->foto_kk) && storage_path('image/warga/' . $file->foto_profile)) {
 
                             unlink(storage_path('image/warga/' . $file->foto_ktp));
                             unlink(storage_path('image/warga/' . $file->foto_kk));
@@ -231,8 +227,7 @@ class WargaController extends Controller
                             'status' => 200,
                             'data' => $warga_update
                         ], 200);
-
-                    }else{
+                    } else {
 
                         return response()->json([
                             'status' => 401,
@@ -240,20 +235,19 @@ class WargaController extends Controller
                         ], 401);
                     }
                 }
-
-            }else {
+            } else {
 
                 // Check Jika File Nya Null Dia Akan Create Data
                 if (empty($file->foto_ktp && $file->foto_kk && $file->foto_profile)) {
-                    
-                   $foto_ktp = Str::random(9);
-                   $request->file('foto_ktp')->move(storage_path('image/warga'), $foto_ktp);
-                   $foto_kk = Str::random(9);
-                   $request->file('foto_kk')->move(storage_path('image/warga'), $foto_kk);
-                   $foto_profile = Str::random(9);
-                   $request->file('foto_profile')->move(storage_path('image/warga'), $foto_profile);
 
-                   $warga_update = array(
+                    $foto_ktp = Str::random(9);
+                    $request->file('foto_ktp')->move(storage_path('image/warga'), $foto_ktp);
+                    $foto_kk = Str::random(9);
+                    $request->file('foto_kk')->move(storage_path('image/warga'), $foto_kk);
+                    $foto_profile = Str::random(9);
+                    $request->file('foto_profile')->move(storage_path('image/warga'), $foto_profile);
+
+                    $warga_update = array(
                         'fk_rw_id' => $request->fk_rw_id,
                         'nama' => $request->nama,
                         'email' => $request->email,
@@ -277,14 +271,13 @@ class WargaController extends Controller
                         'status' => 200,
                         'data' => $warga_update
                     ], 200);
-
-                }else{
+                } else {
 
                     // Check Jika File Nya Kosong
                     if (!empty($_FILES)) {
 
                         // Check Jika Data File nya ada di Database dan di Folder Storange dia akan unlink lalu update data
-                        if (storage_path('image/warga/' .$file->foto_ktp) && storage_path('image/warga/' .$file->foto_kk) && storage_path('image/warga/' .$file->foto_profile)) {
+                        if (storage_path('image/warga/' . $file->foto_ktp) && storage_path('image/warga/' . $file->foto_kk) && storage_path('image/warga/' . $file->foto_profile)) {
 
                             unlink(storage_path('image/warga/' . $file->foto_ktp));
                             unlink(storage_path('image/warga/' . $file->foto_kk));
@@ -322,8 +315,7 @@ class WargaController extends Controller
                             'status' => 200,
                             'data' => $warga_update
                         ], 200);
-
-                    }else{
+                    } else {
 
                         return response()->json([
                             'status' => 401,
@@ -332,13 +324,12 @@ class WargaController extends Controller
                     }
                 }
             }
+        } catch (Exception $e) {
 
-    	} catch (Exception $e) {
-
-    		return response()->json([
+            return response()->json([
                 "msg" => 'Invalid Request !'
             ], 500);
-    	}
+        }
     }
 
     // Delete Warga
@@ -346,18 +337,18 @@ class WargaController extends Controller
     {
         try {
 
-            $delete_data = Warga::findOrFail($warga_id);
+            $delete_warga = Warga::findOrFail($warga_id);
 
-            if ($delete_data != null) {
+            if ($delete_warga != null) {
 
-                if (storage_path('image/warga/' .$delete_warga->foto_ktp) && storage_path('image/warga/' .$delete_warga->foto_kk) && storage_path('image/warga/' .$delete_warga->foto_profile)) {
+                if (storage_path('image/warga/' . $delete_warga->foto_ktp) && storage_path('image/warga/' . $delete_warga->foto_kk) && storage_path('image/warga/' . $delete_warga->foto_profile)) {
 
                     unlink(storage_path('image/warga/' . $delete_warga->foto_ktp));
                     unlink(storage_path('image/warga/' . $delete_warga->foto_kk));
                     unlink(storage_path('image/warga/' . $delete_warga->foto_profile));
                 }
 
-                $delete_data->delete();
+                $delete_warga->delete();
                 return response()->json([
                     'status' => 200,
                     'msg' => 'Success Delete Data User'
@@ -368,7 +359,6 @@ class WargaController extends Controller
                 'status' => 401,
                 'msg' => 'Wrong ID User'
             ], 401);
-
         } catch (Exception $e) {
 
             return response()->json([
@@ -380,18 +370,16 @@ class WargaController extends Controller
     // Buat Ngelihat File Image Nya / Get File Image Nya 
     public function fileMateri($file)
     {
-    	$avatar_path = storage_path('image/warga') . '/' . $file;
+        $avatar_path = storage_path('image/warga') . '/' . $file;
 
-    	if (file_exists($avatar_path)) {
-    		$file = file_get_contents($avatar_path);
-    		return response($file, 200)->header('Content-Type', 'image/jpeg');
-    	}
+        if (file_exists($avatar_path)) {
+            $file = file_get_contents($avatar_path);
+            return response($file, 200)->header('Content-Type', 'image/jpeg');
+        }
 
-    	return response()->json([
+        return response()->json([
             'status' => 500,
             'msg' => 'File Not Found !'
         ], 500);
     }
 }
-
-?>

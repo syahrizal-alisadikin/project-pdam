@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('layouts.dashboard');
 // });
-Route::GET('/login-admin', 'LoginController@index')->name('login-admin');
+Route::GET('/', 'LoginController@index')->name('login-admin');
 Route::POST('/login-admin', 'LoginController@postlogin')->name('postLogin');
 Route::get('/logout', 'LoginController@logout')->name('logout');
 
@@ -40,6 +40,7 @@ Route::prefix('admin')
 		Route::resource('/kota', 'kotaController');
 		Route::resource('/provinsi', 'ProvinsiController');
 		Route::resource('/tagihan', 'TagihanController');
+		Route::resource('/pembayaran', 'PembayaranController');
 	});
 
 // Routing RW

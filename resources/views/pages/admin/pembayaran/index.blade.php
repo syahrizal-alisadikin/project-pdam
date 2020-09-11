@@ -4,7 +4,7 @@
                     <div class="container-fluid">
                         <h1 class="mt-4">Dashboard</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Manag Tagihan</li>
+                            <li class="breadcrumb-item active">Manage Pemabayaran</li>
                         </ol>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
@@ -62,26 +62,49 @@
                                         <thead>
                                             <tr>
                                                 <th>RW </th>
-                                                <th>Nama Tagihan</th>
-                                                <th>Tanggal Tagihan</th>
+                                                <th>Nama</th>
+                                                <th>Tagihan</th>
                                                 <th>jumlah</th>
-                                                
+                                                <th>Tanggal Bayar</th>
+                                                <th>Jumlah Bayar</th>
+                                                <th>Status</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($tagihan as $tag)
                                                 <tr>
-                                                 <td>{{$tag->rw->name}}</td>
-                                                 <td>{{$tag->nama}}</td>
-                                                 <td>{{$tag->tanggal_tagihan}}</td>
-                                                 <td>Rp{{number_format($tag->jumlah_tagihan, 0, ',', '.')}}</td>
-                                                
-                                                
-                                                 
+                                                 <td>{{$tag->tagihan->rw->name}}</td>
+                                                 <td>{{$tag->tagihan->nama}}</td>
+                                                 <td>{{$tag->tagihan->tanggal_tagihan}}</td>
+                                                 <td>Rp{{$tag->tagihan->jumlah_tagihan}}</td>
+                                                 <td class="text-center">
+                                                     @if ($tag->tanggal_bayar == null)
+                                                       <span class="badge badge-danger">-</span>
+                                                        @else
+                                                        {{$tag->tanggal_bayar}}
+                                                     @endif
+                                                 </td>
+                                                 <td class="text-center">
+                                                     @if ($tag->jumlah_bayar == null)
+                                                       <span class="badge badge-danger">-</span>
+                                                        @else
+                                                       Rp{{number_format($tag->jumlah_bayar, 0, ',', '.')}}
+                                                     @endif
+                                                 </td>
+                                                  <td>
+                                                     @if ($tag->status == "Pending")
+                                                       <span class="badge badge-warning">Pending</span>
+                                                       @else
+                                                       <span class="badge badge-success">Success</span>
+                                                     @endif
+                                                 </td>
                                                  <td>
-                                                 <a href="{{route('tagihan.edit',$tag->tagihan_id)}}" class="btn btn-success btn-sm">Update</a>
-                                                      
+                                                       @if ($tag->status == "Pending")
+                                                 <a href="{{route('pembayaran.edit',$tag->pembayaran_id)}}" class="btn btn-success btn-sm">Bayar</a>
+                                                       @else
+                                                       <span class="badge badge-success">Lunas</span>
+                                                     @endif
                                                  </td>
                                                 </tr>
                                             @endforeach

@@ -12,4 +12,10 @@ class Pembayaran extends Model
     protected $primaryKey = "pembayaran_id";
     protected $table = "tbl_pembayaran";
     protected $fillable = ['pembayaran_id', 'fk_tagihan_id', 'tanggal_pembayaran', 'jumlah_bayar', 'status', 'edit_post', 'create_post'];
+
+
+    public function tagihan()
+    {
+        return $this->belongsTo(Tagihan::class, 'fk_tagihan_id', 'tagihan_id');
+    }
 }

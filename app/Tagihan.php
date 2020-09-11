@@ -9,7 +9,12 @@ class Tagihan extends Model
 {
     use SoftDeletes;
 
-    protected $primaryKey = " tagihan_id";
+    protected $primaryKey = "tagihan_id";
     protected $table      = "tbl_tagihan";
     protected $fillable   = ['tagihan_id', 'fk_rw_id', 'nama', 'tanggal_tagihan', 'jumlah_tagihan', 'edit_post', 'create_post'];
+
+    public function rw()
+    {
+        return $this->belongsTo(Rw::class, 'fk_rw_id', 'rw_id');
+    }
 }
