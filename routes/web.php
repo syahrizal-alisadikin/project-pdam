@@ -41,6 +41,8 @@ Route::prefix('admin')
 		Route::resource('/provinsi', 'ProvinsiController');
 		Route::resource('/tagihan', 'TagihanController');
 		Route::resource('/pembayaran', 'PembayaranController');
+		Route::resource('/paramkejadian', 'ParamKejadianController');
+		Route::resource('/laporankejadian', 'LaporanKejadianController');
 	});
 
 // Routing RW

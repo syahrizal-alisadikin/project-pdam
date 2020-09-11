@@ -9,10 +9,10 @@
                       <div class="col-md-8">
                             <div class="card">
                             <div class="card-body">
-                                <h5 class="text-center">Tambah Rw</h5>
+                                <h5 class="text-center">Tambah Tagihan</h5>
                                 <form action="{{route('tagihan.store')}}" method="POST">
                                     @csrf
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="name">Nama Rw</label>
                                         <select name="rw" id="rw" class="form-control">
                                             @foreach ($rw as $item)
@@ -24,7 +24,7 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
-                                     </div>
+                                     </div> --}}
                                     <div class="form-group">
                                         <label for="name">Nama Tagihan</label>
                                         <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Masukan Nama" value="{{old('name')}}" required>
@@ -36,7 +36,7 @@
                                      </div>
                                      <div class="form-group">
                                         <label for="name">Tanggal Tagihan</label>
-                                        <input type="date" name="tanggal" id="tanggal" class="form-control @error('tanggal') is-invalid @enderror" autofocus required>
+                                        <input type="date" name="tanggal" id="tanggal" class="form-control @error('tanggal') is-invalid @enderror"  required>
                                         @error('tanggal')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -47,6 +47,15 @@
                                         <label for="jumlah">Jumlah Tagihan</label>
                                         <input type="number" name="jumlah" id="jumlah" class="form-control @error('jumlah') is-invalid @enderror" placeholder="Masukan Jumlah Tagihan" required>
                                         @error('jumlah')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                     </div> 
+                                     <div class="form-group">
+                                        <label for="tarif">Tarif</label>
+                                        <input type="number" name="tarif" id="tarif" class="form-control @error('jumlah') is-invalid @enderror" placeholder="Masukan Jumlah Tarif" required>
+                                        @error('tarif')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

@@ -27,21 +27,31 @@ class TagihanController extends Controller
 
     public function store(Request $request)
     {
+        $rw = Rw::all();
+        // dd($rw);
         $id = Auth::guard('admin')->user()->admin_id;
-        $tagihan =  Tagihan::create([
-            // 'tagihan_id' => mt_rand(1, 999),
-            'fk_rw_id' => $request->rw,
-            'nama'     => $request->name,
-            'tanggal_tagihan' => $request->tanggal,
-            'jumlah_tagihan' => $request->jumlah,
-            'create_post' => $id
-        ]);
-        // dd($tagihan);
-        Pembayaran::create([
-            'fk_tagihan_id' => $tagihan->tagihan_id,
-            'status'        => "Pending",
-            'create_post'   => $id
-        ]);
+
+        foreach ($rw as $tag) {
+            $tagihan = Tagihan::create([
+                'fk_rw_id'          => $tag->rw_id,
+                'nama'              => $request->name,
+                'tanggal_tagihan'   => $request->tanggal,
+                'jumlah_tagihan'    => $request->jumlah,
+                'tarif'             => $request->tarif,
+                'create_post'       => $id
+
+
+            ]);
+            // dd($bayar);
+
+            Pembayaran::create([
+                'fk_tagihan_id' => $tagihan->tagihan_id,
+                'status' => "Pending",
+                'create_post' => $id
+            ]);
+        }
+
+
         return redirect()->route('tagihan.index')->with('success', 'Tagihan Berhasil ditambahkan');
     }
 

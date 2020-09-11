@@ -11,7 +11,7 @@ class Tagihan extends Model
 
     protected $primaryKey = "tagihan_id";
     protected $table      = "tbl_tagihan";
-    protected $fillable   = ['tagihan_id', 'fk_rw_id', 'nama', 'tanggal_tagihan', 'jumlah_tagihan', 'edit_post', 'create_post'];
+    protected $fillable   = ['tagihan_id', 'fk_rw_id', 'nama', 'tanggal_tagihan', 'tarif', 'jumlah_tagihan', 'edit_post', 'create_post'];
 
     public function rw()
     {

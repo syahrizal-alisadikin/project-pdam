@@ -50,26 +50,32 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
+                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Lokasi
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{{route('kelurahan.index')}}">
+                                         Kelurahan
+                                    </a>
+                                     <a class="nav-link" href="{{route('kecamatan.index')}}">
+                                         Kecamatan
+                                    </a>
+                                     <a class="nav-link" href="{{route('kota.index')}}">
+                                          Kota
+                                    </a>
+                                    <a class="nav-link" href="{{route('provinsi.index')}}">
+                                         Provinsi
+                                    </a>
+                                </nav>
+                            </div>
                              <a class="nav-link" href="{{route('rw.index')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Manage Rw
                             </a>
-                            <a class="nav-link" href="{{route('kelurahan.index')}}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Manage Kelurahan
-                            </a>
-                              <a class="nav-link" href="{{route('kecamatan.index')}}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Manage Kecamatan
-                            </a>
-                              <a class="nav-link" href="{{route('kota.index')}}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Manage Kota
-                            </a>
-                              <a class="nav-link" href="{{route('provinsi.index')}}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Manage Provinsi
-                            </a>
+                            
                             <a class="nav-link" href="{{route('tagihan.index')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Manage Tagihan
@@ -77,6 +83,14 @@
                              <a class="nav-link" href="{{route('pembayaran.index')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Manage Pembayaran
+                            </a>
+                             <a class="nav-link" href="{{route('paramkejadian.index')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Param Kejadian
+                            </a>
+                            <a class="nav-link" href="{{route('laporankejadian.index')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Laporan Kejadian
                             </a>
                         </div>
                     </div>
