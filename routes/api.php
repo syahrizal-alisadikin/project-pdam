@@ -35,6 +35,10 @@ Route::group(['middleware' => ['jwt.auth'], 'namespace' => 'Api'], function () {
 	Route::POST('warga/update/{warga_id}', 'WargaController@updateData'); // Update Warga Process 
 	Route::DELETE('warga/delete/{warga_id}', 'WargaController@deleteWarga'); // Delete Warga Process
 
+	// Kejadian Controller
+	Route::POST('kejadian', 'KejadianController@insertKejadian');
+	Route::GET('kejadian/param_kejadian/{param_id}', 'KejadianController@GetParamKejadian');
+
 	// File Get Name
 	Route::get('image/{file}', 'WargaController@fileMateri');
 });

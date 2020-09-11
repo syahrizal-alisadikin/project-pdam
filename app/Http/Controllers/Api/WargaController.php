@@ -108,27 +108,19 @@ class WargaController extends Controller
     // Get Warga By ID
     public function GetIDWarga($warga_id)
     {
-        try {
+        $edit_warga = Warga::where('warga_id', $warga_id)->first();
 
-            $edit_warga = Warga::findOrFail($warga_id);
-
-            if ($edit_warga != null) {
-
-                return response()->json([
-                    'status' => 200,
-                    'data' => $edit_warga
-                ], 200);
-            }
+        if ($edit_warga != null) {
 
             return response()->json([
-                "msg" => 'Data Warga Tidak Ada'
-            ], 401);
-        } catch (Exception $e) {
-
-            return response()->json([
-                "msg" => 'Invalid Request !'
-            ], 500);
+                'status' => 200,
+                'data' => $edit_warga
+            ], 200);
         }
+
+        return response()->json([
+            "msg" => 'Wrong ID Warga'
+        ], 401);
     }
 
     // Update Data Warga
@@ -337,7 +329,7 @@ class WargaController extends Controller
     {
         try {
 
-            $delete_warga = Warga::findOrFail($warga_id);
+            $delete_warga = Warga::where('warga_id', $warga_id)->first();
 
             if ($delete_warga != null) {
 
@@ -359,6 +351,7 @@ class WargaController extends Controller
                 'status' => 401,
                 'msg' => 'Wrong ID User'
             ], 401);
+
         } catch (Exception $e) {
 
             return response()->json([

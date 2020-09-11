@@ -39,6 +39,8 @@ class LoginController extends Controller
             return redirect()->intended('/admin');
         } else if (Auth::guard('rw')->attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect()->intended('/user');
+        } else {
+            return redirect()->route('login-admin')->with('success', 'Gagal Login !! Silahkan Periksa Email / Password');
         }
     }
 

@@ -26,12 +26,13 @@ class LoginController extends Controller
     }
 
     //Get ID JWT
-    public function getID($request){
+    public function getID($request)
+    {
         $header = $request->header('Authorization');
         $ex = explode(" ", $header);
-        $ex2 = explode(".", $ex[1]);
-        $base64 = base64_decode($ex2[1]);
-        $json = json_decode($base64);
+        $exx = explode(".", $ex[1]);
+        $base_64 = base64_decode($exx[1]);
+        $json = json_decode($base_64);
 
         return $json->sub->warga_id;
     }
