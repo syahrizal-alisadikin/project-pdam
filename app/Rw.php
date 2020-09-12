@@ -12,7 +12,7 @@ class Rw extends Authenticatable
 
     protected $primaryKey = "rw_id";
     protected $table = "tbl_rw";
-    protected $fillable = ['rw_id', 'name', 'email', 'password', 'alamat', 'fk_kelurahan_id', 'fk_kecamatan_id', 'fk_kota_id', 'fk_provinsi_id'];
+    protected $fillable = ['rw_id', 'name', 'email', 'password', 'alamat', 'fk_kelurahan_id', 'fk_kecamatan_id', 'fk_kota_id', 'fk_provinsi_id', 'no_rw'];
     protected $hidden = ['password'];
 
     public function kelurahan()

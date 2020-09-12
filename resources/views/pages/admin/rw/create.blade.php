@@ -14,8 +14,17 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="name">Nama</label>
-                                    <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Masukan Nama" value="{{old('name')}}" required>
+                                        <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Masukan Nama" value="{{old('name')}}" required>
                                         @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                     </div>
+                                     <div class="form-group">
+                                        <label for="noRw">No Rw</label>
+                                        <input type="text" name="noRw" id="noRw" class="form-control @error('noRw') is-invalid @enderror" placeholder="Masukan No Rw" value="{{old('noRw')}}" required>
+                                        @error('noRw')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

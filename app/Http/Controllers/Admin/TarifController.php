@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Pembayaran;
+use App\Tarif;
 
-class PembayaranController extends Controller
+class TarifController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class PembayaranController extends Controller
      */
     public function index()
     {
-        $tagihan = Pembayaran::with('tagihan.rw', 'tagihan.tarif')->get();
-        // dd($tagihan);
-        return view('pages.admin.pembayaran.index', compact('tagihan'));
+        $tarif = Tarif::all();
+        // dd($tarif);
+        return view('pages.admin.tarif.index', compact('tarif'));
     }
 
     /**
@@ -27,7 +27,7 @@ class PembayaranController extends Controller
      */
     public function create()
     {
-        // 
+        //
     }
 
     /**
@@ -38,7 +38,11 @@ class PembayaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Tarif::create([
+            'nama_tarif' => $request->nama,
+            'jumlah_tarif' => $request->jumlah
+        ]);
+        return redirect()->route('tarif.index')->with('success', 'Data Berhasil Ditambahkan');
     }
 
     /**
@@ -49,7 +53,8 @@ class PembayaranController extends Controller
      */
     public function show($id)
     {
-        //
+        $tarif = Tarif::find($id);
+        return response()->json($tarif);
     }
 
     /**
@@ -60,9 +65,8 @@ class PembayaranController extends Controller
      */
     public function edit($id)
     {
-        $pembayaran = Pembayaran::with('tagihan.rw')->findOrFail($id);
-        // dd($pembayaran);
-        return view('pages.admin.pembayaran.edit', compact('pembayaran'));
+        $tarif = Tarif::findOrFail($id);
+        return view('pages.admin.tarif.edit', compact('tarif'));
     }
 
     /**
@@ -74,19 +78,11 @@ class PembayaranController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        $this->validate($request, [
-            'tanggal'     => 'required',
-            'jumlah'  => 'required',
-        ]);
-
-        $pembayaran = Pembayaran::findOrFail($id);
-        $pembayaran->tanggal_bayar = $request->tanggal;
-        $pembayaran->jumlah_bayar = $request->jumlah;
-        $pembayaran->status = $request->status;
-
-        $pembayaran->save();
-        return redirect()->route('pembayaran.index')->with('success', 'Pembayaran Berhasil');
+        $tarif = Tarif::findOrFail($id);
+        $tarif->nama_tarif = $request->name;
+        $tarif->jumlah_tarif = $request->jumlah;
+        $tarif->save();
+        return redirect()->route('tarif.index')->with('success', 'Data Berhasil diupdate');
     }
 
     /**

@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 use App\Rw;
 use App\Pembayaran;
 use App\Tagihan;
+use App\Tarif;
 use Illuminate\Support\Facades\Auth;
 
 class TagihanController extends Controller
 {
     public function index()
     {
-        $tagihan = Tagihan::with('rw')->get();
+        $tagihan = Tagihan::with('tarif', 'rw')->get();
         // dd($tagihan);
         return view('pages.admin.tagihan.index', compact('tagihan'));
     }
@@ -21,23 +22,21 @@ class TagihanController extends Controller
     public function create()
     {
         $rw = Rw::all();
-
-        return view('pages.admin.tagihan.create', compact('rw'));
+        $tarif = Tarif::all();
+        return view('pages.admin.tagihan.create', compact('rw', 'tarif'));
     }
 
     public function store(Request $request)
     {
         $rw = Rw::all();
-        // dd($rw);
         $id = Auth::guard('admin')->user()->admin_id;
-
+        // dd($id);
         foreach ($rw as $tag) {
+            // dd($tarif);
             $tagihan = Tagihan::create([
                 'fk_rw_id'          => $tag->rw_id,
-                'nama'              => $request->name,
+                'fk_tarif_id'       => $request->tarif,
                 'tanggal_tagihan'   => $request->tanggal,
-                'jumlah_tagihan'    => $request->jumlah,
-                'tarif'             => $request->tarif,
                 'create_post'       => $id
 
 
@@ -57,17 +56,16 @@ class TagihanController extends Controller
 
     public function edit($id)
     {
-        $tagihan = Tagihan::with('rw')->findOrFail($id);
-        // dd($tagihan);
-        return view('pages.admin.tagihan.edit', compact('tagihan'));
+        $tagihan = Tagihan::with('rw', 'tarif')->findOrFail($id);
+        $tarif = Tarif::all();
+        return view('pages.admin.tagihan.edit', compact('tagihan', 'tarif'));
     }
 
     public function update(Request $request, $id)
     {
         $tagihan = Tagihan::findOrFail($id);
-        $tagihan->nama = $request->name;
+        $tagihan->fk_tarif_id = $request->name;
         $tagihan->tanggal_tagihan = $request->tanggal;
-        $tagihan->jumlah_tagihan = $request->jumlah;
         $tagihan->save();
         return redirect()->route('tagihan.index')->with('success', 'Tagihan Berhasil di Update');
     }

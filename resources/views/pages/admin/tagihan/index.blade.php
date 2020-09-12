@@ -63,9 +63,8 @@
                                             <tr>
                                                 <th>RW </th>
                                                 <th>Nama Tagihan</th>
-                                                <th>Tanggal Tagihan</th>
                                                 <th>jumlah Tagihan</th>
-                                                <th>Tarif</th>
+                                                <th>Tanggal Tagihan</th>
                                                 
                                                 <th>Aksi</th>
                                             </tr>
@@ -73,11 +72,10 @@
                                         <tbody>
                                             @foreach ($tagihan as $tag)
                                                 <tr>
-                                                 <td>{{$tag->rw->name}}</td>
-                                                 <td>{{$tag->nama}}</td>
+                                                    <td>{{$tag->rw->name}}</td>
+                                                <td>{{$tag->tarif->nama_tarif}}</td>
+                                                 <td>Rp{{number_format($tag->tarif->jumlah_tarif, 0, ',', '.')}}</td>
                                                  <td>{{$tag->tanggal_tagihan}}</td>
-                                                 <td>Rp{{number_format($tag->jumlah_tagihan, 0, ',', '.')}}</td>
-                                                 <td>Rp{{number_format($tag->tarif, 0, ',', '.')}}</td>
                                                 
                                                 
                                                  

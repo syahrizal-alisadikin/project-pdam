@@ -40,6 +40,7 @@ Route::prefix('admin')
 		Route::resource('/kota', 'kotaController');
 		Route::resource('/provinsi', 'ProvinsiController');
 		Route::resource('/tagihan', 'TagihanController');
+		Route::resource('/tarif', 'TarifController');
 		Route::resource('/pembayaran', 'PembayaranController');
 		Route::resource('/paramkejadian', 'ParamKejadianController');
 		Route::resource('/laporankejadian', 'LaporanKejadianController');

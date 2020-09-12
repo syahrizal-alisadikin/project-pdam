@@ -4,52 +4,30 @@
                     <div class="container-fluid">
                         <h1 class="mt-4">Dashboard</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Manage Tagihan</li>
+                            <li class="breadcrumb-item active">Manage Tarif</li>
                         </ol>
                       <div class="col-md-8">
                             <div class="card">
                             <div class="card-body">
-                                <h5 class="text-center">Update Tagihan</h5>
-                                <form action="{{route('tagihan.update',$tagihan->tagihan_id)}}" method="POST">
+                                <h5 class="text-center">Update Tarif</h5>
+                                <form action="{{route('tarif.update',$tarif->tarif_id)}}" method="POST">
                                     @csrf
                                     @method("PUT")
+                                   
                                     <div class="form-group">
-                                        <label for="name">Nama Rw</label>
-                                        <input type="text" class="form-control" readonly value="{{$tagihan->rw->name}}">
+                                        <label for="name">Nama Tarif</label>
+                                        <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{$tarif->nama_tarif}}" placeholder="Masukan Nama" value="{{old('name')}}" required>
                                         @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
                                      </div>
-                                    <div class="form-group">
-                                        <label for="name">Nama Tagihan</label>
-                                        <select name="name" id="name" class="form-control">
-                                            <option value="{{$tagihan->tarif->tarif_id}}">{{$tagihan->tarif->nama_tarif}}</option>
-                                            @foreach ($tarif as $tar)
-                                            <option value="{{$tar->tarif_id}}">{{$tar->nama_tarif}}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                     </div>
-                                     
+                                  
                                      <div class="form-group">
-                                        <label for="jumlah">Jumlah Tagihan</label>
-                                        <input type="number" readonly name="jumlah" id="jumlah" class="form-control @error('jumlah') is-invalid @enderror" value="{{$tagihan->tarif->jumlah_tarif}}" placeholder="Masukan Jumlah Tagihan" required>
+                                        <label for="jumlah">Jumlah Tarif</label>
+                                        <input type="number" name="jumlah" id="jumlah" class="form-control @error('jumlah') is-invalid @enderror" value="{{$tarif->jumlah_tarif}}" placeholder="Masukan Jumlah Tagihan" required>
                                         @error('jumlah')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                     </div>
-                                     <div class="form-group">
-                                        <label for="name">Tanggal Tagihan</label>
-                                        <input type="date" name="tanggal" id="tanggal" value="{{$tagihan->tanggal_tagihan}}" class="form-control @error('tanggal') is-invalid @enderror"  required>
-                                        @error('tanggal')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

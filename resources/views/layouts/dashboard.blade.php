@@ -75,7 +75,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Manage Rw
                             </a>
-                            
+                             <a class="nav-link" href="{{route('tarif.index')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Manage Tarif
+                            </a>
                             <a class="nav-link" href="{{route('tagihan.index')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Manage Tagihan
