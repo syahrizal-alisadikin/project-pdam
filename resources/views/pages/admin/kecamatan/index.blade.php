@@ -58,7 +58,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-bordered" id="kecamatan-table" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">No</th>
@@ -71,28 +71,7 @@
                                             </tr>
                                         </thead>
                                      
-                                        <tbody>
-                                            <?php $i =1 ; ?>
-                                          @foreach ($kecamatan as $kecamat)
-                                              <tr>
-                                                  <td class="text-center"><?= $i;?></td>
-                                                    <td class="text-center">{{$kecamat->kota->provinsi->name}}</td>
-                                                    <td class="text-center">{{$kecamat->kota->name}}</td>
-                                                    <td class="text-center">{{$kecamat->name}}</td>
-                                                    <td class="text-center">
-                                                    <a class="btn btn-success btn-sm" href="{{route('kecamatan.edit',$kecamat->kecamatan_id)}}"  ><i class="fas fa-pencil-alt"></i></a>
-                                                        
-                                                        <form action="{{ route('kecamatan.destroy', $kecamat->kecamatan_id) }}" method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('delete')
-
-                                                            <button type="submit" class="btn btn-danger btn-sm"  onclick="return confirm('Yakin Data Mau Dihapus??');"> <i class="fa  fa-trash"></i></button>
-                                                        </form>
-                                                    </td>
-                                              </tr>
-                                              <?php $i++?>
-                                          @endforeach
-                                        </tbody>
+                                      
                                     </table>
                                 </div>
                             </div>
@@ -102,3 +81,51 @@
                 
     
 @endsection
+
+@push('addon-script')
+<script>
+    $(function(){
+         $.ajaxSetup({
+           headers:{
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+           }
+       })
+
+       $('#kecamatan-table').DataTable({
+           processing: true,
+           serverside: true,
+           ajax: '{!! route('kecamatan.index') !!}',
+           columns: [
+                { data: 'DT_RowIndex', name:'DT_RowIndex'},
+                { data: 'kota.provinsi.name', name: 'provinsi' },
+                { data: 'kota.name', name: 'provinsi' },
+              
+                { data: 'name', name: 'kota' },
+                
+                { data: 'action', name: 'action' },
+
+           ],
+            columnDefs: [
+            {
+                "targets": 0, // your case first column
+                "className": "text-center",
+                "width": "10%"
+            },
+             {
+                "targets": 1,
+                "className": "text-center",
+            },
+            {
+                "targets": 2,
+                "className": "text-center",
+            },
+             {
+                "targets": 3,
+                "className": "text-center",
+            },
+           ]
+       })
+    })
+</script>
+    
+@endpush

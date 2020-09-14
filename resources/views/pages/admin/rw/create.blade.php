@@ -122,6 +122,8 @@
                         type: "GET",
                         dataType: "json",
                         success: function(response){
+                            console.log(response);
+
                             $('select[name="kota"]').empty();
                             $('select[name="kota"]').append('<option value="">-- Pilih Kota  --</option>');
                             $.each(response, function (key, value) {
@@ -135,7 +137,7 @@
             });
         });
 
-        // Ajax Select Kecamatan
+        // Ajax Select kecamatan
        $(document).ready(function(){
             $('select[name="kota"]').on('change',function(){
                 let kota_id = $(this).val();
@@ -145,6 +147,7 @@
                         type: "GET",
                         dataType: "json",
                         success: function(response){
+                            console.log(response);
                             $('select[name="kecamatan"]').empty();
                             $('select[name="kecamatan"]').append('<option value="">-- Pilih Kecamatan  --</option>');
                             $.each(response, function (key, value) {
@@ -160,7 +163,7 @@
 
          // Ajax Select Kelurahan
        $(document).ready(function(){
-            $('select[name="kota"]').on('change',function(){
+            $('select[name="kecamatan"]').on('change',function(){
                 let kelurahan_id = $(this).val();
                 if(kelurahan_id){
                     jQuery.ajax({
@@ -168,6 +171,8 @@
                         type: "GET",
                         dataType: "json",
                         success: function(response){
+                            console.log(response);
+
                             $('select[name="kelurahan"]').empty();
                             $('select[name="kelurahan"]').append('<option value="">-- Pilih Kelurahan  --</option>');
                             $.each(response, function (key, value) {

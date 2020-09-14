@@ -58,7 +58,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-bordered" id="kelurahan-table" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -70,28 +70,7 @@
                                             </tr>
                                         </thead>
                                      
-                                        <tbody>
-                                            <?php $i =1 ; ?>
-                                          @foreach ($kelurahans as $kelurahan)
-                                              <tr>
-                                                  <td><?= $i;?></td>
-                                                    <td class="text-center">{{$kelurahan->kecamatan->kota->name}}</td>
-                                                    <td class="text-center">{{$kelurahan->kecamatan->name}}</td>
-                                                    <td class="text-center">{{$kelurahan->name}}</td>
-                                                    <td class="text-center">
-                                                    <a class="btn btn-success btn-sm" href="{{route('kelurahan.edit',$kelurahan->kelurahan_id)}}"  ><i class="fas fa-pencil-alt"></i></a>
-                                                        
-                                                        <form action="{{ route('kelurahan.destroy', $kelurahan->kelurahan_id) }}" method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('delete')
-
-                                                            <button type="submit" class="btn btn-danger btn-sm"  onclick="return confirm('Yakin Data Mau Dihapus??');"> <i class="fa  fa-trash"></i></button>
-                                                        </form>
-                                                    </td>
-                                              </tr>
-                                              <?php $i++?>
-                                          @endforeach
-                                        </tbody>
+                                       
                                     </table>
                                 </div>
                             </div>
@@ -101,3 +80,50 @@
                 
     
 @endsection
+@push('addon-script')
+<script>
+    $(function(){
+         $.ajaxSetup({
+           headers:{
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+           }
+       })
+
+       $('#kelurahan-table').DataTable({
+           processing: true,
+           serverside: true,
+           ajax: '{!! route('kelurahan.index') !!}',
+           columns: [
+                { data: 'DT_RowIndex', name:'DT_RowIndex'},
+                { data: 'kecamatan.kota.name', name: 'kota' },
+                { data: 'kecamatan.name', name: 'kecamatan' },
+                { data: 'name', name: 'kecamatan' },
+                
+                { data: 'action', name: 'action' },
+
+           ],
+            columnDefs: [
+            {
+                "targets": 0, // your case first column
+                "className": "text-center",
+                "width": "10%"
+            },
+            
+            {
+                "targets": 1,
+                "className": "text-center",
+            },
+             {
+                "targets": 2,
+                "className": "text-center",
+            },
+             {
+                "targets": 3,
+                "className": "text-center",
+            },
+           ]
+       })
+    })
+</script>
+    
+@endpush

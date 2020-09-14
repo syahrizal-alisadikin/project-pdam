@@ -3,11 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Kecamatan extends Model
 {
-    use SoftDeletes;
+    // use SoftDeletes;
     protected $primaryKey = "kecamatan_id";
     protected $table = "tbl_kecamatan";
     protected $fillable = ['fk_kota_id', 'name'];

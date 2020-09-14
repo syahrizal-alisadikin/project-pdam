@@ -3,11 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Kota extends Model
 {
-    use SoftDeletes;
+    // use SoftDeletes;
     protected $primaryKey = "kota_id";
     protected $table = "tbl_kota";
     protected $fillable = ['fk_provinsi_id', 'name'];

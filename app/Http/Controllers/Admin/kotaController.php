@@ -6,13 +6,25 @@ use App\Kota;
 use App\Http\Controllers\Controller;
 use App\Provinsi;
 use Illuminate\Http\Request;
+use DataTables;
 
 class kotaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $kota = Kota::with('provinsi')->get();
-        return view('pages.admin.kota.index', compact('kota'));
+
+        if ($request->ajax()) {
+            $kota = Kota::with('provinsi')->get();
+            return DataTables::of($kota)
+                ->addIndexColumn()
+                ->addcolumn('action', function ($kota) {
+                    $btn = ' <a  href="kota/' . $kota->kota_id . '/edit" data-id="" class="btn btn-success btn-sm editItem" ><i class="fas fa-pencil-alt"></i></a>';
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip" onClick="Delete(this.id)" id="' . $kota->kota_id . '" data-original-title="Delete" class="btn btn-danger btn-sm"> <i class="fa  fa-trash"></i></a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])->make(true);
+        }
+        return view('pages.admin.kota.index');
     }
 
     public function create()

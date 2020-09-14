@@ -58,7 +58,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-bordered" id="kota-table" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -69,27 +69,7 @@
                                             </tr>
                                         </thead>
                                      
-                                        <tbody>
-                                            <?php $i =1 ; ?>
-                                          @foreach ($kota as $kote)
-                                              <tr>
-                                                  <td><?= $i;?></td>
-                                                    <td class="text-center">{{$kote->provinsi->name}}</td>
-                                                    <td class="text-center">{{$kote->name}}</td>
-                                                    <td class="text-center">
-                                                    <a class="btn btn-success btn-sm" href="{{route('kota.edit',$kote->kota_id)}}"  ><i class="fas fa-pencil-alt"></i></a>
-                                                        
-                                                        <form action="{{ route('kota.destroy', $kote->kota_id) }}" method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('delete')
-
-                                                            <button type="submit" class="btn btn-danger btn-sm"  onclick="return confirm('Yakin Data Mau Dihapus??');"> <i class="fa  fa-trash"></i></button>
-                                                        </form>
-                                                    </td>
-                                              </tr>
-                                              <?php $i++?>
-                                          @endforeach
-                                        </tbody>
+                                        
                                     </table>
                                 </div>
                             </div>
@@ -99,3 +79,50 @@
                 
     
 @endsection
+
+@push('addon-script')
+<script>
+    $(function(){
+         $.ajaxSetup({
+           headers:{
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+           }
+       })
+
+       $('#kota-table').DataTable({
+           processing: true,
+           serverside: true,
+           ajax: '{!! route('kota.index') !!}',
+           columns: [
+                { data: 'DT_RowIndex', name:'DT_RowIndex'},
+                { data: 'provinsi.name', name: 'provinsi' },
+              
+                { data: 'name', name: 'kota' },
+                
+                { data: 'action', name: 'action' },
+
+           ],
+            columnDefs: [
+            {
+                "targets": 0, // your case first column
+                "className": "text-center",
+                "width": "10%"
+            },
+             {
+                "targets": 1,
+                "className": "text-center",
+            },
+            {
+                "targets": 2,
+                "className": "text-center",
+            },
+             {
+                "targets": 3,
+                "className": "text-center",
+            },
+           ]
+       })
+    })
+</script>
+    
+@endpush
