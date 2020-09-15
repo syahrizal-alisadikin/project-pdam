@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Rw;
 
 use App\Http\Controllers\Controller;
-use App\LaporanKejadian;
-use App\ParamKejadian;
-use App\Warga;
 use Illuminate\Http\Request;
 
-class LaporanKejadianController extends Controller
+class KejadianWargaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +14,7 @@ class LaporanKejadianController extends Controller
      */
     public function index()
     {
-        $kejadian = LaporanKejadian::with('warga', 'ParamKejadian')->get();
-        dd($kejadian);
-        return view('pages.admin.laporkejadian.index', compact('kejadian'));
+        return view('pages.rw.kejadianwarga.index');
     }
 
     /**
@@ -29,9 +24,7 @@ class LaporanKejadianController extends Controller
      */
     public function create()
     {
-        $warga = Warga::all();
-        $kejadian = ParamKejadian::all();
-        return view('pages.admin.laporkejadian.create', compact('warga', 'kejadian'));
+        //
     }
 
     /**
@@ -42,16 +35,7 @@ class LaporanKejadianController extends Controller
      */
     public function store(Request $request)
     {
-        LaporanKejadian::create([
-            'fk_user_id'    => $request->warga,
-            'fk_rw_id'      => $request->rw,
-            'fk_param_id'   => $request->param,
-            'tanggal_kejadian'   => $request->tanggal_kejadian,
-            'keterangan'   => $request->keterangan,
-            'status'   => "Pending",
-        ]);
-
-        return redirect()->route('laporankejadian.index')->with('success', 'Laporan Berhasil Dibuat!!');
+        //
     }
 
     /**
@@ -62,8 +46,7 @@ class LaporanKejadianController extends Controller
      */
     public function show($id)
     {
-        $warga = Warga::with('rw')->findOrFail($id);
-        return response()->json($warga);
+        //
     }
 
     /**

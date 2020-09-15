@@ -53,7 +53,8 @@ Route::prefix('rw')
 	->group(function () {
 		Route::get('/', 'RwController@index')->name('dashboard-rw');
 		Route::resources([
-			'warga' => 'WargaController'
+			'warga' => 'WargaController',
+			'kejadianwarga' => 'KejadianWargaController'
 		]);
 
 		// Get File

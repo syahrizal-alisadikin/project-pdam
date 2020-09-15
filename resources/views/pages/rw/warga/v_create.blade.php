@@ -9,7 +9,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="text-center">Tambah Rw</h5>
+                    <h5 class="text-center">Tambah Warga</h5>
                 </div>
                 <div class="card-body">
                     <form action="{{route('warga.store')}}" method="POST" enctype="multipart/form-data">
@@ -36,15 +36,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Nama</label>
-                                    <input class="form-control" type="text" name="nama" placeholder="Example: Supardi">
+                                <input class="form-control" type="text" name="nama" value="{{old('nama')}}" placeholder="Example: Supardi">
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input class="form-control" type="email" name="email" placeholder="Example: supardi21@gmail.com">
+                                    <input class="form-control" type="email" name="email" value="{{old('email')}}" placeholder="Example: supardi21@gmail.com">
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input class="form-control" type="password" name="password">
+                                    <input class="form-control" type="password" name="password" placeholder="Masukasan Password">
                                 </div>
                                 <div class="form-group">
                                     <label>No Hp</label>
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Tempat Lahir</label>
-                                    <input class="form-control" type="text" name="tempat_lahir" placeholder="Example: Semarang">
+                                    <input class="form-control" type="text" name="tempat_lahir" value="{{old('tempat_lahir')}}" placeholder="Example: Semarang">
                                 </div>
                                 <div class="form-group">
                                     <label>Tanggal Lahir</label>
@@ -77,11 +77,11 @@
                                 </div>
                                  <div class="form-group">
                                     <label>Longtitude</label>
-                                    <input class="form-control" type="text" name="longtitude" placeholder="Example: -6.238270">
+                                 <input class="form-control" type="text" name="longtitude" value="{{old('longtitude')}}" placeholder="Example: -6.238270">
                                 </div>   
                                 <div class="form-group">
                                     <label>Latitude</label>
-                                    <input class="form-control" type="text" name="latitude" placeholder="Example: 106.975571">
+                                    <input class="form-control" type="text" name="latitude" value="{{old('latitude')}}"  placeholder="Example: 106.975571">
                                 </div>
                                 <div class="form-group">
                                     <label>Foto KTP</label>
@@ -97,7 +97,7 @@
                                 </div> 
                                 <div class="form-group">
                                     <label>Alamat</label>
-                                    <textarea class="form-control" name="alamat"></textarea>
+                                    <textarea class="form-control" name="alamat"> {{old('alamat')}}</textarea>
                                 </div> 
                                 <div class="float-right">
                                     <button type="submit" class="btn btn-sm btn-success"> Submit </button>

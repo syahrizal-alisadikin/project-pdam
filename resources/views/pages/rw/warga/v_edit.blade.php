@@ -50,7 +50,8 @@
 								</div>
 								<div class="form-group">
 									<label>Password</label>
-									<input class="form-control" type="password" name="password" value="{{ $warga_edit->password }}">
+									<input class="form-control" type="password" name="password" >
+									<p class="text-muted">Kosongkan jika tidak diganti</p>
 								</div>
 								<div class="form-group">
 									<label>No Hp</label>

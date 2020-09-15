@@ -26,7 +26,7 @@ Route::group(['namespace' => 'Api'], function () {
 
 	Route::GET('/logout', 'LoginController@logout');
 });
-
+Route::GET('/mapsWarga', 'Rw\WargaController@show');
 Route::group(['middleware' => ['jwt.auth'], 'namespace' => 'Api'], function () {
 
 	// Warga Controller

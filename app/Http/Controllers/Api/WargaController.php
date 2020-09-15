@@ -89,6 +89,8 @@ class WargaController extends Controller
                 'fk_rw_id' => $request->fk_rw_id,
                 'nama' => $request->nama,
                 'email' => $request->email,
+                'latitude' => $request->latitude,
+                'longtitude' => $request->longtitude,
                 'password' => Hash::make($request->password),
                 'phone' => $request->phone
             ]);
@@ -351,7 +353,6 @@ class WargaController extends Controller
                 'status' => 401,
                 'msg' => 'Wrong ID User'
             ], 401);
-
         } catch (Exception $e) {
 
             return response()->json([

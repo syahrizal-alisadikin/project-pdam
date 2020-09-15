@@ -8,10 +8,12 @@ use Illuminate\Http\Request;
 use App\Warga;
 use App\Rw;
 use Str;
+use Illuminate\Support\Facades\Auth;
 
 class WargaController extends Controller
 {
-    private function rules(){
+    private function rules()
+    {
         return [
             'fk_rw_id' => 'required',
             'email' => 'required|email',
@@ -22,9 +24,9 @@ class WargaController extends Controller
             'latitude' => 'required|string',
             'status' => 'required|string',
             'jenis_kelamin' => 'required|string',
-            'foto_ktp' => 'mimes:jpeg,jpg,png|required|max:10000',
-            'foto_kk' => 'mimes:jpeg,jpg,png|required|max:10000',
-            'foto_profile' => 'mimes:jpeg,jpg,png|required|max:10000',
+            // 'foto_ktp' => 'mimes:jpeg,jpg,png|required|max:10000',
+            // 'foto_kk' => 'mimes:jpeg,jpg,png|required|max:10000',
+            // 'foto_profile' => 'mimes:jpeg,jpg,png|required|max:10000',
         ];
     }
     /**
@@ -70,7 +72,7 @@ class WargaController extends Controller
             $request->file('foto_kk')->move(storage_path('image/warga'), $foto_kk);
             $foto_profile = Str::random(9);
             $request->file('foto_profile')->move(storage_path('image/warga'), $foto_profile);
-            
+
             $data = Warga::create([
                 'fk_rw_id' => $request->fk_rw_id,
                 'nama' => $request->nama,
@@ -90,8 +92,7 @@ class WargaController extends Controller
                 'foto_profile' => $foto_profile,
             ]);
 
-            return redirect('rw/warga')->with('sukses', 'Success');
-
+            return redirect('rw/warga')->with('success', 'Success');
         } catch (Exception $e) {
 
             return redirect('rw/warga')->with('gagal', 'Gagal');
@@ -104,9 +105,11 @@ class WargaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $warga = Warga::all();
+        // dd($warga);
+        return response()->json($warga);
     }
 
     /**
@@ -131,28 +134,28 @@ class WargaController extends Controller
      */
     public function update(Request $request, $id)
     {
-       try {
+        try {
 
             $this->validate($request, $this->rules());
 
             $file = Warga::where('warga_id', $id)->first();
 
             // Unlink File Gambar
-            if (storage_path('image/warga/' .$file->foto_ktp) && storage_path('image/warga/' .$file->foto_kk) && storage_path('image/warga/' .$file->foto_profile)) {
+            if (storage_path('image/warga/' . $file->foto_ktp) && storage_path('image/warga/' . $file->foto_kk) && storage_path('image/warga/' . $file->foto_profile)) {
 
                 unlink(storage_path('image/warga/' . $file->foto_ktp));
                 unlink(storage_path('image/warga/' . $file->foto_kk));
                 unlink(storage_path('image/warga/' . $file->foto_profile));
             }
 
-           $foto_ktp = Str::random(9);
-           $request->file('foto_ktp')->move(storage_path('image/warga'), $foto_ktp);
-           $foto_kk = Str::random(9);
-           $request->file('foto_kk')->move(storage_path('image/warga'), $foto_kk);
-           $foto_profile = Str::random(9);
-           $request->file('foto_profile')->move(storage_path('image/warga'), $foto_profile);
+            $foto_ktp = Str::random(9);
+            $request->file('foto_ktp')->move(storage_path('image/warga'), $foto_ktp);
+            $foto_kk = Str::random(9);
+            $request->file('foto_kk')->move(storage_path('image/warga'), $foto_kk);
+            $foto_profile = Str::random(9);
+            $request->file('foto_profile')->move(storage_path('image/warga'), $foto_profile);
 
-           if ($request->input('password')) {
+            if ($request->input('password')) {
 
                 $update_warga = array(
                     'fk_rw_id' => $request->fk_rw_id,
@@ -176,8 +179,7 @@ class WargaController extends Controller
                 Warga::find($id)->update($update_warga);
 
                 return redirect('rw/warga')->with('sukses', 'Success');
-
-           }else{
+            } else {
 
                 $update_warga = array(
                     'fk_rw_id' => $request->fk_rw_id,
@@ -200,12 +202,11 @@ class WargaController extends Controller
                 Warga::find($id)->update($update_warga);
 
                 return redirect('rw/warga')->with('sukses', 'Success');
-           }
+            }
+        } catch (Exception $e) {
 
-       } catch (Exception $e) {
-            
-            return redirect('rw/warga')->with('gagal', 'Gagal');   
-       }
+            return redirect('rw/warga')->with('gagal', 'Gagal');
+        }
     }
 
     /**
@@ -220,7 +221,7 @@ class WargaController extends Controller
 
         if ($delete_warga != null) {
             // Delete File Foto
-            if (storage_path('image/warga/' .$delete_warga->foto_ktp) && storage_path('image/warga/' .$delete_warga->foto_kk) && storage_path('image/warga/' .$delete_warga->foto_profile)) {
+            if (storage_path('image/warga/' . $delete_warga->foto_ktp) && storage_path('image/warga/' . $delete_warga->foto_kk) && storage_path('image/warga/' . $delete_warga->foto_profile)) {
 
                 unlink(storage_path('image/warga/' . $delete_warga->foto_ktp));
                 unlink(storage_path('image/warga/' . $delete_warga->foto_kk));

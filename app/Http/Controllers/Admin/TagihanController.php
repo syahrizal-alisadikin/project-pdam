@@ -30,7 +30,7 @@ class TagihanController extends Controller
     {
         $rw = Rw::all();
         $id = Auth::guard('admin')->user()->admin_id;
-        // dd($id);
+        // dd($request->all());
         foreach ($rw as $tag) {
             // dd($tarif);
             $tagihan = Tagihan::create([
