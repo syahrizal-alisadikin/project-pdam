@@ -139,7 +139,7 @@
                 map.addLayer(omstile)
 
                  result.map(val => {
-                        L.marker([val.longtitude, val.latitude]).addTo(map)
+                        L.marker([val.latitude, val.longtitude]).addTo(map)
                         .bindPopup("Nama: "+val.nama+"<br> Alamat: "+ val.alamat)
                         .openPopup();
                     })

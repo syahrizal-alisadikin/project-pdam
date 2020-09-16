@@ -77,11 +77,11 @@
                                 </div>
                                  <div class="form-group">
                                     <label>Longtitude</label>
-                                 <input class="form-control" type="text" name="longtitude" value="{{old('longtitude')}}" placeholder="Example: -6.238270">
+                                 <input class="form-control" type="text" name="longtitude" value="{{old('longtitude')}}" placeholder="Example: 107.619125">
                                 </div>   
                                 <div class="form-group">
                                     <label>Latitude</label>
-                                    <input class="form-control" type="text" name="latitude" value="{{old('latitude')}}"  placeholder="Example: 106.975571">
+                                    <input class="form-control" type="text" name="latitude" value="{{old('latitude')}}"  placeholder="Example: -6.917464">
                                 </div>
                                 <div class="form-group">
                                     <label>Foto KTP</label>
