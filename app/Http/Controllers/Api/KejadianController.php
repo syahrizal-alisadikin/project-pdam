@@ -13,7 +13,7 @@ use Validator;
 
 class KejadianController extends Controller
 {
-	
+
 	public function __construct(Request $request)
 	{
 		$this->request = $request;
@@ -24,7 +24,7 @@ class KejadianController extends Controller
 	private function rules()
 	{
 		return [
-			'fk_rw_id' => 'required' ,
+			'fk_rw_id' => 'required',
 			'fk_param_id' => 'required',
 			'tanggal_kejadian' => 'required',
 			'keterangan' => 'required',
@@ -38,7 +38,7 @@ class KejadianController extends Controller
 		$warga_id = $this->getToken->getID($request);
 
 		try {
-			
+
 			$validator = Validator::make($request->all(), $this->rules());
 
 			if ($validator->fails()) {
@@ -51,7 +51,7 @@ class KejadianController extends Controller
 				'fk_param_id' => $request->fk_param_id,
 				'tanggal_kejadian' => $request->tanggal_kejadian,
 				'keterangan' => $request->keterangan,
-				// 'create_post' => $request->create_post,
+				'status' => "Pending",
 				'deleted_at' => date('Y-m-d H:i:s')
 			]);
 
@@ -67,9 +67,8 @@ class KejadianController extends Controller
 				'status' => 401,
 				'msg' => 'Failed Insert Kejadian'
 			], 401);
-
 		} catch (Exception $e) {
-			
+
 			return response()->json([
 				'msg' => 'Invalid Request'
 			], 500);
@@ -87,13 +86,12 @@ class KejadianController extends Controller
 				'status' => 200,
 				'msg' => 'Success',
 				'data' => $data
- 			], 200);
+			], 200);
 		}
 
 		return response()->json([
 			'status' => 401,
 			'msg' => 'Opss ! Data is Null'
 		], 401);
-
 	}
 }
