@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use \Firebase\JWT\JWT;
+use Validator;
 
 class LoginController extends Controller
 {
 
     // Jwt
-    public function jwt($user)
-    {
+    public function jwt($user){
 
         $payload = [
             'iss' => 'lumen-jwt', // Issuer of the token, Organization / Product
@@ -42,15 +42,19 @@ class LoginController extends Controller
     public function index(Request $request)
     {
         try {
-
-            $request->validate([
+                
+            $validator = Validator::make($request->all(), [
                 'email' => 'required',
-                'password' => 'required',
+                'password' => 'required'
             ]);
+
+            if ($validator->fails()) {
+                return response()->json($validator->errors());
+            }
 
             $where = [
                 'email' => $request->email,
-            ];
+            ];  
 
             $data = Warga::select(['warga_id', 'fk_rw_id', 'nama', 'email', 'phone', 'password'])->where($where)->first();
 
@@ -64,8 +68,9 @@ class LoginController extends Controller
             return response()->json([
                 'status' => 200,
                 'data' => $data,
-                'token' => $this->jwt($data)
+                'token' => $this->jwt($data) 
             ], 200);
+
         } catch (Exception $e) {
 
             return response([
