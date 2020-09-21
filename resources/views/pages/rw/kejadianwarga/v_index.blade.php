@@ -53,7 +53,7 @@
             </div>
             <div class="button ml-auto">
 
-               <a href="{{ route('warga.create') }}" class="btn btn-success" name="tambah" id="tambah" >Tambah Warga</a>
+               {{-- <a href="{{ route('warga.create') }}" class="btn btn-success" name="tambah" id="tambah" >Tambah Warga</a> --}}
            </div>
        </div>
        <div class="card-body">

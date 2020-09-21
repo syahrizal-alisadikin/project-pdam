@@ -11,4 +11,6 @@ class RwController extends Controller
     {
     	return view('pages.rw.index');
     }
+
+   
 }

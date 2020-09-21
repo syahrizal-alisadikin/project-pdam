@@ -121,7 +121,7 @@
     <script>
        $(document).ready(function(){
             $.ajax({
-            url: "/api/mapsWarga",
+            url: "/rw/mapsWarga",
             success: function (result) {
             const DEFAULT_COORD = [-6.2293867, 106.845599];
             // initial Map
@@ -131,11 +131,11 @@
              // attribute
                 const atribute = "Leaflet with <a href='https://acacemy.byidmore.com'>id More Academy</a>";
                 const omstile = new L.TileLayer(url, {
-                    minZoom: 2,
-                    maxZoom: 10,
+                    minZoom: 8,
+                    maxZoom: 20,
                     attribution: atribute
                 })
-                map.setView(new L.LatLng(DEFAULT_COORD[0], DEFAULT_COORD[1]), 7)
+                map.setView(new L.LatLng(DEFAULT_COORD[0], DEFAULT_COORD[1]), 5)
                 map.addLayer(omstile)
 
                  result.map(val => {

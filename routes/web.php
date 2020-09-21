@@ -54,8 +54,10 @@ Route::prefix('rw')
 		Route::get('/', 'RwController@index')->name('dashboard-rw');
 		Route::resources([
 			'warga' => 'WargaController',
-			'kejadianwarga' => 'KejadianWargaController'
+			'kejadianwarga' => 'KejadianWargaController',
+			'tagihan-warga' => 'TagihanControllerWarga',
 		]);
+		Route::GET('/mapsWarga', 'WargaController@show');
 
 		// Get File
 		Route::get('/file/{file}', 'WargaController@fileWarga');

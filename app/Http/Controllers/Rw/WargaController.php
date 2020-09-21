@@ -107,7 +107,7 @@ class WargaController extends Controller
      */
     public function show()
     {
-        $warga = Warga::all();
+        $warga = Warga::where('fk_rw_id', Auth::guard('rw')->user()->rw_id)->get();
         // dd($warga);
         return response()->json($warga);
     }

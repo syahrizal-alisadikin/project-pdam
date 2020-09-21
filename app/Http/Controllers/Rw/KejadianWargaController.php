@@ -14,7 +14,7 @@ class KejadianWargaController extends Controller
      */
     public function index()
     {
-        return view('pages.rw.kejadianwarga.index');
+        return view('pages.rw.kejadianwarga.v_index');
     }
 
     /**

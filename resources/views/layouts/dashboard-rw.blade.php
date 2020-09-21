@@ -63,7 +63,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Manage Kejadian
                             </a>
-                            <a class="nav-link"  href="#">
+                            <a class="nav-link"  href="{{route('tagihan-warga.index')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Manage Tagihan
                             </a>
