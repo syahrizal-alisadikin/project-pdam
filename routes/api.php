@@ -15,10 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 // Auth Controller
 Route::group(['namespace' => 'Api'], function () {
 	Route::POST('/login', 'LoginController@index'); // Login
@@ -38,6 +34,7 @@ Route::group(['middleware' => ['jwt.auth'], 'namespace' => 'Api'], function () {
 	// Kejadian Controller
 	Route::POST('kejadian', 'KejadianController@insertKejadian');
 	Route::GET('kejadian/param_kejadian/{param_id}', 'KejadianController@GetParamKejadian');
+	Route::GET('kejadian/param_kejadian', 'KejadianController@GetAllParamKejadian'); // Get All Param Kejadian
 
 	// File Get Name
 	Route::get('image/{file}', 'WargaController@fileMateri');

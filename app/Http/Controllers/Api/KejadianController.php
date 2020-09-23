@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\LoginController;
 use App\LaporanKejadian;
+use App\ParamKejadian;
 use Str;
 use Validator;
 
@@ -86,6 +87,26 @@ class KejadianController extends Controller
 				'status' => 200,
 				'msg' => 'Success',
 				'data' => $data
+			], 200);
+		}
+
+		return response()->json([
+			'status' => 401,
+			'msg' => 'Opss ! Data is Null'
+		], 401);
+	}
+
+	// Get All Param Kejadian
+	public function GetAllParamKejadian()
+	{
+		$getAll = ParamKejadian::all();
+
+		if ($getAll != null) {
+
+			return response()->json([
+				'status' => 200,
+				'msg' => 'Success',
+				'data' => $getAll
 			], 200);
 		}
 
