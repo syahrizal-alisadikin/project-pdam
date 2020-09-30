@@ -7,6 +7,7 @@ use App\LaporanKejadian;
 use App\ParamKejadian;
 use App\Warga;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LaporanKejadianController extends Controller
 {
@@ -18,7 +19,7 @@ class LaporanKejadianController extends Controller
     public function index()
     {
         $kejadian = LaporanKejadian::with('warga', 'ParamKejadian')->get();
-        dd($kejadian);
+        // dd($kejadian);
         return view('pages.admin.laporkejadian.index', compact('kejadian'));
     }
 
@@ -74,7 +75,10 @@ class LaporanKejadianController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lapor = LaporanKejadian::with('warga', 'ParamKejadian')->findOrFail($id);
+        $warga = Warga::all();
+        $kejadian = ParamKejadian::all();
+        return view('pages.admin.laporkejadian.update', compact('lapor', 'warga', 'kejadian'));
     }
 
     /**
@@ -86,7 +90,22 @@ class LaporanKejadianController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $admin = Auth::guard('admin')->user()->admin_id;
+        // $data = $request->all();
+        $lapor = LaporanKejadian::with('warga', 'ParamKejadian')->findOrFail($id);
+
+        // dd($lapor);
+        $lapor->update([
+            'fk_user_id'    => $request->warga,
+            'fk_rw_id'      => $request->fk_rw_id,
+            'fk_param_id'   => $request->param,
+            'tanggal_kejadian'   => $request->tanggal_kejadian,
+            'keterangan'   => $request->keterangan,
+            'status'   => $request->status,
+            'edit_post' => $admin
+        ]);
+
+        return redirect()->route('laporankejadian.index')->with('success', 'Laporan Berhasil Di update!!');
     }
 
     /**

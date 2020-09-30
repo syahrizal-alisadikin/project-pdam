@@ -6,44 +6,7 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Manage Kejadian</li>
                         </ol>
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Warning Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Success Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Danger Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                     
                        
                         <div class="card mb-4">
                              <div class="card-header d-flex">
@@ -62,7 +25,10 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
+                                                <th>Warga</th>
                                                 <th class="text-center">Nama  Kejadian</th>
+                                                <th class="text-center">Keterangan</th>
+                                                <th class="text-center">Status</th>
                                                 <th class="text-center">Aksi</th>
                                             </tr>
                                         </thead>
@@ -72,10 +38,21 @@
                                            @foreach ($kejadian as $item)
                                                <tr>
                                                     <td><?= $i ?></td>
-                                                    {{-- <td class="text-center">{{$item->nama}}</td> --}}
+                                                    <td class="text-center">{{$item->warga->nama}}</td>
+                                                    <td class="text-center">{{$item->ParamKejadian->nama}}</td>
+                                                    <td class="text-center">{{$item->keterangan}}</td>
                                                     <td class="text-center">
-                                                        <a href="{{route('paramkejadian.edit',$item->kejadian_id)}}" class="btn btn-sm btn-success">Update</a>
-                                                        <form action="{{ route('paramkejadian.destroy', $item->kejadian_id) }}" method="POST" class="d-inline">
+                                                        @if ($item->status == "Pending")
+                                                           <span class="badge badge-warning">Pending</span>
+                                                           @else
+                                                           <span class="badge badge-success">Success</span>
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if ($item->status == "Pending")
+                                                            <a href="{{route('laporankejadian.edit',$item->kejadian_id)}}" class="btn btn-sm btn-success">Update</a>
+                                                        @endif
+                                                        <form action="{{ route('laporankejadian.destroy', $item->kejadian_id) }}" method="POST" class="d-inline">
                                                             @csrf
                                                             @method('delete')
 
