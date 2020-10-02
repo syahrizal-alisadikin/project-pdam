@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'Api'], function () {
 	Route::POST('/login', 'LoginController@index'); // Login
 	Route::POST('/warga-register', 'WargaController@register'); // Register
-
+	Route::GET('/Rw-all', 'WargaController@GetRw');
 	Route::GET('/logout', 'LoginController@logout');
 });
 Route::group(['middleware' => ['jwt.auth'], 'namespace' => 'Api'], function () {

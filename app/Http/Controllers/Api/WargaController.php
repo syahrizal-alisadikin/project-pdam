@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\LoginController;
 use App\Warga;
+use App\Rw;
 use Str;
 use Validator;
 
@@ -375,5 +376,24 @@ class WargaController extends Controller
             'status' => 500,
             'msg' => 'File Not Found !'
         ], 500);
+    }
+
+    public function GetRw()
+    {
+        $getAll = Rw::all();
+
+        if ($getAll != null) {
+
+            return response()->json([
+                'status' => 200,
+                'msg' => 'Success',
+                'data' => $getAll
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 401,
+            'msg' => 'Opss ! Data is Null'
+        ], 401);
     }
 }
