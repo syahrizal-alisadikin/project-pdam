@@ -49,7 +49,7 @@ class KejadianController extends Controller
 			if ($request->file('foto_kejadian')) {
 
 				$foto_kejadian = Str::random(9);
-				$request->file('foto_kejadian')->move(storage_path('image/warga'), $foto_kejadian);
+				$request->file('foto_kejadian')->move(storage_path('image/kejadian'), $foto_kejadian);
 
 				$kejadian = LaporanKejadian::create([
 					'fk_user_id' => $warga_id,
@@ -71,7 +71,7 @@ class KejadianController extends Controller
 				], 200);
 
 			}else{
-				
+
 				$kejadian = LaporanKejadian::create([
 					'fk_user_id' => $warga_id,
 					'fk_rw_id' => $request->fk_rw_id,
