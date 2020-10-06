@@ -10,7 +10,7 @@ class LaporanKejadian extends Model
     // use SoftDeletes;
     protected $primaryKey = "kejadian_id";
     protected $table = "tbl_kejadian";
-    protected $fillable = ['fk_user_id', 'status', 'fk_rw_id', 'fk_param_id', 'tanggal_kejadian', 'keterangan', 'edit_post', 'create_post', 'deleted_at'];
+    protected $fillable = ['fk_user_id', 'status', 'fk_rw_id', 'fk_param_id', 'tanggal_kejadian', 'keterangan', 'edit_post', 'latitude', 'longtitude' ,'create_post', 'deleted_at'];
 
 
     public function ParamKejadian()

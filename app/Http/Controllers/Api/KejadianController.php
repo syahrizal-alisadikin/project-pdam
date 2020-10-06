@@ -46,28 +46,51 @@ class KejadianController extends Controller
 				return response()->json($validator->errors());
 			}
 
-			$kejadian = LaporanKejadian::create([
-				'fk_user_id' => $warga_id,
-				'fk_rw_id' => $request->fk_rw_id,
-				'fk_param_id' => $request->fk_param_id,
-				'tanggal_kejadian' => $request->tanggal_kejadian,
-				'keterangan' => $request->keterangan,
-				'status' => "Pending",
-				'deleted_at' => date('Y-m-d H:i:s')
-			]);
+			if ($request->file('foto_kejadian')) {
 
-			if ($kejadian != null) {
+				$foto_kejadian = Str::random(9);
+				$request->file('foto_kejadian')->move(storage_path('image/warga'), $foto_kejadian);
+
+				$kejadian = LaporanKejadian::create([
+					'fk_user_id' => $warga_id,
+					'fk_rw_id' => $request->fk_rw_id,
+					'fk_param_id' => $request->fk_param_id,
+					'tanggal_kejadian' => $request->tanggal_kejadian,
+					'keterangan' => $request->keterangan,
+					'longtitude' => $request->longtitude,
+					'latitude' => $request->latitude,
+					'foto_kejadian' => $foto_kejadian, 
+					'status' => "Pending",
+					'deleted_at' => date('Y-m-d H:i:s')
+				]);
+
+				return response()->json([
+					'status' => 200,
+					'msg' => 'Success Create Kejadian',
+					'data' => $kejadian
+				], 200);
+
+			}else{
+				
+				$kejadian = LaporanKejadian::create([
+					'fk_user_id' => $warga_id,
+					'fk_rw_id' => $request->fk_rw_id,
+					'fk_param_id' => $request->fk_param_id,
+					'tanggal_kejadian' => $request->tanggal_kejadian,
+					'keterangan' => $request->keterangan,
+					'latitude' => $request->latitude,
+					'longtitude' => $request->longtitude,
+					'status' => "Pending",
+					'deleted_at' => date('Y-m-d H:i:s')
+				]);
+
 				return response()->json([
 					'status' => 200,
 					'msg' => 'Success Create Kejadian',
 					'data' => $kejadian
 				], 200);
 			}
-
-			return response()->json([
-				'status' => 401,
-				'msg' => 'Failed Insert Kejadian'
-			], 401);
+			
 		} catch (Exception $e) {
 
 			return response()->json([
