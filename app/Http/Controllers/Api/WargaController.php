@@ -375,7 +375,9 @@ class WargaController extends Controller
         }
     }
 
-    // Buat Ngelihat File Image Nya / Get File Image Nya 
+    /*
+    * Buat Ngelihat File Image Nya / Get File Image Nya 
+    */
     public function fileMateri($file)
     {
         $avatar_path = storage_path('image/warga') . '/' . $file;
@@ -410,3 +412,5 @@ class WargaController extends Controller
         ], 401);
     }
 }
+
+// VKoG2FCCn0HY

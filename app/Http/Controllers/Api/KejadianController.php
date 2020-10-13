@@ -138,4 +138,22 @@ class KejadianController extends Controller
 			'msg' => 'Opss ! Data is Null'
 		], 401);
 	}
+
+	/*
+    * Buat Ngelihat File Image Nya / Get File Image Nya 
+    */
+    public function FileKejadian($file)
+    {
+        $avatar_path = storage_path('image/kejadian') . '/' . $file;
+
+        if (file_exists($avatar_path)) {
+            $file = file_get_contents($avatar_path);
+            return response($file, 200)->header('Content-Type', 'image/jpeg');
+        }
+
+        return response()->json([
+            'status' => 500,
+            'msg' => 'File Not Found !'
+        ], 500);
+    }
 }
