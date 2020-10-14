@@ -134,6 +134,7 @@ class WargaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         try {
 
             $this->validate($request, $this->rules());
@@ -141,19 +142,33 @@ class WargaController extends Controller
             $file = Warga::where('warga_id', $id)->first();
 
             // Unlink File Gambar
-            if (storage_path('image/warga/' . $file->foto_ktp) && storage_path('image/warga/' . $file->foto_kk) && storage_path('image/warga/' . $file->foto_profile)) {
+            // if (storage_path('image/warga/' . $file->foto_ktp) && storage_path('image/warga/' . $file->foto_kk) && storage_path('image/warga/' . $file->foto_profile)) {
 
-                unlink(storage_path('image/warga/' . $file->foto_ktp));
-                unlink(storage_path('image/warga/' . $file->foto_kk));
-                unlink(storage_path('image/warga/' . $file->foto_profile));
+            //     unlink(storage_path('image/warga/' . $file->foto_ktp));
+            //     unlink(storage_path('image/warga/' . $file->foto_kk));
+            //     unlink(storage_path('image/warga/' . $file->foto_profile));
+            // }
+            $foto_ktp = $file->foto_ktp;
+            $foto_kk = $file->foto_kk;
+            $foto_profile = $file->foto_profile;
+            if ($request->foto_ktp) {
+                $foto_ktp = $request->foto_ktp;
+                $foto_ktp = Str::random(9);
+                // dd($foto_ktp);
+                $request->file('foto_ktp')->move(storage_path('image/warga'), $foto_ktp);
             }
 
-            $foto_ktp = Str::random(9);
-            $request->file('foto_ktp')->move(storage_path('image/warga'), $foto_ktp);
-            $foto_kk = Str::random(9);
-            $request->file('foto_kk')->move(storage_path('image/warga'), $foto_kk);
-            $foto_profile = Str::random(9);
-            $request->file('foto_profile')->move(storage_path('image/warga'), $foto_profile);
+            if ($request->foto_kk) {
+                $foto_kk = $request->foto_kk;
+                $foto_kk = Str::random(9);
+                $request->file('foto_kk')->move(storage_path('image/warga'), $foto_kk);
+            }
+            if ($request->foto_profile) {
+                $foto_profile = $request->foto_profile;
+                $foto_profile = Str::random(9);
+                $request->file('foto_profile')->move(storage_path('image/warga'), $foto_profile);
+            }
+
 
             if ($request->input('password')) {
 
@@ -174,6 +189,9 @@ class WargaController extends Controller
                     'foto_ktp' => $foto_ktp,
                     'foto_kk' => $foto_kk,
                     'foto_profile' => $foto_profile,
+                    'id_rt' => $request->id_rt,
+                    'gol_darah' => $request->gol_darah,
+                    'profesi' => $request->profesi,
                 );
 
                 Warga::find($id)->update($update_warga);
@@ -197,6 +215,9 @@ class WargaController extends Controller
                     'foto_ktp' => $foto_ktp,
                     'foto_kk' => $foto_kk,
                     'foto_profile' => $foto_profile,
+                    'id_rt' => $request->id_rt,
+                    'gol_darah' => $request->gol_darah,
+                    'profesi' => $request->profesi,
                 );
 
                 Warga::find($id)->update($update_warga);

@@ -40,10 +40,10 @@ class RwController extends Controller
             'password'  => 'required|min:6',
         ]);
 
-        // $rw_id = mt_rand(0, 999);
+        $rw_id = mt_rand(00000, 99999);
         // dd($rw_id);
         Rw::create([
-            // 'rw_id' => $rw_id,
+            'rw_id' => $rw_id,
             'name' => $request->name,
             'no_rw' => $request->noRw,
             'email' => $request->email,
@@ -71,7 +71,7 @@ class RwController extends Controller
             $q          = 1;
         }
 
-        return str_pad($q, 3, "0", STR_PAD_LEFT);
+        return str_pad($q, 5, "0", STR_PAD_LEFT);
     }
 
     public function getCities($province_id)
