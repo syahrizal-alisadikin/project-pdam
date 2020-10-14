@@ -60,7 +60,7 @@ Route::prefix('rw')
 		Route::GET('/mapsWarga', 'WargaController@show');
 
 		// Get File
-		Route::get('/file/{file}', 'WargaController@fileWarga');
+		Route::get('file/{file}', 'WargaController@fileWarga');
 	});
 
 Auth::routes();

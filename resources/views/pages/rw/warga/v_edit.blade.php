@@ -135,18 +135,18 @@
 									<input class="form-control" type="text" name="latitude" placeholder="Example: 106.975571" value="{{ $warga_edit->latitude }}">
 								</div>
 								<div class="form-group">
-									<label>Foto KTP</label>
-									
-									<img src="{{url('../storage/image/warga/logo.jpeg') }}" alt="gambar">
-									
+									<label>Foto KTP</label><br>
+									<img src="{{ url('rw/file/' . $warga_edit->foto_ktp) }}" alt="gambar" style="width: 50%; height: 50%"><br>
 									<input class="form-control" type="file" name="foto_ktp">
 								</div>
 								<div class="form-group">
-									<label>Foto KK</label>
+									<label>Foto KK</label><br>
+									<img src="{{ url('rw/file/' . $warga_edit->foto_kk) }}" alt="gambar" style="width: 50%; height: 50%"><br>
 									<input class="form-control" type="file" name="foto_kk">
 								</div>
 								<div class="form-group">
-									<label>Foto Profile</label>
+									<label>Foto Profile</label><br>
+									<img src="{{ url('rw/file/' . $warga_edit->foto_profile) }}" alt="gambar" style="width: 50%; height: 50%"><br>
 									<input class="form-control" type="file" name="foto_profile">
 								</div> 
 								<div class="form-group">
@@ -154,7 +154,7 @@
 									<textarea class="form-control" name="alamat">{{ $warga_edit->alamat }}</textarea>
 								</div> 
 								<div class="float-right">
-									<button type="submit" class="btn btn-sm btn-success"> Update </button>
+									<button type="submit" class="btn btn-sm btn-success">Update</button>
 								</div> 
 							</div>
 						</div>

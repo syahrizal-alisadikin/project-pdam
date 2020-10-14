@@ -35,8 +35,8 @@ Route::group(['middleware' => ['jwt.auth'], 'namespace' => 'Api'], function () {
 	Route::POST('kejadian', 'KejadianController@insertKejadian');
 	Route::GET('kejadian/param_kejadian/{param_id}', 'KejadianController@GetParamKejadian');
 	Route::GET('kejadian/param_kejadian', 'KejadianController@GetAllParamKejadian'); // Get All Param Kejadian
-	Route::GET('image/kejadian/{file}', 'KejadianController@FileKejadian');
+	Route::GET('image/kejadian/{file}', 'KejadianController@FileKejadian'); // Get File Kejadian
 
 	// File Get Name
-	Route::GET('image/{file}', 'WargaController@fileMateri');
+	Route::GET('image/{file}', 'WargaController@fileMateri'); // Get File Warga
 });
