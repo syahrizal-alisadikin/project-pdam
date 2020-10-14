@@ -4,12 +4,12 @@
 	<div class="container-fluid">
 		<h1 class="mt-4">Dashboard</h1>
 		<ol class="breadcrumb mb-4">
-			<li class="breadcrumb-item active">Management RW</li>
+			<li class="breadcrumb-item active">Management Warga</li>
 		</ol>
 		<div class="col-md-12">
 			<div class="card">
 				<div class="card-header">
-					<h5 class="text-center">Tambah Rw</h5>
+					<h5 class="text-center">Update data warga</h5>
 				</div>
 				<div class="card-body">
 					<form action="{{route('warga.update',$warga_edit->warga_id)}}" method="POST" enctype="multipart/form-data">
@@ -64,22 +64,66 @@
 								<div class="form-group">
 									<label>Tanggal Lahir</label>
 									<input class="form-control" type="date" name="tanggal_lahir" value="{{ $warga_edit->tanggal_lahir }}">
-								</div>   
+								</div> 
+								<div class="form-group">
+									<label>Id Rt</label>
+									<select name="id_rt" id="id_rt" class="form-control">
+										<option value="{{ $warga_edit->id_rt }}">{{ $warga_edit->id_rt }}</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+									</select>
+								</div> 
+								<div class="form-group">
+									<label>Gol Darah</label>
+									<select name="gol_darah" id="gol_darah" class="form-control">
+										<option value="{{ $warga_edit->gol_darah }}">{{ $warga_edit->gol_darah }}</option>
+										<option value="A">A</option>
+										<option value="B">B</option>
+										<option value="AB">AB</option>
+										<option value="O">O</option>
+										
+									</select>
+								</div>      
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label>Status</label>
 									<select class="form-control" name="status">
-										<option value="rw">Rw</option>
+										@if ($warga_edit->status == "rw")
+										<option value="{{$warga_edit->status}}">Rw</option>
 										<option value="warga">Warga</option>
 										<option value="secuirty">Secuirty</option>
+										@elseif($warga_edit->status == "warga")
+										<option value="{{$warga_edit->status}}">Warga</option>
+										<option value="secuirty">Secuirty</option>
+										<option value="rw">Rw</option>
+										@else
+										<option value="{{$warga_edit->status}}">Security</option>
+										<option value="rw">Rw</option>
+										<option value="warga">Warga</option>
+										@endif
+										
 									</select>
 								</div>
 								<div class="form-group">
+									<label>Profesi</label>
+									<input type="text" name="profesi" id="profesi" value="{{$warga_edit->profesi}}" class="form-control" placeholder="Masukan Profesi" required>
+								</div>   
+								<div class="form-group">
 									<label>Jenis Kelamin</label>
 									<select class="form-control" name="jenis_kelamin">
-										<option value="laki-laki">Laki Laki</option>
-										<option value="perempuan">Perempuan</option>
+										@if ($warga_edit->jenis_kelamin == "laki-laki")
+											<option value="{{$warga_edit->jenis_kelamin}}">Laki-Laki</option>
+											<option value="perempuan">Perempuan</option>
+										@else
+											<option value="{{$warga_edit->jenis_kelamin}}">Perempuan</option>
+											<option value="laki-laki">Laki-Laki</option>
+										@endif
+									
 									</select>
 								</div>
 								<div class="form-group">
@@ -92,6 +136,9 @@
 								</div>
 								<div class="form-group">
 									<label>Foto KTP</label>
+									
+									<img src="{{url('../storage/image/warga/logo.jpeg') }}" alt="gambar">
+									
 									<input class="form-control" type="file" name="foto_ktp">
 								</div>
 								<div class="form-group">

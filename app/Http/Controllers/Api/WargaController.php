@@ -93,7 +93,9 @@ class WargaController extends Controller
                 'latitude' => $request->latitude,
                 'longtitude' => $request->longtitude,
                 'password' => Hash::make($request->password),
-                'phone' => $request->phone
+                'phone' => $request->phone,
+                'id_rt' => $request->id_rt,
+                'gol_darah' => $request->gol_darah,
             ]);
 
             return response()->json([
@@ -180,7 +182,6 @@ class WargaController extends Controller
                         'status' => 200,
                         'data' => $warga_update
                     ], 200);
-                    
                 } else {
 
                     // Check Jika File Kosong

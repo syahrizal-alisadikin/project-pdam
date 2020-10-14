@@ -17,7 +17,7 @@ class Warga extends Model
      * @var array
      */
     protected $fillable = [
-        'fk_rw_id', 'nama', 'email', 'password', 'phone', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'user_id', 'foto_ktp', 'foto_profile', 'foto_kk', 'longtitude', 'latitude', 'edit_post', 'status'
+        'fk_rw_id', 'nama', 'email', 'password', 'phone', 'alamat', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'user_id', 'foto_ktp', 'foto_profile', 'foto_kk', 'longtitude', 'latitude', 'edit_post', 'status', 'id_rt', 'gol_darah', 'profesi'
     ];
 
     /**
