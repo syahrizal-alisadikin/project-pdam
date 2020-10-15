@@ -59,7 +59,7 @@ class KejadianController extends Controller
 					'keterangan' => $request->keterangan,
 					'longtitude' => $request->longtitude,
 					'latitude' => $request->latitude,
-					'foto_kejadian' => $foto_kejadian, 
+					'foto_kejadian' => $foto_kejadian,
 					'status' => "Pending",
 					'deleted_at' => date('Y-m-d H:i:s')
 				]);
@@ -69,8 +69,7 @@ class KejadianController extends Controller
 					'msg' => 'Success Create Kejadian',
 					'data' => $kejadian
 				], 200);
-
-			}else{
+			} else {
 
 				$kejadian = LaporanKejadian::create([
 					'fk_user_id' => $warga_id,
@@ -90,7 +89,6 @@ class KejadianController extends Controller
 					'data' => $kejadian
 				], 200);
 			}
-			
 		} catch (Exception $e) {
 
 			return response()->json([
@@ -102,7 +100,7 @@ class KejadianController extends Controller
 	// Get Param Kejadian And Kejadian
 	public function GetParamKejadian($param_id)
 	{
-		$data = LaporanKejadian::with('ParamKejadian')->where('kejadian_id', $param_id)->get();
+		$data = ParamKejadian::findOrFail($param_id);
 
 		if ($data != null) {
 
@@ -142,18 +140,18 @@ class KejadianController extends Controller
 	/*
     * Buat Ngelihat File Image Nya / Get File Image Nya 
     */
-    public function FileKejadian($file)
-    {
-        $avatar_path = storage_path('image/kejadian') . '/' . $file;
+	public function FileKejadian($file)
+	{
+		$avatar_path = storage_path('image/kejadian') . '/' . $file;
 
-        if (file_exists($avatar_path)) {
-            $file = file_get_contents($avatar_path);
-            return response($file, 200)->header('Content-Type', 'image/jpeg');
-        }
+		if (file_exists($avatar_path)) {
+			$file = file_get_contents($avatar_path);
+			return response($file, 200)->header('Content-Type', 'image/jpeg');
+		}
 
-        return response()->json([
-            'status' => 500,
-            'msg' => 'File Not Found !'
-        ], 500);
-    }
+		return response()->json([
+			'status' => 500,
+			'msg' => 'File Not Found !'
+		], 500);
+	}
 }
