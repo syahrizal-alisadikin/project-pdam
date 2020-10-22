@@ -23,4 +23,18 @@ class TagihanControllerWarga extends Controller
         // dd($pem);
         return view('pages.rw.tagihan.v_index', compact('tagihan', 'pem'));
     }
+
+    public function update(Request $request, $id)
+    {
+        $pembayaran = $request->all();
+        // dd($request->tanggal_bayar);
+        $data = Pembayaran::findOrFail($id);
+        $data->update([
+            'tanggal_bayar' => $request->tanggal_bayar,
+            'jumlah_bayar' => $request->jumlah_bayar,
+            'status' => "proses"
+        ]);
+
+        return redirect()->route('pembayaran-warga.index')->with('sukses', 'Berhasil Update Data Pembayaran');
+    }
 }

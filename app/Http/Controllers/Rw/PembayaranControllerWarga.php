@@ -17,7 +17,8 @@ class PembayaranControllerWarga extends Controller
      */
     public function index()
     {
-        $pembayaran = Pembayaran::with('tagihan')->get();
+        $pembayaran = Pembayaran::with('tagihan.tarif')->get();
+        // dd($pembayaran);
         return view('pages.rw.pembayaran.v_index', compact('pembayaran'));
     }
 
@@ -26,7 +27,7 @@ class PembayaranControllerWarga extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
     }
@@ -49,14 +50,14 @@ class PembayaranControllerWarga extends Controller
                 'image' => $image
             ]);
             return redirect()->back()->with('sukses', 'Berhasil Kirim Bukti Pembayaran');
-        }else{
+        } else {
             KonfirmasiPembayaran::create([
                 'fk_pembayaran_id' => $request->pembayaran_id,
                 'jumlah' => $request->jumlah,
                 'fk_rw_id' => Auth::guard('rw')->user()->rw_id,
             ]);
             return redirect()->back()->with('sukses', 'Berhasil Kirim Bukti Pembayaran');
-        } 
+        }
     }
 
     /**
@@ -66,11 +67,10 @@ class PembayaranControllerWarga extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    { 
+    {
         try {
-            $details = KonfirmasiPembayaran::where('fk_pembayaran_id',$id)->first();
+            $details = KonfirmasiPembayaran::where('fk_pembayaran_id', $id)->first();
             return view('pages.rw.pembayaran.v_details', compact('details'));
-        
         } catch (ModelNotFoundException $e) {
             print_r('Users Not Found !');
         }
@@ -84,7 +84,8 @@ class PembayaranControllerWarga extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Pembayaran::findOrFail($id);
+        return view('pages.rw.pembayaran.v_update', compact('data'));
     }
 
     /**
@@ -100,9 +101,9 @@ class PembayaranControllerWarga extends Controller
             // Kirim Bukti Pembayaran
             if ($request->file('image')) {
                 $pembayaran = KonfirmasiPembayaran::where('fk_pembayaran_id', $id)->first();
-                
+
                 if (storage_path('image/pembayaran/' . $pembayaran->image)) {
-                     unlink(storage_path('image/pembayaran/' . $pembayaran->image));
+                    unlink(storage_path('image/pembayaran/' . $pembayaran->image));
                 }
 
                 $image = Str::random(9);
@@ -113,7 +114,7 @@ class PembayaranControllerWarga extends Controller
                     'image' => $image
                 ]);
                 return redirect()->back()->with('sukses', 'Berhasil Update Data Pembayaran');
-            }else{
+            } else {
                 $pembayaran = KonfirmasiPembayaran::where('fk_pembayaran_id', $id)->first();
                 $pembayaran->update([
                     'jumlah' => $request->jumlah,
@@ -121,9 +122,8 @@ class PembayaranControllerWarga extends Controller
                 ]);
                 return redirect()->back()->with('sukses', 'Berhasil Update Data Pembayaran');
             }
-            
         } catch (Exception $e) {
-            
+
             print_r('error');
         }
     }
@@ -138,4 +138,6 @@ class PembayaranControllerWarga extends Controller
     {
         //
     }
+
+    
 }

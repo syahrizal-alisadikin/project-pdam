@@ -36,7 +36,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Pembayaran ID</th>
+                            <th>Nama</th>
                             <th>Tanggal Bayar</th>
                             <th>Jumlah Bayar</th>
                             <th>Tanggal Tagihan</th>
@@ -47,11 +47,19 @@
                     <tbody>
                       @foreach($pembayaran as $key)
                         <tr>
-                          <td>{{ $key->pembayaran_id }}</td>
+                          <td>{{ $key->tagihan->tarif->nama_tarif }}</td>
                           <td>{{ $key->tanggal_bayar ? $key->tanggal_bayar :'Taggal Bayar Kosong' }}</td>
                           <td>{{ $key->jumlah_bayar ? $key->jumlah_bayar :'Jumlah Bayar Kosong' }}</td>
                           <td>{{ $key->tagihan->tanggal_tagihan }}</td>
-                          <td>{{ $key->status }}</td>
+                          <td>
+                            @if ($key->status == "Pending")
+                                <span class="badge badge-warning">PENDING</span>
+                                @elseif($key->status == "proses")
+                                <span class="badge badge-primary">PROSES</span>
+                                @else
+                                <span class="badge badge-success">Success</span>
+                            @endif
+                          </td>
                           <td class="d-flex">
                             @php
                             $data =App\KonfirmasiPembayaran::where('fk_pembayaran_id',$key->pembayaran_id)->count();
@@ -65,6 +73,12 @@
                                 data-id_pembayaran="{{ $key->pembayaran_id }}"
                                 data-image="{{ $key->image }}"
                                 data-jumlah="{{ $key->jumlah_bayar }}">Kirim Bukti</button>
+                            @endif
+                            @if ($key->status == "proses")
+                            <a href="#" class="btn btn-primary ml-2">Sudah Dikirim</a>
+                            @else
+                            <a href="{{route('pembayaran-warga.edit',$key->pembayaran_id)}}" class="btn btn-primary ml-2">Bayar</a>
+                                
                             @endif
                           </td>
                         </tr>
@@ -94,21 +108,57 @@
             <div class="form-group">
               <input type="hidden" name="pembayaran_id" id="pembayaran_id">
               <label>Jumlah Bayar</label>
-              <input type="text" name="jumlah" class="form-control" id="jumlah">
+              <input type="text" name="jumlah" class="form-control" id="jumlah" placeholder="Masukan Jumlah Pembayaran">
             </div>
             <div class="form-group">
               <label>Image</label>
               <input type="file" name="image" class="form-control" id="image">
             </div>
-            <div class="float-right">
-              <button type="submit" class="btn btn-primary">Kirim Bukti</button>
-            </div>
+           <div class="form-group">
+             <button type="submit" class="btn btn-primary">Kirim Bukti</button>
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+          </div>
           </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      
+    </div>
+  </div>
+</div>
+
+{{-- Modal Bayar --}}
+<div class="modal fade" id="bayarModal" tabindex="-1" role="dialog" aria-labelledby="bayarModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bayarModalLabel">Kirim Bukti</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <div class="modal-body">
+       <form action="{{ route('pembayaran-warga.store') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          <div class="col-lg-12">
+            <div class="form-group">
+              <input type="hidden" name="pembayaran_id" id="pembayaran_id">
+              <label>Jumlah Bayar</label>
+              <input type="text" name="jumlah" class="form-control" id="jumlah" placeholder="Masukan Jumlah Pembayaran">
+            </div>
+            <div class="form-group">
+              <label>Image</label>
+              <input type="file" name="image" class="form-control" id="image">
+            </div>
+           <div class="form-group">
+             <button type="submit" class="btn btn-primary">Bayar</button>
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+          </div>
+          </div>
+        </form>
+      </div>
+      
     </div>
   </div>
 </div>
