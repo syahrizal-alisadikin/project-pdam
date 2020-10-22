@@ -67,7 +67,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Manage Tagihan
                             </a>
-                              <a class="nav-link" href="#">
+                              <a class="nav-link" href="{{ route('pembayaran-warga.index') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Manage Pembayaran
                             </a>
@@ -121,9 +121,7 @@
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="{{url('assets/assets/demo/datatables-demo.js')}}"></script>
-         <script>
-       
-      
+        @yield('javascript')
 
         //flash message
         @if(session()-> has('success'))

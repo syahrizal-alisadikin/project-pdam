@@ -56,11 +56,13 @@ Route::prefix('rw')
 			'warga' => 'WargaController',
 			'kejadianwarga' => 'KejadianWargaController',
 			'tagihan-warga' => 'TagihanControllerWarga',
+			'pembayaran-warga' => 'PembayaranControllerWarga',
 		]);
 		Route::GET('/mapsWarga', 'WargaController@show');
 
 		// Get File
-		Route::get('file/{file}', 'WargaController@fileWarga');
+		Route::get('file/{file}', 'WargaController@fileWarga'); // Get File Warga
+		Route::get('file/pembayaran/{file}', 'WargaController@filePembayaran'); // Get File Pembayaran
 	});
 
 Auth::routes();

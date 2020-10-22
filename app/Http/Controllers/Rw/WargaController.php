@@ -271,4 +271,20 @@ class WargaController extends Controller
             'msg' => 'File Not Found !'
         ], 500);
     }
+
+    // Get File Foto KTP / KK/ Profile
+    public function filePembayaran($file)
+    {
+        $avatar_path = storage_path('image/pembayaran') . '/' . $file;
+
+        if (file_exists($avatar_path)) {
+            $file = file_get_contents($avatar_path);
+            return response($file, 200)->header('Content-Type', 'image/jpeg');
+        }
+
+        return response()->json([
+            'status' => 500,
+            'msg' => 'File Not Found !'
+        ], 500);
+    }
 }
