@@ -18,7 +18,6 @@ class PembayaranControllerWarga extends Controller
     public function index()
     {
         $pembayaran = Pembayaran::with('tagihan.tarif')->get();
-        // dd($pembayaran);
         return view('pages.rw.pembayaran.v_index', compact('pembayaran'));
     }
 

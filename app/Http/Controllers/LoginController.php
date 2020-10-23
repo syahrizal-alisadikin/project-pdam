@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
+use App\{Rw, Provinsi, Kota, Kecamatan, Kelurahan};
 class LoginController extends Controller
 {
     public function index()
@@ -37,6 +38,44 @@ class LoginController extends Controller
         }
     }
 
+    /*
+    * Register View
+    */
+    public function registerRW()
+    {
+        $provinsi = Provinsi::all();
+        return view('pages.admin.register', compact('provinsi'));
+    }
+
+    /*
+    * Register Process RW
+    */
+    public function registerRWProcess(Request $request)
+    {
+        try {
+        
+            RW::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password,
+                'alamat' => Hash::make($request->alamat),
+                'fk_provinsi_id' => $request->fk_provinsi_id,
+                'fk_kota_id' => $request->fk_kota_id,
+                'fk_kecamatan_id' => $request->fk_kecamatan_id,
+                'fk_kelurahan_id' => $request->fk_kelurahan_id,
+                'rw_id' => 20020
+            ]);
+
+            return redirect('')->with('sukses', 'Registration Success ! Login Now');
+        } catch (\Exception $e) {
+            print_r($e->getMessage()); die();
+            return redirect()->back()->with('gagal', 'Registration Failed !');
+        }
+    }
+
+    /*
+    * Logout
+    */
     public function logout()
     {
         if (Auth::guard('admin')->check()) {
@@ -46,5 +85,26 @@ class LoginController extends Controller
         }
 
         return redirect('/');
+    }
+
+    /*
+    * Get Prov, Kota, Kec, Desa
+    */
+    public function getCities($province_id)
+    {
+        $kota = Kota::where('fk_provinsi_id', $province_id)->pluck('name', 'kota_id');
+        return response()->json($kota);
+    }
+
+    public function getKecamatan($kota_id)
+    {
+        $kec = Kecamatan::where('fk_kota_id', $kota_id)->pluck('name', 'kecamatan_id');
+        return response()->json($kec);
+    }
+
+    public function getKelurahan($kecamatan_id)
+    {
+        $kel = Kelurahan::where('fk_kecamatan_id', $kecamatan_id)->pluck('name', 'kelurahan_id');
+        return response()->json($kel);
     }
 }

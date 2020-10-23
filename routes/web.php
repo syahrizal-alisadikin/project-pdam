@@ -16,9 +16,19 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('layouts.dashboard');
 // });
-Route::GET('/', 'LoginController@index')->name('login-admin');
-Route::POST('/login-admin', 'LoginController@postlogin')->name('postLogin');
+
+Route::GET('/', 'LoginController@index')->name('login-admin'); // Login View
+Route::POST('/login-admin', 'LoginController@postlogin')->name('postLogin'); // Login Process
+Route::GET('/register', 'LoginController@registerRW')->name('register-rw'); // Register View
+Route::POST('/register', 'LoginController@registerRWProcess')->name('register-rw-process'); // Register Process
 Route::get('/logout', 'LoginController@logout')->name('logout');
+
+/*
+* Get Provinsi, Kec, Kota, Desa
+*/
+Route::get('kota/{province_id}', 'LoginController@getCities');
+Route::get('kecamatan/{kota_id}', 'LoginController@getKecamatan');
+Route::get('kelurahan/{kelurahan_id}', 'LoginController@getKelurahan');
 
 // Routing Admin 
 Route::prefix('admin')
@@ -65,6 +75,6 @@ Route::prefix('rw')
 		Route::get('file/pembayaran/{file}', 'WargaController@filePembayaran'); // Get File Pembayaran
 	});
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
