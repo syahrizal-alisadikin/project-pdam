@@ -76,8 +76,6 @@
                             @endif
                             @if ($key->status == "proses")
                               <small class="badge" style="color: blue;" >Sudah Terkirim</small>
-                            @else
-                              <a href="{{route('pembayaran-warga.edit',$key->pembayaran_id)}}" class="btn btn-primary ml-2">Bayar</a>
                             @endif
                           </td>
                         </tr>

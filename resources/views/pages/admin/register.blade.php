@@ -8,6 +8,7 @@
         <meta name="author" content="" />
         <title>PAM REGISTER</title>
         <link href="{{url('assets\css/styles.css')}}" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="bg-primary">
@@ -47,13 +48,23 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="email">Email</label>
-                                                        <input class="form-control py-4" id="email" name="email" type="email" placeholder="Enter email address" />
+                                                    <input class="form-control py-4 @error('email') is-invalid @enderror" id="email" name="email" type="email" placeholder="Enter email address"  value="{{ old('email') }}"/>
+                                                        @error('email')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="email">Name</label>
-                                                        <input class="form-control py-4" id="name" name="name" type="text" placeholder="Enter Name" />
+                                                        <input class="form-control py-4 @error('name') is-invalid @enderror" id="name" name="name" type="text" value="{{old('name')}}" placeholder="Enter Name" />
+                                                    @error('name')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -62,6 +73,7 @@
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="provinsi">Provinsi</label>
                                                         <select class="form-control" id="provinsi" name="fk_provinsi_id">
+                                                            <option value="">-- Pilih Provinsi --</option>
                                                             @foreach($provinsi as $key)
                                                                 <option value="{{ $key->provinsi_id }}">{{ $key->name }}</option>
                                                             @endforeach
@@ -135,9 +147,11 @@
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
         <script src="{{url('assets/js/scripts.js')}}"></script>
         <script type="text/javascript">
             $(document).ready(function() {
+                $("#kota, #provinsi,#kelurahan,#kecamatan").select2();
                 $('#provinsi').on('change', function(){
                     var id_prov = $(this).val()
                     $.ajax({

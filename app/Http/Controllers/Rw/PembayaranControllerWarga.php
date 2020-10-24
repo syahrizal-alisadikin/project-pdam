@@ -17,7 +17,10 @@ class PembayaranControllerWarga extends Controller
      */
     public function index()
     {
-        $pembayaran = Pembayaran::with('tagihan.tarif')->get();
+        $pembayaran = Pembayaran::with('tagihan.tarif')->whereHas('tagihan', function ($query) {
+            $query->where('fk_rw_id', Auth::guard('rw')->user()->rw_id);
+        })->get();
+        // dd($pembayaran);
         return view('pages.rw.pembayaran.v_index', compact('pembayaran'));
     }
 
@@ -52,7 +55,7 @@ class PembayaranControllerWarga extends Controller
             $pembayaran = array(
                 'jumlah_bayar' => $request->jumlah,
                 'tanggal_bayar' => $request->tanggal_bayar,
-                'status' => 'proses' 
+                'status' => 'proses'
             );
             Pembayaran::where('pembayaran_id', $request->pembayaran_id)->update($pembayaran); // Pembayaran Update
             return redirect()->back()->with('sukses', 'Berhasil Kirim Bukti Pembayaran');
@@ -65,13 +68,13 @@ class PembayaranControllerWarga extends Controller
             $pembayaran = array(
                 'jumlah_bayar' => $request->jumlah,
                 'tanggal_bayar' => $request->tanggal_bayar,
-                'status' => 'proses' 
+                'status' => 'proses'
             );
             Pembayaran::where('pembayaran_id', $request->pembayaran_id)->update($pembayaran); // Pembayaran Update
             return redirect()->back()->with('sukses', 'Berhasil Kirim Bukti Pembayaran');
         }
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -155,6 +158,4 @@ class PembayaranControllerWarga extends Controller
     {
         //
     }
-
-    
 }

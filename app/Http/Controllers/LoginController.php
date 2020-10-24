@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\{Rw, Provinsi, Kota, Kecamatan, Kelurahan};
 use Exception;
+
 class LoginController extends Controller
 {
     public function index()
@@ -53,38 +54,35 @@ class LoginController extends Controller
     */
     public function registerRWProcess(Request $request)
     {
-        $id= $request->fk_kota_id . $request->fk_kecamatan_id . $request->fk_kelurahan_id;
+        // dd($request->all());
 
-        try {
-            
-            $this->validate($request, [
-                'name' => 'required|string',
-                'email' => 'required|email|unique:tbl_rw',
-                'password' => 'required|string',
-                'alamat' => 'required|string',
-                'fk_provinsi_id' => 'required|string',
-                'fk_kota_id' => 'required|string',
-                'fk_kecamatan_id' => 'required|string',
-                'fk_kelurahan_id' => 'required|string',
-            ]);
 
-            RW::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => $request->password,
-                'alamat' => Hash::make($request->alamat),
-                'fk_provinsi_id' => $request->fk_provinsi_id,
-                'fk_kota_id' => $request->fk_kota_id,
-                'fk_kecamatan_id' => $request->fk_kecamatan_id,
-                'fk_kelurahan_id' => $request->fk_kelurahan_id,
-                'rw_id' => $id
-            ]);
 
-            return redirect('')->with('sukses', 'Registration Success ! Login Now');
-        } catch (Exception $e) {
-            // print_r($e->getMessage()); die();
-            return redirect()->back()->with('gagal', 'Pastikan Semua Data Data Teriisi !');
-        }
+        $this->validate($request, [
+            'name' => 'required|string',
+            'email' => 'required|email|unique:tbl_rw',
+            'password' => 'required|string',
+            'alamat' => 'required|string',
+            'fk_provinsi_id' => 'required|string',
+            'fk_kota_id' => 'required|string',
+            'fk_kecamatan_id' => 'required|string',
+            'fk_kelurahan_id' => 'required|string',
+        ]);
+        $random = mt_rand(0, 999);
+        $id = $request->fk_kelurahan_id . $random;
+        RW::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'alamat' => $request->alamat,
+            'password' => Hash::make($request->password),
+            'fk_provinsi_id' => $request->fk_provinsi_id,
+            'fk_kota_id' => $request->fk_kota_id,
+            'fk_kecamatan_id' => $request->fk_kecamatan_id,
+            'fk_kelurahan_id' => $request->fk_kelurahan_id,
+            'rw_id' => $id
+        ]);
+
+        return redirect()->route('login-admin')->with('sukses', 'Registration Success ! Login Now');
     }
 
     /*
