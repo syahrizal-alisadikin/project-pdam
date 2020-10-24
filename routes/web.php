@@ -68,6 +68,8 @@ Route::prefix('rw')
 			'tagihan-warga' => 'TagihanControllerWarga',
 			'pembayaran-warga' => 'PembayaranControllerWarga',
 		]);
+
+		Route::post('/pembayaran/bayar/{id_pembayaran}', 'WargaController@ProcessBayarPembayaran')->name('bayar-pembayaran');
 		Route::GET('/mapsWarga', 'WargaController@show');
 
 		// Get File

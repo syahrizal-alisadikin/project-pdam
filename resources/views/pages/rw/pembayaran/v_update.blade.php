@@ -30,9 +30,8 @@
                 {{ session('gagal') }}
             </div>
             @endif
-            <form action="{{ route('tagihan-warga.update',$data->pembayaran_id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('bayar-pembayaran',$data->pembayaran_id) }}" method="POST">
               @csrf
-              {{ method_field('PUT') }}
               <div class="col-lg-12">
                 <div class="form-group">
                   <label>Nama Tagihan</label>

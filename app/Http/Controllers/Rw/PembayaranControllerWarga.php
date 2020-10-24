@@ -47,7 +47,14 @@ class PembayaranControllerWarga extends Controller
                 'jumlah' => $request->jumlah,
                 'fk_rw_id' => Auth::guard('rw')->user()->rw_id,
                 'image' => $image
-            ]);
+            ]); // KonfirmasiPembayaran Insert
+
+            $pembayaran = array(
+                'jumlah_bayar' => $request->jumlah,
+                'tanggal_bayar' => $request->tanggal_bayar,
+                'status' => 'proses' 
+            );
+            Pembayaran::where('pembayaran_id', $request->pembayaran_id)->update($pembayaran); // Pembayaran Update
             return redirect()->back()->with('sukses', 'Berhasil Kirim Bukti Pembayaran');
         } else {
             KonfirmasiPembayaran::create([
@@ -55,6 +62,12 @@ class PembayaranControllerWarga extends Controller
                 'jumlah' => $request->jumlah,
                 'fk_rw_id' => Auth::guard('rw')->user()->rw_id,
             ]);
+            $pembayaran = array(
+                'jumlah_bayar' => $request->jumlah,
+                'tanggal_bayar' => $request->tanggal_bayar,
+                'status' => 'proses' 
+            );
+            Pembayaran::where('pembayaran_id', $request->pembayaran_id)->update($pembayaran); // Pembayaran Update
             return redirect()->back()->with('sukses', 'Berhasil Kirim Bukti Pembayaran');
         }
     }
@@ -125,6 +138,11 @@ class PembayaranControllerWarga extends Controller
 
             print_r('error');
         }
+    }
+
+    public function ProcessBayarPembayaran(Request $request, $id)
+    {
+        # code...
     }
 
     /**

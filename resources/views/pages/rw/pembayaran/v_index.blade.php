@@ -66,7 +66,7 @@
                             @endphp
 
                             @if($data > 0)
-                              <a href="{{route('pembayaran-warga.show',$key->pembayaran_id)}}" class="btn btn-sm btn-outline-success">View Bukti</a>
+                              <a href="{{route('pembayaran-warga.show',$key->pembayaran_id)}}" class="btn btn-sm btn-outline-info">View Bukti</a>
                               @else
                               {{-- <button class="btn btn-sm btn-outline-warning" data-toggle="modal" data-target="#exampleModal" >Kirim Bukti</button> --}}
                               <button class="edit-modal btn btn-outline-primary btn-sm" id="kirim-bukti" data-toggle="modal" data-target="#exampleModal"
@@ -75,10 +75,9 @@
                                 data-jumlah="{{ $key->jumlah_bayar }}">Kirim Bukti</button>
                             @endif
                             @if ($key->status == "proses")
-                            <a href="#" class="btn btn-primary ml-2">Sudah Dikirim</a>
+                              <small class="badge" style="color: blue;" >Sudah Terkirim</small>
                             @else
-                            <a href="{{route('pembayaran-warga.edit',$key->pembayaran_id)}}" class="btn btn-primary ml-2">Bayar</a>
-                                
+                              <a href="{{route('pembayaran-warga.edit',$key->pembayaran_id)}}" class="btn btn-primary ml-2">Bayar</a>
                             @endif
                           </td>
                         </tr>
@@ -111,54 +110,20 @@
               <input type="text" name="jumlah" class="form-control" id="jumlah" placeholder="Masukan Jumlah Pembayaran">
             </div>
             <div class="form-group">
+              <label>Tanggal Bayar</label>
+              <input type="date" name="tanggal_bayar" class="form-control">
+            </div>
+            <div class="form-group">
               <label>Image</label>
               <input type="file" name="image" class="form-control" id="image">
             </div>
            <div class="form-group">
              <button type="submit" class="btn btn-primary">Kirim Bukti</button>
              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
           </div>
           </div>
         </form>
       </div>
-      
-    </div>
-  </div>
-</div>
-
-{{-- Modal Bayar --}}
-<div class="modal fade" id="bayarModal" tabindex="-1" role="dialog" aria-labelledby="bayarModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="bayarModalLabel">Kirim Bukti</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       <form action="{{ route('pembayaran-warga.store') }}" method="POST" enctype="multipart/form-data">
-          @csrf
-          <div class="col-lg-12">
-            <div class="form-group">
-              <input type="hidden" name="pembayaran_id" id="pembayaran_id">
-              <label>Jumlah Bayar</label>
-              <input type="text" name="jumlah" class="form-control" id="jumlah" placeholder="Masukan Jumlah Pembayaran">
-            </div>
-            <div class="form-group">
-              <label>Image</label>
-              <input type="file" name="image" class="form-control" id="image">
-            </div>
-           <div class="form-group">
-             <button type="submit" class="btn btn-primary">Bayar</button>
-             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-          </div>
-          </div>
-        </form>
-      </div>
-      
     </div>
   </div>
 </div>
