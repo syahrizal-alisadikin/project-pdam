@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'Api'], function () {
 	Route::POST('/login', 'LoginController@index'); // Login
 	Route::POST('/warga-register', 'WargaController@register'); // Register
-	Route::GET('/Rw-all', 'WargaController@GetRw');
-	Route::GET('/logout', 'LoginController@logout');
+	Route::GET('/Rw-all', 'WargaController@GetRw'); // Get All RW
+	Route::GET('/logout', 'LoginController@logout'); // Logout
 });
 Route::group(['middleware' => ['jwt.auth'], 'namespace' => 'Api'], function () {
 
@@ -32,11 +32,11 @@ Route::group(['middleware' => ['jwt.auth'], 'namespace' => 'Api'], function () {
 	Route::DELETE('warga/delete/{warga_id}', 'WargaController@deleteWarga'); // Delete Warga Process
 
 	// Kejadian Controller
-	Route::POST('kejadian', 'KejadianController@insertKejadian');
-	Route::GET('kejadian/param_kejadian/{param_id}', 'KejadianController@GetParamKejadian');
+	Route::POST('kejadian', 'KejadianController@insertKejadian'); // Insert Kejadian
+	Route::GET('kejadian/param_kejadian/{param_id}', 'KejadianController@GetParamKejadian'); // Get Param Kejadian
 	Route::GET('kejadian/param_kejadian', 'KejadianController@GetAllParamKejadian'); // Get All Param Kejadian
 	Route::GET('image/kejadian/{file}', 'KejadianController@FileKejadian'); // Get File Kejadian
 
 	// File Get Name
-	Route::GET('image/{file}', 'WargaController@fileMateri'); // Get File Warga
+	Route::GET('image/{file}', 'WargaController@fileWarga'); // Get File Warga
 });

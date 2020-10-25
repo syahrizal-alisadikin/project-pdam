@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use \Firebase\JWT\JWT;
+use Exception;
 
 class LoginController extends Controller
 {
@@ -66,8 +67,8 @@ class LoginController extends Controller
                 'data' => $data,
                 'token' => $this->jwt($data)
             ], 200);
-        } catch (Exception $e) {
 
+        } catch (Exception $e) {
             return response([
                 'success'   => false,
                 'message' => ['Bat error request.']

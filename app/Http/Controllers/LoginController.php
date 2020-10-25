@@ -55,9 +55,6 @@ class LoginController extends Controller
     public function registerRWProcess(Request $request)
     {
         // dd($request->all());
-
-
-
         $this->validate($request, [
             'name' => 'required|string',
             'email' => 'required|email|unique:tbl_rw',
@@ -68,6 +65,7 @@ class LoginController extends Controller
             'fk_kecamatan_id' => 'required|string',
             'fk_kelurahan_id' => 'required|string',
         ]);
+        
         $random = mt_rand(0, 999);
         $id = $request->fk_kelurahan_id . $random;
         RW::create([
