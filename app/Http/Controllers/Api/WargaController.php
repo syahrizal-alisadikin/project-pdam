@@ -10,6 +10,7 @@ use App\Warga;
 use App\Rw;
 use Str;
 use Validator;
+use Exception;
 
 class WargaController extends Controller
 {
@@ -102,6 +103,7 @@ class WargaController extends Controller
                 'status' => 200,
                 'data' => $data
             ], 200);
+
         } catch (Exception $e) {
 
             return response()->json([
@@ -124,7 +126,7 @@ class WargaController extends Controller
         }
 
         return response()->json([
-            "msg" => 'Wrong ID Warga'
+            "msg" => 'Wrong ID Warga ' . $warga_id . ' Not Found !'
         ], 401);
     }
 
@@ -379,7 +381,7 @@ class WargaController extends Controller
     /*
     * Buat Ngelihat File Image Nya / Get File Image Nya 
     */
-    public function fileMateri($file)
+    public function fileWarga($file)
     {
         $avatar_path = storage_path('image/warga') . '/' . $file;
 

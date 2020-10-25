@@ -10,7 +10,7 @@ use App\LaporanKejadian;
 use App\ParamKejadian;
 use Str;
 use Validator;
-
+use Exception;
 
 class KejadianController extends Controller
 {
@@ -29,10 +29,18 @@ class KejadianController extends Controller
 			'fk_param_id' => 'required',
 			'tanggal_kejadian' => 'required',
 			'keterangan' => 'required',
+			'longtitude' => 'required',
+			'latitude' => 'required',
+			'foto_kejadian' => 'mimes:jpeg,jpg,png,gif|required|max:10000'
 		];
 	}
 
-	// Create Kejadian
+	/**
+     * Create Kejadian.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+    */
 	public function insertKejadian(Request $request)
 	{
 		date_default_timezone_set('Asia/Jakarta');
@@ -89,35 +97,47 @@ class KejadianController extends Controller
 					'data' => $kejadian
 				], 200);
 			}
-		} catch (Exception $e) {
 
+		} catch (Exception $e) {
 			return response()->json([
-				'msg' => 'Invalid Request'
+				'msg' => 'Invalid Request, Please Refresh !'
 			], 500);
 		}
 	}
 
-	// Get Param Kejadian And Kejadian
+	/*
+	`* Get Param Kejadian And Kejadian
+	*/
 	public function GetParamKejadian($param_id)
 	{
-		$data = ParamKejadian::findOrFail($param_id);
+		try {
+			$data = ParamKejadian::findOrFail($param_id);
 
-		if ($data != null) {
+			if ($data != null) {
+
+				return response()->json([
+					'status' => 200,
+					'msg' => 'Success',
+					'data' => $data
+				], 200);
+			}
 
 			return response()->json([
-				'status' => 200,
-				'msg' => 'Success',
-				'data' => $data
+				'status' => 400,
+				'msg' => 'Opss ! Data is Null'
 			], 200);
-		}
 
-		return response()->json([
-			'status' => 401,
-			'msg' => 'Opss ! Data is Null'
-		], 401);
+		} catch (Exception $e) {
+			return response()->json([
+				'status' => 404,
+				'msg' => 'Param Kejadian ID ' . $param_id . ' Not Found !'
+			], 404);
+		}
 	}
 
-	// Get All Param Kejadian
+	/*
+	* Get All Param Kejadian
+	*/
 	public function GetAllParamKejadian()
 	{
 		$getAll = ParamKejadian::all();
