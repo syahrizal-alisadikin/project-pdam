@@ -45,21 +45,11 @@
                                         </div>
                                         @endif
                                             <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label class="small mb-1" for="email">Email</label>
-                                                    <input class="form-control py-4 @error('email') is-invalid @enderror" id="email" name="email" type="email" placeholder="Enter email address"  value="{{ old('email') }}"/>
-                                                        @error('email')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
+                                             
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="email">Name</label>
-                                                        <input class="form-control py-4 @error('name') is-invalid @enderror" id="name" name="name" type="text" value="{{old('name')}}" placeholder="Enter Name" />
+                                                        <input class="form-control  @error('name') is-invalid @enderror" id="name" name="name" type="text" required value="{{old('name')}}" placeholder="Enter Name" />
                                                     @error('name')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -67,52 +57,125 @@
                                                     @enderror
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-6">
+
+                                                <div class="col-lg-6 col-sm-12">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="provinsi">Provinsi</label>
-                                                        <select class="form-control" id="provinsi" name="fk_provinsi_id">
+                                                        <select class="form-control " required id="provinsi" name="fk_provinsi_id">
                                                             <option value="">-- Pilih Provinsi --</option>
                                                             @foreach($provinsi as $key)
                                                                 <option value="{{ $key->provinsi_id }}">{{ $key->name }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
+                                                    
+                                                </div>
+                                              
+
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="email">Email</label>
+                                                    <input class="form-control  @error('email') is-invalid @enderror" id="email" name="email" type="email" required placeholder="Enter email address"  value="{{ old('email') }}"/>
+                                                        @error('email')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" for="kota">Kota</label>
+                                                        <select class="form-control" required id="kota" name="fk_kota_id">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                               
+                                             
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label class="small mb-1" required for="email">No Ktp</label>
+                                                        <input class="form-control " id="Password" name="no_ktp" type="number" {{old('no_ktp')}} placeholder="Enter No KTP" />
+                                                    </div>
+                                                </div>
+                                               
+
+                                                <div class="col-lg-6 col-sm-12">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="kecamatan">Kecamatan</label>
-                                                        <select class="form-control" id="kecamatan" name="fk_kecamatan_id">
+                                                        <select class="form-control" required id="kecamatan" name="fk_kecamatan_id">
 
                                                         </select>
                                                     </div>
                                                 </div>
+                                               
+                                            </div>
+                                            <div class="row">
+
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
-                                                        <label class="small mb-1" for="kota">Kota</label>
-                                                        <select class="form-control" id="kota" name="fk_kota_id">
-                                                        </select>
+                                                        <label class="small mb-1" for="email">No Handphone</label>
+                                                        <input class="form-control " required id="Password" name="phone" type="number" {{old('phone')}} placeholder="Enter No handphone" />
                                                     </div>
+                                                </div>
+
+                                                 <div class="col-lg-6 col-sm-12">
+                                                    
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="kelurahan">Kelurahan</label>
-                                                        <select class="form-control" id="kelurahan" name="fk_kelurahan_id">
+                                                        <select class="form-control" required id="kelurahan" name="fk_kelurahan_id">
                                                             <option></option>
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-12">
+
+                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="email">Password</label>
-                                                        <input class="form-control py-4" id="Password" name="password" type="password" placeholder="Enter Password" />
+                                                        <input class="form-control " required id="Password" name="password" type="password" placeholder="Enter Password" />
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-12">
+                                                
+
+                                                 
+
+                                                <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label class="small mb-1" for="alamat">Alamat</label>
-                                                        <textarea class="form-control py-4" name="alamat" placeholder="Enter Alamat"></textarea>
+                                                    <textarea class="form-control" required name="alamat" placeholder="Enter Alamat">{{old('alamat')}}</textarea>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" name="market" type="checkbox" value="Y" id="defaultCheck1">
+                                                        <label class="form-check-label" for="defaultCheck1">
+                                                            Marketplace (100.000)
+                                                        </label>
+                                                    </div>
+
+                                                     <div class="form-check">
+                                                        <input class="form-check-input" name="baitul" type="checkbox" value="Y" id="defaultCheck2">
+                                                        <label class="form-check-label" for="defaultCheck2">
+                                                            Baitul Maal Wat Tamwil (100.000)
+                                                        </label>
+                                                    </div>
+
+                                                     <div class="form-check">
+                                                        <input class="form-check-input" name="surat" type="checkbox" value="Y" id="defaultCheck3">
+                                                        <label class="form-check-label" for="defaultCheck3">
+                                                            Surat Keterangan (600.000)
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>

@@ -40,10 +40,11 @@ class RwController extends Controller
             'password'  => 'required|min:6',
         ]);
 
-        $rw_id = mt_rand(00000, 99999);
+        $rw_id = mt_rand(0, 999);
+        $data = $request->fk_kelurahan . $rw_id;
         // dd($rw_id);
         Rw::create([
-            'rw_id' => $rw_id,
+            'rw_id' => $data,
             'name' => $request->name,
             'no_rw' => $request->noRw,
             'email' => $request->email,

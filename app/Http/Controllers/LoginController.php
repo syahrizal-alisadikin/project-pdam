@@ -54,7 +54,6 @@ class LoginController extends Controller
     */
     public function registerRWProcess(Request $request)
     {
-        // dd($request->all());
 
 
 
@@ -68,18 +67,25 @@ class LoginController extends Controller
             'fk_kecamatan_id' => 'required|string',
             'fk_kelurahan_id' => 'required|string',
         ]);
+
         $random = mt_rand(0, 999);
         $id = $request->fk_kelurahan_id . $random;
         RW::create([
+            'rw_id' => $id,
             'name' => $request->name,
             'email' => $request->email,
             'alamat' => $request->alamat,
+            'no_ktp' => $request->no_ktp,
+            'no_hp' => $request->phone,
             'password' => Hash::make($request->password),
             'fk_provinsi_id' => $request->fk_provinsi_id,
             'fk_kota_id' => $request->fk_kota_id,
             'fk_kecamatan_id' => $request->fk_kecamatan_id,
             'fk_kelurahan_id' => $request->fk_kelurahan_id,
-            'rw_id' => $id
+            'flag_marketplace' => $request->market,
+            'flag_bmt' => $request->baitul,
+            'flag_surket' => $request->surat,
+
         ]);
 
         return redirect()->route('login-admin')->with('sukses', 'Registration Success ! Login Now');
