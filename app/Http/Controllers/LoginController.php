@@ -75,6 +75,7 @@ class LoginController extends Controller
             'alamat' => $request->alamat,
             'no_ktp' => $request->no_ktp,
             'no_hp' => $request->phone,
+            'no_rw' => $request->no_rw,
             'password' => Hash::make($request->password),
             'fk_provinsi_id' => $request->fk_provinsi_id,
             'fk_kota_id' => $request->fk_kota_id,
