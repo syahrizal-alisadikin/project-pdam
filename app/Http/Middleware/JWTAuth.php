@@ -54,7 +54,7 @@ class JWTAuth
 
             return response()->json($response, 400);
         }
-
+        $request->attributes->add(['auth_data' => GetToken($request)->sub]); // Add Atrribute untuk get data dari token
         return $next($request);
     }
 }

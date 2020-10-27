@@ -5,12 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Api\LoginController;
-use App\LaporanKejadian;
-use App\ParamKejadian;
-use Str;
+use App\{LaporanKejadian, ParamKejadian};
 use Validator;
 use Exception;
+use Str;
 
 class KejadianController extends Controller
 {
@@ -18,7 +16,6 @@ class KejadianController extends Controller
 	public function __construct(Request $request)
 	{
 		$this->request = $request;
-		$this->getToken = new LoginController;
 	}
 
 	// Validasi
@@ -44,8 +41,7 @@ class KejadianController extends Controller
 	public function insertKejadian(Request $request)
 	{
 		date_default_timezone_set('Asia/Jakarta');
-		$warga_id = $this->getToken->getID($request);
-
+		$warga_id = $request->get('auth_data')->warga_id; // ID Warga ngambil dari token dan di regis di middleware jwt auth
 		try {
 
 			$validator = Validator::make($request->all(), $this->rules());
@@ -77,6 +73,7 @@ class KejadianController extends Controller
 					'msg' => 'Success Create Kejadian',
 					'data' => $kejadian
 				], 200);
+
 			} else {
 
 				$kejadian = LaporanKejadian::create([

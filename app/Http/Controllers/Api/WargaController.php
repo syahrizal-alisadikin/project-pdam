@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Api\LoginController;
 use App\Warga;
 use App\Rw;
 use Str;
@@ -18,7 +17,41 @@ class WargaController extends Controller
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->getToken = new LoginController;
+    }
+
+    // Api Register Warga
+    public function register(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), $this->rules_register());
+
+            if ($validator->fails()) {
+                return response()->json($validator->errors());
+            }
+
+            $data = Warga::create([
+                'fk_rw_id' => $request->fk_rw_id,
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'latitude' => $request->latitude,
+                'longtitude' => $request->longtitude,
+                'password' => Hash::make($request->password),
+                'phone' => $request->phone,
+                'id_rt' => $request->id_rt,
+                'gol_darah' => $request->gol_darah,
+            ]);
+
+            return response()->json([
+                'status' => 200,
+                'data' => $data
+            ], 200);
+
+        } catch (Exception $e) {
+
+            return response()->json([
+                "msg" => 'Invalid Request !'
+            ], 500);
+        }
     }
 
     // Validasi Rules Update Data
@@ -77,41 +110,6 @@ class WargaController extends Controller
         }
     }
 
-    // Api Register Warga
-    public function register(Request $request)
-    {
-        try {
-            $validator = Validator::make($request->all(), $this->rules_register());
-
-            if ($validator->fails()) {
-                return response()->json($validator->errors());
-            }
-
-            $data = Warga::create([
-                'fk_rw_id' => $request->fk_rw_id,
-                'nama' => $request->nama,
-                'email' => $request->email,
-                'latitude' => $request->latitude,
-                'longtitude' => $request->longtitude,
-                'password' => Hash::make($request->password),
-                'phone' => $request->phone,
-                'id_rt' => $request->id_rt,
-                'gol_darah' => $request->gol_darah,
-            ]);
-
-            return response()->json([
-                'status' => 200,
-                'data' => $data
-            ], 200);
-
-        } catch (Exception $e) {
-
-            return response()->json([
-                "msg" => 'Invalid Request !'
-            ], 500);
-        }
-    }
-
     // Get Warga By ID
     public function GetIDWarga($warga_id)
     {
@@ -134,8 +132,7 @@ class WargaController extends Controller
     public function updateData(Request $request, $warga_id)
     {
         $file = Warga::where('warga_id', $warga_id)->first();
-        $id_warga = $this->getToken->getID($request); // Get Warga_Id
-
+        $id_warga = $request->get('auth_data')->warga_id; // ID Warga ngambil dari token dan di regis di middleware jwt auth 
         try {
 
             // Validasi
