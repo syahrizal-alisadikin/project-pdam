@@ -15,6 +15,15 @@ class LoginController extends Controller
         return view('pages.admin.login');
     }
 
+    public function pembayaran()
+    {
+        $provinsi = Provinsi::all();
+        return view('pages.admin.pembayaran', compact('provinsi'));
+    }
+
+    /*
+    * Login Process
+    */
     public function postlogin(Request $request)
     {
         // Validate the form data
