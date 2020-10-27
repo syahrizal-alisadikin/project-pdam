@@ -71,14 +71,14 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Manage Pembayaran
                             </a>
-                              {{-- <a class="nav-link" href="{{route('kota.index')}}">
+                              <a class="nav-link" href="{{route('jalan-rw.index')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Manage Kota
+                                Manage Jalan
                             </a>
-                              <a class="nav-link" href="{{route('provinsi.index')}}">
+                              <a class="nav-link" href="{{route('petugas-rw.index')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Manage Provinsi
-                            </a> --}}
+                                Manage Petugas
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

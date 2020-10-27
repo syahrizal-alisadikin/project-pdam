@@ -68,6 +68,8 @@ Route::prefix('rw')
 			'kejadianwarga' => 'KejadianWargaController',
 			'tagihan-warga' => 'TagihanControllerWarga',
 			'pembayaran-warga' => 'PembayaranControllerWarga',
+			'jalan-rw' => 'JalanController',
+			'petugas-rw' => 'PetugasController',
 		]);
 
 		Route::post('/pembayaran/bayar/{id_pembayaran}', 'WargaController@ProcessBayarPembayaran')->name('bayar-pembayaran');

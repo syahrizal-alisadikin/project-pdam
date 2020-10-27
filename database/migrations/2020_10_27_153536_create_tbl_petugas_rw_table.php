@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKonfrPembayaranTable extends Migration
+class CreateTblPetugasRwTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateKonfrPembayaranTable extends Migration
      */
     public function up()
     {
-        Schema::create('konfr_pembayaran', function (Blueprint $table) {
+        Schema::create('tbl_petugas_rw', function (Blueprint $table) {
             $table->id();
-            $table->integer('fk_pembayaran_id');
-            $table->string('fk_rw_id');
-            $table->string('jumlah');
-            $table->string('image');
+            $table->char('fk_rw_id');
+            $table->string('nama');
+            $table->string('phone');
+            $table->string('level');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ class CreateKonfrPembayaranTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('konfr_pembayaran');
+        Schema::dropIfExists('tbl_petugas_rw');
     }
 }
