@@ -15,10 +15,10 @@ class LoginController extends Controller
         return view('pages.admin.login');
     }
 
-    public function pembayaran()
+    public function pembayaran($id_rw)
     {
-        $provinsi = Provinsi::all();
-        return view('pages.admin.pembayaran', compact('provinsi'));
+        $data = Rw::where(['rw_id' => $id_rw])->first();
+        return view('pages.admin.pembayaran', compact('data'));
     }
 
     /*
@@ -96,7 +96,7 @@ class LoginController extends Controller
 
         ]);
 
-        return redirect()->route('login-admin')->with('sukses', 'Registration Success ! Login Now');
+        return redirect()->route('pembayaran', $id); // redirect ke pembayaran
     }
 
     /*

@@ -22,7 +22,7 @@ Route::POST('/login-admin', 'LoginController@postlogin')->name('postLogin'); // 
 Route::GET('/register', 'LoginController@registerRW')->name('register-rw'); // Register View
 Route::POST('/register', 'LoginController@registerRWProcess')->name('register-rw-process'); // Register Process
 Route::get('/logout', 'LoginController@logout')->name('logout'); // Logiut
-Route::get('/pembayaran', 'LoginController@pembayaran')->name('pembayaran');
+Route::get('pembayaran/{id_rw}', 'LoginController@pembayaran')->name('pembayaran');
 
 /*
 * Get Provinsi, Kec, Kota, Desa

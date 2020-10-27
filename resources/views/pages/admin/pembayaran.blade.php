@@ -21,7 +21,57 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Pembayaran Warga</h3></div>
                                     <div class="card-body">
-                                        
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Email</label>
+                                                    <input class="form-control" type="email" name="email" value="{{ $data->email }}" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Nama</label>
+                                                    <input class="form-control" type="text" name="nama" value="{{ $data->name }}" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>Alamat</label>
+                                                    <textarea class="form-control" disabled="" >{{ $data->alamat }}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>No Rekening</label>
+                                                    <input class="form-control" type="number" name="no_rek" value="{{ $data->no_rek }}" disabled>
+                                                </div>  
+                                            </div>
+                                            <div class="col-lg-12">
+                                                @if($data->flag_marketplace == 'Y')
+                                                <div class="form-group">
+                                                    <label>Jumlah Bayar</label>
+                                                    <input class="form-control" type="number" name="no_rek" value="100.000" disabled>
+                                                </div>  
+                                                @elseif($data->flag_bmt == 'Y')
+                                                <div class="form-group">
+                                                    <label>Jumlah Bayar</label>
+                                                    <input class="form-control" type="number" name="no_rek" value="100.000" disabled>
+                                                </div>
+                                                @elseif($data->flag_surket == 'Y')
+                                                <div class="form-group">
+                                                    <label>Jumlah Bayar</label>
+                                                    <input class="form-control" type="number" name="no_rek" value="600.000" disabled>
+                                                </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="text-center">
+                                            <a class="btn btn-success btn-xl" href="{{ route('login-admin') }}">Kembali Ke Login</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
