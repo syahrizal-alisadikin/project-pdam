@@ -28,16 +28,49 @@
                   <label for="level">Level</label>
                   <select name="level" class="form-control" id="level">
                     @if ($data->level == "ketua_rw")
-                    <option value="Ketua_rw">Ketua Rw</option>
+                     <option value="Ketua_rw">Ketua Rw</option>
                     <option value="Ketua_rt">Ketua RT</option>
+                    <option value="prtugas_kamtibmas">Prtugas Kamtibmas</option>
+                    <option value="prtugas_sosial">Prtugas Sosial</option>
                     <option value="petugas_kebersihan">Petugas Kebersihan</option>
                     <option value="petugas_keamanan">Petugas Keamanan</option>
+                    <option value="petugas_lainnya">Petugas Lainnya</option>
                     @elseif($data->level == "ketua_rt")
                     <option value="Ketua_rt">Ketua RT</option>
                     <option value="Ketua_rw">Ketua Rw</option>
+                    <option value="prtugas_kamtibmas">Prtugas Kamtibmas</option>
+                    <option value="prtugas_sosial">Prtugas Sosial</option>
                     <option value="petugas_kebersihan">Petugas Kebersihan</option>
                     <option value="petugas_keamanan">Petugas Keamanan</option>
+                    <option value="petugas_lainnya">Petugas Lainnya</option>
                      @elseif($data->level == "petugas_kebersihan")
+                     <option value="petugas_kebersihan">Petugas Kebersihan</option>
+                     <option value="petugas_keamanan">Petugas Keamanan</option>
+                    <option value="Ketua_rt">Ketua RT</option>
+                    <option value="Ketua_rw">Ketua Rw</option>
+                    <option value="prtugas_kamtibmas">Prtugas Kamtibmas</option>
+                    <option value="prtugas_sosial">Prtugas Sosial</option>
+                    <option value="petugas_lainnya">Petugas Lainnya</option>
+                    @elseif($data->level == "petugas_kamtibmas")
+                    <option value="petugas_kamtibmas">Prtugas Kamtibmas</option>
+                    <option value="petugas_sosial">Prtugas Sosial</option>
+                     <option value="petugas_kebersihan">Petugas Kebersihan</option>
+                     <option value="petugas_keamanan">Petugas Keamanan</option>
+                    <option value="Ketua_rt">Ketua RT</option>
+                    <option value="Ketua_rw">Ketua Rw</option>
+                    <option value="petugas_lainnya">Petugas Lainnya</option>
+                     @elseif($data->level == "petugas_sosial")
+                     <option value="petugas_sosial">Prtugas Sosial</option>
+                     <option value="petugas_kamtibmas">Prtugas Kamtibmas</option>
+                     <option value="petugas_kebersihan">Petugas Kebersihan</option>
+                     <option value="petugas_keamanan">Petugas Keamanan</option>
+                    <option value="Ketua_rt">Ketua RT</option>
+                    <option value="Ketua_rw">Ketua Rw</option>
+                    <option value="petugas_lainnya">Petugas Lainnya</option>
+                    @elseif($data->level == "petugas_lainnya")
+                    <option value="petugas_lainnya">Petugas Lainnya</option>
+                     <option value="petugas_sosial">Prtugas Sosial</option>
+                     <option value="petugas_kamtibmas">Prtugas Kamtibmas</option>
                      <option value="petugas_kebersihan">Petugas Kebersihan</option>
                      <option value="petugas_keamanan">Petugas Keamanan</option>
                     <option value="Ketua_rt">Ketua RT</option>
@@ -47,6 +80,9 @@
                     <option value="petugas_kebersihan">Petugas Kebersihan</option>
                     <option value="Ketua_rt">Ketua RT</option>
                     <option value="Ketua_rw">Ketua Rw</option>
+                    <option value="petugas_sosial">Prtugas Sosial</option>
+                    <option value="petugas_kamtibmas">Prtugas Kamtibmas</option>
+                    <option value="petugas_lainnya">Petugas Lainnya</option>
                     @endif
                     
                   </select>

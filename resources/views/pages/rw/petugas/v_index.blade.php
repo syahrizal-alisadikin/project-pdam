@@ -101,8 +101,11 @@
         <select name="level" class="form-control" id="level">
           <option value="Ketua_rw">Ketua Rw</option>
           <option value="Ketua_rt">Ketua RT</option>
+          <option value="petugas_kamtibmas">Prtugas Kamtibmas</option>
+          <option value="petugas_sosial">Prtugas Sosial</option>
           <option value="petugas_kebersihan">Petugas Kebersihan</option>
           <option value="petugas_keamanan">Petugas Keamanan</option>
+          <option value="petugas_lainnya">Petugas Lainnya</option>
         </select>
       </div>
       <div class="form-group">
