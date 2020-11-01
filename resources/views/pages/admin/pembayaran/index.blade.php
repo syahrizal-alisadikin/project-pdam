@@ -81,28 +81,28 @@
                                                  <td class="text-center">
                                                      @if ($tag->tanggal_bayar == null)
                                                        <span class="badge badge-danger">-</span>
-                                                        @else
+                                                    @else
                                                         {{$tag->tanggal_bayar}}
                                                      @endif
                                                  </td>
                                                  <td class="text-center">
                                                      @if ($tag->jumlah_bayar == null)
                                                        <span class="badge badge-danger">-</span>
-                                                        @else
+                                                     @else
                                                        Rp{{number_format($tag->jumlah_bayar, 0, ',', '.')}}
                                                      @endif
                                                  </td>
                                                   <td>
                                                      @if ($tag->status == "Pending")
                                                        <span class="badge badge-warning">Pending</span>
-                                                       @else
+                                                    @else
                                                        <span class="badge badge-success">Success</span>
                                                      @endif
                                                  </td>
                                                  <td>
-                                                       @if ($tag->status == "Pending")
+                                                    @if ($tag->status == "Pending")
                                                  <a href="{{route('pembayaran.edit',$tag->pembayaran_id)}}" class="btn btn-success btn-sm">Bayar</a>
-                                                       @else
+                                                    @else
                                                        <span class="badge badge-success">Lunas</span>
                                                      @endif
                                                  </td>

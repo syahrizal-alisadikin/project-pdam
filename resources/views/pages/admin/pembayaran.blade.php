@@ -45,7 +45,7 @@
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label>No Rekening</label>
-                                                    <input class="form-control" type="number" name="no_rek" value="{{ $data->no_rek }}" disabled>
+                                                    <input class="form-control" type="text" name="no_rek" value="{{ $data->no_rek ? $data->no_rek : 'Kosong' }}" disabled>
                                                 </div>  
                                             </div>
                                             <div class="col-lg-12">
@@ -99,57 +99,7 @@
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
         <script src="{{url('assets/js/scripts.js')}}"></script>
         <script type="text/javascript">
-            $(document).ready(function() {
-                $("#kota, #provinsi,#kelurahan,#kecamatan").select2();
-                $('#provinsi').on('change', function(){
-                    var id_prov = $(this).val()
-                    $.ajax({
-                        url: 'kota/' + id_prov,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(result){
-                            $('#kota').empty();
-                            $('#kota').append('<option value="">-- Pilih Kota  --</option>');
-                            $.each(result, function (key, value) {
-                                console.log(key)
-                                $('#kota').append('<option value="' + key + '">' + value + '</option>');
-                            });
-                        }
-                    })
-                })
-
-                $('#kota').on('change', function(){
-                    var id_kota = $(this).val()
-                    $.ajax({
-                        url: 'kecamatan/' + id_kota,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(result){
-                            $('#kecamatan').empty();
-                            $('#kecamatan').append('<option value="">-- Pilih Kecamatan  --</option>');
-                            $.each(result, function (key, value) {
-                                $('#kecamatan').append('<option value="' + key + '">' + value + '</option>');
-                            });
-                        }
-                    })
-                })
-
-                $('#kecamatan').on('change', function(){
-                    var id_kelurahan = $(this).val()
-                    $.ajax({
-                        url: 'kelurahan/' + id_kelurahan,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(result){
-                            $('#kelurahan').empty();
-                            $('#kelurahan').append('<option value="">-- Pilih Kelurahan  --</option>');
-                            $.each(result, function (key, value) {
-                                $('#kelurahan').append('<option value="' + key + '">' + value + '</option>');
-                            });
-                        }
-                    })
-                })
-            })
+            
         </script>
     </body>
 </html>
