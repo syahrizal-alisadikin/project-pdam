@@ -13,13 +13,20 @@ use Exception;
 
 class WargaController extends Controller
 {
-
-    public function __construct(Request $request)
+    // Validasi Rules Register
+    private function rules_register()
     {
-        $this->request = $request;
+        return [
+            'fk_rw_id' => 'required',
+            'email' => 'required|email|unique:tbl_warga',
+            'nama' => 'required',
+            'password' => 'required|string',
+        ];
     }
 
-    // Api Register Warga
+    /*
+    * Api Register Warga
+    */
     public function register(Request $request)
     {
         try {
@@ -54,26 +61,9 @@ class WargaController extends Controller
         }
     }
 
-    // Validasi Rules Update Data
-    private function rules()
-    {
-        return [
-            
-        ];
-    }
-
-    // Validasi Rules Register
-    private function rules_register()
-    {
-        return [
-            'fk_rw_id' => 'required',
-            'email' => 'required|email|unique:tbl_warga',
-            'nama' => 'required',
-            'password' => 'required|string',
-        ];
-    }
-
-    // Get All Warga
+    /*
+    * Get All Warga
+    */
     public function index(Request $request)
     {
         try {
@@ -100,7 +90,9 @@ class WargaController extends Controller
         }
     }
 
-    // Get Warga By ID
+    /*
+    * Get Warga By ID
+    */
     public function GetIDWarga($warga_id)
     {
         $edit_warga = Warga::where('warga_id', $warga_id)->first();
@@ -118,7 +110,9 @@ class WargaController extends Controller
         ], 401);
     }
 
-    // Update Data Warga
+    /*
+    * Update Data Warga
+    */
     public function updateData(Request $request, $warga_id)
     {
         $check_file = Warga::select(['foto_ktp', 'foto_kk', 'foto_profile'])->where('warga_id', $warga_id)->first();
@@ -222,7 +216,9 @@ class WargaController extends Controller
         }
     }
 
-    // Delete Warga
+    /*
+    * Delete Warga
+    */
     public function deleteWarga($warga_id)
     {
         try {
@@ -275,6 +271,9 @@ class WargaController extends Controller
         ], 500);
     }
 
+    /*
+    * Get All RW
+    */
     public function GetRw()
     {
         $getAll = Rw::all();
