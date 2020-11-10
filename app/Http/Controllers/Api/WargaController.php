@@ -19,6 +19,7 @@ class WargaController extends Controller
         return [
             'fk_rw_id' => 'required',
             'email' => 'required|email|unique:tbl_warga',
+            'no_kk' => 'required|unique:tbl_warga|min:16|max:16',
             'nama' => 'required',
             'password' => 'required|string',
         ];
@@ -35,28 +36,45 @@ class WargaController extends Controller
             if ($validator->fails()) {
                 return response()->json($validator->errors());
             }
+            /* Validasi Rw ID Maping */
+            $validasi_rw = Rw::select(['id_rw_maping'])->get();
 
-            $data = Warga::create([
-                'fk_rw_id' => $request->fk_rw_id,
-                'nama' => $request->nama,
-                'email' => $request->email,
-                'latitude' => $request->latitude,
-                'longtitude' => $request->longtitude,
-                'password' => Hash::make($request->password),
-                'phone' => $request->phone,
-                'id_rt' => $request->id_rt,
-                'gol_darah' => $request->gol_darah,
-            ]);
+            foreach ($validasi_rw as $key => $value) {
+                if ($value->id_rw_maping === $request->id_rw_maping) {
+                    $data = Warga::create([
+                        'fk_rw_id' => $request->fk_rw_id,
+                        'nama' => $request->nama,
+                        'email' => $request->email,
+                        'latitude' => $request->latitude,
+                        'longtitude' => $request->longtitude,
+                        'password' => Hash::make($request->password),
+                        'phone' => $request->phone,
+                        'no_kk' => $request->no_kk,
+                        'id_rt' => $request->id_rt,
+                        'gol_darah' => $request->gol_darah,
+                    ]);
+                    return response()->json([
+                        'status' => 200,
+                        'data' => $data
+                    ], 200);
+                    break;
 
-            return response()->json([
-                'status' => 200,
-                'data' => $data
-            ], 200);
+                }else{
+                    
+                    return response()->json([
+                        'status' => 400,
+                        'msg' => 'Validation RW ID MAPPING Failed !',
+                        'data' => 'Upsss Pastikan Id Rw Maping Di Input Dengan Benar'
+                    ]);
+                }   
+            }
 
         } catch (Exception $e) {
 
             return response()->json([
-                "msg" => 'Invalid Request !'
+                'code' => 500,
+                'status' => 'Invalid Request !',
+                "msg" => $e->getMessage()
             ], 500);
         }
     }

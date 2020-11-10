@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 // Auth Controller
 Route::group(['namespace' => 'Api'], function () {
 	Route::POST('/login', 'LoginController@index'); // Login
+	Route::POST('/login/petugas-rw', 'LoginController@PetugasRWLogin'); // Login Petugas RW
 	Route::POST('/warga-register', 'WargaController@register'); // Register
 	Route::GET('/Rw-all', 'WargaController@GetRw'); // Get All RW
 	Route::GET('/logout', 'LoginController@logout'); // Logout
