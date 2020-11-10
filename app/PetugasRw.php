@@ -11,5 +11,5 @@ class PetugasRw extends Model
 
     protected $table = "tbl_petugas_rw";
 
-    protected $fillable = ["fk_rw_id", "nama_jalan"];
+    protected $fillable = ["fk_rw_id", "phone", "level", "password", "nama"];
 }

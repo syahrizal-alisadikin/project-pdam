@@ -45,20 +45,47 @@
             </div>
         </div>
 
-        <div class="card mb-4">
-           <div class="card-header d-flex">
-               <div class="data">
-                <i class="fas fa-table mr-1"></i>
-                DataTable Admin
-            </div>
-            <div class="button ml-auto">
+       <div class="shadow p-3 mb-5 bg-white rounded">
+           <div class="row">
+               <div class="col-md-2">
+                   RW Id <br>
+                   {{ Auth::guard('rw')->user()->rw_id}}
 
-               <a href="#" class="btn btn-success" name="tambah" id="tambah" data-toggle="modal" data-target="#exampleModal" >Tambah Admin</a>
+               </div>
+               <div class="col-md-2">
+                   Nama  <br>
+                   {{ Auth::guard('rw')->user()->name}}
+
+               </div>
+               <div class="col-md-2">
+                   ID Map Rw <br>
+                   {{ Auth::guard('rw')->user()->id_rw_maping}}
+
+               </div>
+               <div class="col-md-3">
+                   Email <br>
+                   {{ Auth::guard('rw')->user()->email}}
+
+               </div>
+               
+               <div class="col-md-2">
+                   Phone <br>
+                   {{ Auth::guard('rw')->user()->no_hp}}
+
+               </div>
+               <div class="col-md-1">
+                   Status <br>
+                   @if (Auth::guard('rw')->user()->status_aktif == "aktif")
+                   <span class="badge badge-success">Aktif</span>
+                    @else
+                   <span class="badge badge-danger">Belum Aktif</span>
+
+                   @endif
+
+               </div>
            </div>
        </div>
-       <div class="card-body">
-    </div>
-</div>
+       
 </div>
 </div>
 </main>

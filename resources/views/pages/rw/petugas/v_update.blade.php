@@ -88,6 +88,11 @@
                   </select>
                 </div>
                 <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" name="password" id="password" placeholder="Masukan password"  class="form-control">
+                  <p class="text-muted"> Kosongkan Jika tidak diganti</p>
+                </div>
+                <div class="form-group">
                   <button type="submit" class="btn btn-success">Update</button>
                 </div>
               </form>

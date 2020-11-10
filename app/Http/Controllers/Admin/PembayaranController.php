@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Pembayaran;
+use App\Rw;
+use App\Tagihan;
 
 class PembayaranController extends Controller
 {
@@ -75,17 +77,21 @@ class PembayaranController extends Controller
     public function update(Request $request, $id)
     {
 
+
         $this->validate($request, [
             'tanggal'     => 'required',
             'jumlah'  => 'required',
         ]);
-
+        $data = Pembayaran::findorFail($id);
+        $tagihan = Tagihan::where('tagihan_id', $data->fk_tagihan_id)->first();
+        $rw = Rw::where('rw_id', $tagihan->fk_rw_id)->update(['status_aktif' => 'aktif']);
         $pembayaran = Pembayaran::findOrFail($id);
         $pembayaran->tanggal_bayar = $request->tanggal;
         $pembayaran->jumlah_bayar = $request->jumlah;
         $pembayaran->status = $request->status;
 
         $pembayaran->save();
+
         return redirect()->route('pembayaran.index')->with('success', 'Pembayaran Berhasil');
     }
 

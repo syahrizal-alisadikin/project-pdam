@@ -40,9 +40,10 @@ class RwController extends Controller
             'password'  => 'required|min:6',
         ]);
 
+        $maping_id = mt_rand(0, 99999);
         $rw_id = mt_rand(0, 999);
-        $data = $request->fk_kelurahan . $rw_id;
-        // dd($rw_id);
+        $data = $request->kelurahan . $rw_id;
+        // dd($data);
         Rw::create([
             'rw_id' => $data,
             'name' => $request->name,
@@ -53,6 +54,8 @@ class RwController extends Controller
             'fk_kecamatan_id' => $request->kecamatan,
             'fk_kota_id' => $request->kota,
             'fk_provinsi_id' => $request->provinsi,
+            'id_rw_maping' => $maping_id,
+            'status_aktif' => "tidak",
             'password' => Hash::make($request['password']),
         ]);
 

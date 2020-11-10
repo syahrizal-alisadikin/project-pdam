@@ -109,6 +109,10 @@
         </select>
       </div>
       <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Masukan Password" required class="form-control">
+      </div>
+      <div class="form-group">
         <button type="submit" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
