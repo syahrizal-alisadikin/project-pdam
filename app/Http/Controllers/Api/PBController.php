@@ -60,8 +60,8 @@ class PBController extends Controller
             }
 
             $dataLapoaran = $validatorLaporan->validate(); // Validasi
-            // print_r($dataLapoaran); die();
-            LaporanPb::create($dataLapoaran);
+            
+            LaporanPb::create($dataLapoaran); // Create Laporan
 
             return response()->json([
             	'status' => 200,
