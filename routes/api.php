@@ -25,6 +25,8 @@ Route::group(['namespace' => 'Api'], function () {
 });
 Route::group(['middleware' => ['jwt.auth'], 'namespace' => 'Api'], function () {
 
+	// Get tbl_pb
+	Route::GET('/pb', 'KejadianController@Getpb'); // Insert Kejadian
 
 	// Warga Controller
 	Route::GET('warga', 'WargaController@index'); // Get All Warga
