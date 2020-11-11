@@ -74,6 +74,7 @@ Route::prefix('rw')
 
 		Route::post('/pembayaran/bayar/{id_pembayaran}', 'WargaController@ProcessBayarPembayaran')->name('bayar-pembayaran');
 		Route::GET('/mapsWarga', 'WargaController@show');
+		Route::GET('/mapsWarga', 'RwController@aktif')->name('belum-aktif');
 
 		// Get File
 		Route::get('file/{file}', 'WargaController@fileWarga'); // Get File Warga

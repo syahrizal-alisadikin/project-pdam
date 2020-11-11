@@ -37,8 +37,6 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="#">Activity Log</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
                     </div>
@@ -51,6 +49,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
+                           @if (Auth::guard('rw')->user()->status_aktif == "aktif")
                             <a class="nav-link" href="{{route('dashboard-rw')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
@@ -79,10 +78,40 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Manage Petugas
                             </a>
+                            @else
+                             <a class="nav-link" href="{{route('belum-aktif')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                             <a class="nav-link" href="{{route('belum-aktif')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Manage Warga
+                            </a>
+                             <a class="nav-link"  href="{{route('belum-aktif')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Manage Kejadian
+                            </a>
+                            <a class="nav-link"  href="{{route('belum-aktif')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Manage Tagihan
+                            </a>
+                              <a class="nav-link" href="{{ route('belum-aktif') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Manage Pembayaran
+                            </a>
+                              <a class="nav-link" href="{{route('belum-aktif')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Manage Jalan
+                            </a>
+                              <a class="nav-link" href="{{route('belum-aktif')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Manage Petugas
+                            </a>
+                           @endif
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
+                    <div class="small">Logged in as: {{ Auth::guard('rw')->user()->name}}</div>
                         Start Bootstrap
                     </div>
                 </nav>
@@ -122,7 +151,7 @@
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="{{url('assets/assets/demo/datatables-demo.js')}}"></script>
         @yield('javascript')
-
+        <script>
         //flash message
         @if(session()-> has('success'))
         swal({
@@ -142,6 +171,17 @@
             title: "GAGAL!",
             text: "{{ session('error') }}",
             timer: 1500,
+            showConfirmButton: false,
+            showCancelButton: false,
+            buttons: false,
+        });
+        @elseif(session()-> has('info'))
+        swal({
+            type: "info",
+            icon: "info",
+            title: "INFO!",
+            text: "{{ session('info') }}",
+            timer: 3500,
             showConfirmButton: false,
             showCancelButton: false,
             buttons: false,
