@@ -26,7 +26,11 @@ Route::group(['namespace' => 'Api'], function () {
 Route::group(['middleware' => ['jwt.auth'], 'namespace' => 'Api'], function () {
 
 	// Get tbl_pb
-	Route::GET('/pb', 'KejadianController@Getpb'); // Insert Kejadian
+	Route::GET('/pb', 'PBController@Getpb'); // Get All TBL PB
+	
+	// Laporan tbl_pb_laporan
+	Route::POST('/laporan-pb/create', 'PBController@CreateLaporanPB'); // Insert Laporan PB
+	Route::GET('/laporan-pb/all', 'PBController@GetAllLaporanPB'); // Insert Laporan PB
 
 	// Warga Controller
 	Route::GET('warga', 'WargaController@index'); // Get All Warga

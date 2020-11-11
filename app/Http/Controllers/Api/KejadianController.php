@@ -171,23 +171,4 @@ class KejadianController extends Controller
 			'msg' => 'File Not Found !'
 		], 500);
 	}
-
-	public function Getpb()
-	{
-		$data = Pb::all();
-
-		if ($data != null) {
-
-			return response()->json([
-				'status' => 200,
-				'msg' => 'Success',
-				'data' => $data
-			], 200);
-		}
-
-		return response()->json([
-			'status' => 401,
-			'msg' => 'Opss ! Data is Null'
-		], 401);
-	}
 }
