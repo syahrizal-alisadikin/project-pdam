@@ -20,6 +20,7 @@ Route::group(['namespace' => 'Api'], function () {
 	Route::POST('/login', 'LoginController@index'); // Login
 	Route::POST('/login/petugas-rw', 'LoginController@PetugasRWLogin'); // Login Petugas RW
 	Route::POST('/warga-register', 'WargaController@register'); // Register
+	Route::GET('/Rw-warga', 'WargaController@getRwWarga'); //Get Rw berdarasarkan Id_rw_maping
 	Route::GET('/Rw-all', 'WargaController@GetRw'); // Get All RW
 	Route::GET('/logout', 'LoginController@logout'); // Logout
 });
@@ -27,7 +28,7 @@ Route::group(['middleware' => ['jwt.auth'], 'namespace' => 'Api'], function () {
 
 	// Get tbl_pb
 	Route::GET('/pb', 'PBController@Getpb'); // Get All TBL PB
-	
+
 	// Laporan tbl_pb_laporan
 	Route::POST('/laporan-pb/create', 'PBController@CreateLaporanPB'); // Insert Laporan PB
 	Route::GET('/laporan-pb/all', 'PBController@GetAllLaporanPB'); // Insert Laporan PB

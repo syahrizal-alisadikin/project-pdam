@@ -58,17 +58,15 @@ class WargaController extends Controller
                         'data' => $data
                     ], 200);
                     break;
+                } else {
 
-                }else{
-                    
                     return response()->json([
                         'status' => 400,
                         'msg' => 'Validation RW ID MAPPING Failed !',
                         'data' => 'Upsss Pastikan Id Rw Maping Di Input Dengan Benar'
                     ]);
-                }   
+                }
             }
-
         } catch (Exception $e) {
 
             return response()->json([
@@ -135,9 +133,9 @@ class WargaController extends Controller
     {
         $check_file = Warga::select(['foto_ktp', 'foto_kk', 'foto_profile'])->where('warga_id', $warga_id)->first();
         $id_warga = $request->get('auth_data')->warga_id; // ID Warga ngambil dari token dan di regis di middleware jwt auth 
-        
+
         try {
-            
+
             $validationWarga = Validator::make($request->all(), [
                 'fk_rw_id' => 'required',
                 'email' => 'required|email',
@@ -165,8 +163,7 @@ class WargaController extends Controller
                     $foto_ktp = Str::random(9);
                     $request->file('foto_ktp')->move(storage_path('image/warga'), $foto_ktp);
                     $dataWarga['foto_ktp'] = $foto_ktp;
-
-                }else{
+                } else {
                     // Jika Sudah Ada Foto VR_KTP akan di lakukan pengecekan dan menghpus data sblumnya supaya ngak numpuk
                     if (storage_path('image/warga/' . $check_file->foto_ktp)) {
                         // print_r('file ada'); die();
@@ -174,8 +171,8 @@ class WargaController extends Controller
                         $foto_ktp = Str::random(9);
                         $request->file('foto_ktp')->move(storage_path('image/warga'), $foto_ktp);
                         $dataWarga['foto_ktp'] = $foto_ktp;
-                    }else { 
-                        
+                    } else {
+
                         return response()->json(['status' => 400, 'msg' => 'Upsss File KTP Not Upload'], 400);
                     }
                 }
@@ -187,8 +184,7 @@ class WargaController extends Controller
                     $foto_kk = Str::random(9);
                     $request->file('foto_kk')->move(storage_path('image/warga'), $foto_kk);
                     $dataWarga['foto_kk'] = $foto_kk;
-
-                }else{
+                } else {
                     // Jika Sudah Ada Foto VR_KTP akan di lakukan pengecekan dan menghpus data sblumnya supaya ngak numpuk
                     if (storage_path('image/warga/' . $check_file->foto_kk)) {
                         // print_r('file ada'); die();
@@ -196,8 +192,8 @@ class WargaController extends Controller
                         $foto_kk = Str::random(9);
                         $request->file('foto_kk')->move(storage_path('image/warga'), $foto_kk);
                         $dataWarga['foto_kk'] = $foto_kk;
-                    }else { 
-                        
+                    } else {
+
                         return response()->json(['status' => 400, 'msg' => 'Upsss File KK Not Upload'], 400);
                     }
                 }
@@ -210,8 +206,7 @@ class WargaController extends Controller
                     $foto_profile = Str::random(9);
                     $request->file('foto_profile')->move(storage_path('image/warga'), $foto_profile);
                     $dataWarga['foto_profile'] = $foto_profile;
-
-                }else{
+                } else {
                     // Jika Sudah Ada Foto VR_KTP akan di lakukan pengecekan dan menghpus data sblumnya supaya ngak numpuk
                     if (storage_path('image/warga/' . $check_file->foto_profile)) {
                         // print_r('file ada'); die();
@@ -219,8 +214,8 @@ class WargaController extends Controller
                         $foto_profile = Str::random(9);
                         $request->file('foto_profile')->move(storage_path('image/warga'), $foto_profile);
                         $dataWarga['foto_profile'] = $foto_profile;
-                    }else { 
-                        
+                    } else {
+
                         return response()->json(['status' => 400, 'msg' => 'Invalid Request !', 'data' => 'Upsss File Profile Not Upload'], 400);
                     }
                 }
@@ -228,8 +223,7 @@ class WargaController extends Controller
 
             Warga::find($warga_id)->update($dataWarga);
             return response()->json(['status' => 200, 'msg' => 'Success Update Data !', 'data' => $dataWarga], 200);
-
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return response()->json(['status' => 500, 'msg' => $e->getMessage()], 500);
         }
     }
@@ -302,6 +296,26 @@ class WargaController extends Controller
                 'status' => 200,
                 'msg' => 'Success',
                 'data' => $getAll
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 401,
+            'msg' => 'Opss ! Data is Null'
+        ], 401);
+    }
+
+    public function getRwWarga(Request $request)
+    {
+        $maping = $request->id_rw_maping;
+        $rw = Rw::where('id_rw_maping', $maping)->first();
+
+        if ($rw != null) {
+
+            return response()->json([
+                'status' => 200,
+                'msg' => 'Success',
+                'data' => $rw
             ], 200);
         }
 
