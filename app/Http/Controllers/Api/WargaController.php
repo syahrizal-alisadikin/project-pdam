@@ -36,37 +36,25 @@ class WargaController extends Controller
             if ($validator->fails()) {
                 return response()->json($validator->errors());
             }
-            /* Validasi Rw ID Maping */
-            $validasi_rw = Rw::select(['id_rw_maping'])->get();
+            
+            $data = Warga::create([
+                'fk_rw_id' => $request->fk_rw_id,
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'latitude' => $request->latitude,
+                'longtitude' => $request->longtitude,
+                'password' => Hash::make($request->password),
+                'phone' => $request->phone,
+                'no_kk' => $request->no_kk,
+                'id_rt' => $request->id_rt,
+                'gol_darah' => $request->gol_darah,
+            ]);
 
-            foreach ($validasi_rw as $key => $value) {
-                if ($value->id_rw_maping === $request->id_rw_maping) {
-                    $data = Warga::create([
-                        'fk_rw_id' => $request->fk_rw_id,
-                        'nama' => $request->nama,
-                        'email' => $request->email,
-                        'latitude' => $request->latitude,
-                        'longtitude' => $request->longtitude,
-                        'password' => Hash::make($request->password),
-                        'phone' => $request->phone,
-                        'no_kk' => $request->no_kk,
-                        'id_rt' => $request->id_rt,
-                        'gol_darah' => $request->gol_darah,
-                    ]);
-                    return response()->json([
-                        'status' => 200,
-                        'data' => $data
-                    ], 200);
-                    break;
-                } else {
-
-                    return response()->json([
-                        'status' => 400,
-                        'msg' => 'Validation RW ID MAPPING Failed !',
-                        'data' => 'Upsss Pastikan Id Rw Maping Di Input Dengan Benar'
-                    ]);
-                }
-            }
+            return response()->json([
+                'status' => 200,
+                'data' => $data
+            ], 200);
+            
         } catch (Exception $e) {
 
             return response()->json([
@@ -305,6 +293,7 @@ class WargaController extends Controller
         ], 401);
     }
 
+    /* Fungsi Untuk Pengecekan ID RW MAPING Yang DI Input Oleh Warga */
     public function getRwWarga(Request $request)
     {
         $maping = $request->id_rw_maping;
@@ -321,7 +310,7 @@ class WargaController extends Controller
 
         return response()->json([
             'status' => 401,
-            'msg' => 'Opss ! Data is Null'
+            'msg' => 'Opss ! Rw Id Maping Anda Tidak Sesuai, Pastikan Anda Input Dengan Benar !'
         ], 401);
     }
 }

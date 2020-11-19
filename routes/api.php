@@ -20,7 +20,7 @@ Route::group(['namespace' => 'Api'], function () {
 	Route::POST('/login', 'LoginController@index'); // Login
 	Route::POST('/login/petugas-rw', 'LoginController@PetugasRWLogin'); // Login Petugas RW
 	Route::POST('/warga-register', 'WargaController@register'); // Register
-	Route::GET('/Rw-warga', 'WargaController@getRwWarga'); //Get Rw berdarasarkan Id_rw_maping
+	Route::GET('/rw-warga', 'WargaController@getRwWarga'); //Get Rw berdarasarkan Id_rw_maping
 	Route::GET('/Rw-all', 'WargaController@GetRw'); // Get All RW
 	Route::GET('/logout', 'LoginController@logout'); // Logout
 });
