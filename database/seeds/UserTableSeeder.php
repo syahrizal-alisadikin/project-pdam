@@ -12,11 +12,20 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'fk_rw_id'      => '001',
-            'name'          => 'Izal',
-            'email'         => 'admin@gmail.com',
-            'password'      => bcrypt('password')
-        ]);
+        for ($i=0; $i < 100000 ; $i++) { 
+            $userData[] = [
+                    'fk_rw_id'      => '001',
+                    'name'          => Str::random(10),
+                    'email'         => Str::random(10).'@gmail.com',
+                    'password'      => bcrypt('password')
+                ]);
+            ];
+        }
+
+        $chunk = array_chunk($userData, 5000);
+        
+        foreach ($chunk as $key) {
+            User::insert($key);
+        }
     }
 }

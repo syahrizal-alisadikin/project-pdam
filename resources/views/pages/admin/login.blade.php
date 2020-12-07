@@ -21,31 +21,24 @@
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                     <div class="card-body">
                                         <form action="{{route('postLogin')}}" method="POST">
-                                        @csrf
-                                        @if (session('sukses'))
-                                        <div class="alert alert-primary">
-                                            <button type="button" class="close" data-dismiss="alert">×</button>
-                                            {{ session('sukses') }}
-                                        </div>
-                                        @elseif(session('gagal'))
-                                        <div class="alert alert-danger">
-                                            <button type="button" class="close" data-dismiss="alert">×</button>
-                                            {{ session('gagal') }}
-                                        </div>
-                                        @endif
-
-                                        @if (count($errors) > 0)
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                        @endif
+                                            @csrf
+                                            @if (session('sukses'))
+                                            <div class="alert alert-primary">
+                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                                {{ session('sukses') }}
+                                            </div>
+                                            @elseif(session('gagal'))
+                                            <div class="alert alert-danger">
+                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                                {{ session('gagal') }}
+                                            </div>
+                                            @endif
                                             <div class="form-group">
                                                 <label class="small mb-1" for="email">Email</label>
-                                                <input class="form-control py-4" id="email" name="email" type="email" placeholder="Enter email address" />
+                                                <input class="form-control py-4 @error('title') is-invalid @enderror" value="{{ old('email') }}" id="email" name="email" type="email" placeholder="Enter email address" />
+                                                @error('email')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <div class="form-group">
                                                 <label class="small mb-1" for="password">Password</label>
